@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ProgrammeCoaching{% endblock %}
+
+{% block body %}
+    <h1>Edit ProgrammeCoaching</h1>
+
+    {{ include('programme_coaching/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_programme_coaching_index') }}">back to list</a>
+
+    {{ include('programme_coaching/_delete_form.html.twig') }}
+{% endblock %}

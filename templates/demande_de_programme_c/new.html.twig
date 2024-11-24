@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DemandeDeProgrammeC{% endblock %}
+
+{% block body %}
+    <h1>Create new DemandeDeProgrammeC</h1>
+
+    {{ include('demande_de_programme_c/_form.html.twig') }}
+
+    <a href="{{ path('app_demande_de_programme_c_index') }}">back to list</a>
+{% endblock %}

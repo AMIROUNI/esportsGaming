@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ParticipationTournoi{% endblock %}
+
+{% block body %}
+    <h1>ParticipationTournoi</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ participation_tournoi.id }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ participation_tournoi.etat }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_participation_tournoi_index') }}">back to list</a>
+
+    <a href="{{ path('app_participation_tournoi_edit', {'id': participation_tournoi.id}) }}">edit</a>
+
+    {{ include('participation_tournoi/_delete_form.html.twig') }}
+{% endblock %}

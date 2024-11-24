@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Lp{% endblock %}
+
+{% block body %}
+    <h1>Edit Lp</h1>
+
+    {{ include('lp/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_lp_index') }}">back to list</a>
+
+    {{ include('lp/_delete_form.html.twig') }}
+{% endblock %}

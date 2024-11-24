@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Lp{% endblock %}
+
+{% block body %}
+    <h1>Create new Lp</h1>
+
+    {{ include('lp/_form.html.twig') }}
+
+    <a href="{{ path('app_lp_index') }}">back to list</a>
+{% endblock %}

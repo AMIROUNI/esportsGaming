@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DemandeDeProgrammeC{% endblock %}
+
+{% block body %}
+    <h1>Edit DemandeDeProgrammeC</h1>
+
+    {{ include('demande_de_programme_c/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_demande_de_programme_c_index') }}">back to list</a>
+
+    {{ include('demande_de_programme_c/_delete_form.html.twig') }}
+{% endblock %}

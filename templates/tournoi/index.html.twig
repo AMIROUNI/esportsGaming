@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tournoi index{% endblock %}
+
+{% block body %}
+    <h1>Tournoi index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomTournoi</th>
+                <th>Description</th>
+                <th>DateDebut</th>
+                <th>DateFin</th>
+                <th>Recompense</th>
+                <th>MaxParticipants</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tournoi in tournois %}
+            <tr>
+                <td>{{ tournoi.id }}</td>
+                <td>{{ tournoi.nomTournoi }}</td>
+                <td>{{ tournoi.description }}</td>
+                <td>{{ tournoi.dateDebut ? tournoi.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ tournoi.dateFin ? tournoi.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ tournoi.recompense }}</td>
+                <td>{{ tournoi.maxParticipants }}</td>
+                <td>
+                    <a href="{{ path('app_tournoi_show', {'id': tournoi.id}) }}">show</a>
+                    <a href="{{ path('app_tournoi_edit', {'id': tournoi.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tournoi_new') }}">Create new</a>
+{% endblock %}

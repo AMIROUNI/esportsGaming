@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProgrammeCoaching{% endblock %}
+
+{% block body %}
+    <h1>ProgrammeCoaching</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ programme_coaching.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ programme_coaching.titre }}</td>
+            </tr>
+            <tr>
+                <th>Duree</th>
+                <td>{{ programme_coaching.duree }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ programme_coaching.prix }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ programme_coaching.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_programme_coaching_index') }}">back to list</a>
+
+    <a href="{{ path('app_programme_coaching_edit', {'id': programme_coaching.id}) }}">edit</a>
+
+    {{ include('programme_coaching/_delete_form.html.twig') }}
+{% endblock %}

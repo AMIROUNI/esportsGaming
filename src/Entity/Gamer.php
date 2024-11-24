@@ -38,8 +38,7 @@ class Gamer extends User
      * @var Collection<int, Group>
      */
     #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'gamer')]
-    private Collection $groups;
-
+    private ?Collection $groups =  null;
     public function __construct()
     {
         $this->demandeDeProgrammeC = new ArrayCollection();

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Gamer{% endblock %}
+
+{% block body %}
+    <h1>Create new Gamer</h1>
+
+    {{ include('gamer/_form.html.twig') }}
+
+    <a href="{{ path('app_gamer_index') }}">back to list</a>
+{% endblock %}

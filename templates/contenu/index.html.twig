@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contenu index{% endblock %}
+
+{% block body %}
+    <h1>Contenu index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contenu in contenus %}
+            <tr>
+                <td>{{ contenu.id }}</td>
+                <td>{{ contenu.titre }}</td>
+                <td>{{ contenu.description }}</td>
+                <td>{{ contenu.image }}</td>
+                <td>
+                    <a href="{{ path('app_contenu_show', {'id': contenu.id}) }}">show</a>
+                    <a href="{{ path('app_contenu_edit', {'id': contenu.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_contenu_new') }}">Create new</a>
+{% endblock %}

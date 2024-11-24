@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DemandeDeProgrammeC{% endblock %}
+
+{% block body %}
+    <h1>DemandeDeProgrammeC</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demande_de_programme_c.id }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ demande_de_programme_c.etat }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demande_de_programme_c_index') }}">back to list</a>
+
+    <a href="{{ path('app_demande_de_programme_c_edit', {'id': demande_de_programme_c.id}) }}">edit</a>
+
+    {{ include('demande_de_programme_c/_delete_form.html.twig') }}
+{% endblock %}
