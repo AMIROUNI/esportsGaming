@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\GroupRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: GroupRepository::class)]
+#[ORM\Table(name: '`group`')]
+class Group
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nomGroup = null;
+
+    #[ORM\Column]
+    private ?int $nbGamer = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNomGroup(): ?string
+    {
+        return $this->nomGroup;
+    }
+
+    public function setNomGroup(string $nomGroup): static
+    {
+        $this->nomGroup = $nomGroup;
+
+        return $this;
+    }
+
+    public function getNbGamer(): ?int
+    {
+        return $this->nbGamer;
+    }
+
+    public function setNbGamer(int $nbGamer): static
+    {
+        $this->nbGamer = $nbGamer;
+
+        return $this;
+    }
+}

@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>Unigine - Epic Games Made For True Gamers!</title>
+  <meta name="title" content="Unigine - esports Games Made For True Gamers!">
+  <meta name="description" content="This is an esports and gaming html template made by codewithsadee">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&family=Work+Sans:wght@600&display=swap"
+    rel="stylesheet">
+
+  <!-- 
+    - custom css link
+  -->
+ 
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="./images/hero-banner.png">
+  <link rel="preload" as="image" href="./images/hero-banner-bg.png">
+  <style>
+     /*-----------------------------------*\
+  #style.css
+\*-----------------------------------*/
+
+/**
+ * copyright 2022 codewithsadee
+ */
+
+
+
+
+
+/*-----------------------------------*\
+  #CUSTOM PROPERTY
+\*-----------------------------------*/
+
+:root {
+
+    /**
+     * COLORS
+     */
+  
+    /* background color */
+    --bg-purple: hsla(267, 100%, 63%, 1);
+    --bg-purple-alpha-30: hsla(267, 100%, 63%, 0.3);
+    --bg-dark-purple: hsla(279, 42%, 9%, 1);
+    --bg-oxford-blue: hsla(240, 63%, 13%, 1);
+    --bg-oxford-blue-alpha-95: hsla(240, 63%, 13%, 0.95);
+    --bg-oxford-blue-alpha-90: hsla(240, 63%, 13%, 0.9);
+    --bg-oxford-blue-alpha-80: hsla(240, 63%, 13%, 0.8);
+  
+    /* gradient color */
+    --gradient-1: linear-gradient(to right bottom, hsl(299, 100%, 52%), hsl(291, 100%, 58%), hsl(283, 100%, 60%), hsl(273, 100%, 62%), hsl(262, 100%, 63%), hsl(242, 100%, 69%), hsl(223, 100%, 62%), hsl(210, 100%, 50%), hsl(203, 100%, 50%), hsl(198, 100%, 50%), hsl(192, 100%, 48%), hsl(185, 90%, 48%));
+    --gradient-2: linear-gradient(90deg, transparent 0%, #9841ff 50%, transparent 100%);
+  
+    /* text color */
+    --text-white: hsla(0, 0%, 100%, 1);
+    --text-gainsboro: hsla(0, 0%, 87%, 1);
+    --text-champagne-pink: hsla(23, 61%, 86%, 1);
+    --text-purple: hsla(267, 100%, 63%, 1);
+  
+    /* border color */
+    --border-space-cadet: hsl(240, 45%, 17%);
+    --border-purple-alpha-30: hsla(267, 100%, 63%, 0.3); 
+  
+    /**
+     * TYPOGRAPHY
+     */
+  
+    /* font family */
+    --fontFamily-oxanium: 'Oxanium', cursive;
+    --fontFamily-work-sans: 'Work Sans', sans-serif;
+  
+    /* font size */
+    --fontSize-1: 3.6rem;
+    --fontSize-2: 2.4rem;
+    --fontSize-3: 2rem;
+    --fontSize-4: 1.7rem;
+    --fontSize-5: 1.6rem;
+    --fontSize-6: 1.5rem;
+    --fontSize-7: 1.4rem;
+    --fontSize-8: 1.2rem;
+  
+    /* font weight */
+    --weight-regular: 400;
+    --weight-semiBold: 600;
+    --weight-bold: 700;
+  
+    /**
+     * SPACING
+     */
+  
+    --section-spacing: 60px;
+  
+    /**
+     * BOX SHADOW
+     */
+  
+    --shadow: 0px 2px 5px 0px hsla(0, 0%, 0%, 0.2);
+  
+    /**
+     * BORDER RADIUS
+     */
+  
+    --radius-circle: 50%;
+    --radius-5: 5px;
+    --radius-3: 3px;
+  
+    /**
+     * CLIP PATH
+     */
+  
+    --clip-path-1: polygon(0 0, 100% 0, 100% 0, 0 0);
+    --clip-path-2: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    --clip-path-3: polygon(0% 0%, 90% 0, 100% 30%, 100% 100%, 0 100%);
+    --clip-path-4: polygon(90% 0, 100% 40%, 100% 100%, 0 100%, 0 0);
+    --clip-path-5: polygon(100% 0, 100% 100%, 10% 100%, 0 60%, 0 0);
+    --clip-path-6: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 40%);
+    --clip-path-7: polygon(100% 0, 100% 60%, 90% 100%, 0 100%, 0 0);
+    --clip-path-8: polygon(0% 0%, 70% 0, 100% 30%, 100% 100%, 0 100%);
+    --clip-path-9: polygon(0 0, 90% 0, 100% 100%, 0% 100%);
+  
+    /**
+     * TRANSITION
+     */
+  
+    --transition-1: 250ms ease;
+    --transition-2: 500ms ease;
+    --cubic-out: cubic-bezier(0.05, 0.83, 0.52, 0.97);
+  
+  }
+  
+  
+  
+  
+  
+  /*-----------------------------------*\
+    #RESET
+  \*-----------------------------------*/
+  
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  li { list-style: none; }
+  
+  a,
+  img,
+  time,
+  span,
+  input,
+  button,
+  textarea,
+  ion-icon { display: block; }
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  img { height: auto; }
+  
+  input,
+  button,
+  textarea {
+    background: none;
+    border: none;
+    font: inherit;
+  }
+  
+  input,
+  textarea { width: 100%; }
+  
+  button { cursor: pointer; }
+  
+  ion-icon { pointer-events: none; }
+  
+  address { font-style: normal; }
+  
+  html {
+    font-size: 10px;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: var(--bg-dark-purple);
+    background-image: url("../images/body-bg.jpg");
+    background-repeat: repeat;
+    color: var(--text-gainsboro);
+    font-family: var(--fontFamily-oxanium);
+    font-size: var(--fontSize-4);
+    font-weight: var(--weight-regular);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  ::-webkit-scrollbar { width: 8px; }
+  
+  ::-webkit-scrollbar-track { background-color: var(--bg-dark-purple); }
+  
+  ::-webkit-scrollbar-thumb { background-color: var(--bg-purple); }
+  
+  
+  
+  
+  
+  /*-----------------------------------*\
+    #REUSED STYLE
+  \*-----------------------------------*/
+  
+  .container { padding-inline: 12px; }
+  
+  .has-before,
+  .has-after {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .has-before::before,
+  .has-after::after {
+    content: "";
+    position: absolute;
+  }
+  
+  .title { color: var(--text-white); }
+  
+  .h1,
+  .h3 { line-height: 1.3; }
+  
+  .h1 {
+    font-size: var(--fontSize-1);
+    font-weight: var(--weight-semiBold);
+  }
+  
+  .h2 {
+    font-size: var(--fontSize-2);
+    line-height: 1.4;
+  }
+  
+  .h3 { font-size: var(--fontSize-3); }
+  
+  .section-title,
+  .section-subtitle,
+  .section-text { text-align: center; }
+  
+  .section-subtitle {
+    color: var(--text-white);
+    font-weight: var(--weight-semiBold);
+    font-size: var(--fontSize-5);
+    text-transform: uppercase;
+  }
+  
+  .btn {
+    position: relative;
+    background-image: var(--gradient-1);
+    color: var(--text-white);
+    font-size: var(--fontSize-6);
+    font-weight: var(--weight-semiBold);
+    max-width: max-content;
+    min-width: 180px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    padding-inline: 30px;
+    clip-path: var(--clip-path-3);
+    overflow: hidden;
+  }
+  
+  .btn::before {
+    content: "";
+    position: absolute;
+    top: var(--top, 50%);
+    left: var(--left, 50%);
+    width: 250%;
+    padding-block-end: 250%;
+    background-color: var(--bg-purple);
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: var(--radius-circle);
+    z-index: -1;
+    transition: transform var(--transition-2);
+  }
+  
+  .btn:is(:hover, :focus-visible)::before { transform: translate(-50%, -50%) scale(1); }
+  
+  .w-100 { width: 100%; }
+  
+  .section { padding-block: var(--section-spacing); }
+  
+  .section-title {
+    margin-block: 10px;
+    text-transform: uppercase;
+  }
+  
+  .section-title .span {
+    display: inline;
+    color: var(--text-purple);
+  }
+  
+  .section-text {
+    margin-block-end: 40px;
+    max-width: 480px;
+    margin-inline: auto;
+  }
+  
+  .social-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .img-holder {
+    background-color: var(--bg-purple);
+    aspect-ratio: var(--width) / var(--height);
+    overflow: hidden;
+  }
+  
+  .img-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  [data-reveal] {
+    opacity: 0;
+    transition: var(--transition-2);
+  }
+  
+  [data-reveal="left"] { transform: translateX(-20px); }
+  
+  [data-reveal="right"] { transform: translateX(20px); }
+  
+  [data-reveal="bottom"] { transform: translateY(20px); }
+  
+  [data-reveal].revealed {
+    opacity: 1;
+    transform: translate(0);
+  }
+  
+  
+  
+  
+  
+  /*-----------------------------------*\
+    #HEADER
+  \*-----------------------------------*/
+  
+  .header .btn { display: none; }
+  
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-oxford-blue);
+    padding: 10px 12px;
+    z-index: 4;
+  }
+  
+  .header.active {
+    position: fixed;
+    animation: slideUP 1s ease forwards;
+  }
+  
+  @keyframes slideUP {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+  }
+  
+  .header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-toggle-btn .line {
+    height: 3px;
+    width: 10px;
+    margin-block: 4px;
+    background-color: var(--text-gainsboro);
+    border-radius: 8px;
+    transition: var(--transition-1);
+  }
+  
+  .nav-toggle-btn .line-2 { width: 20px; }
+  
+  .nav-toggle-btn .line-3 { margin-inline-start: auto; }
+  
+  .nav-toggle-btn.active .line-2 { transform: rotate(-45deg); }
+  
+  .nav-toggle-btn.active .line-1 { transform: rotate(45deg) translate(4px, 1.5px); }
+  
+  .nav-toggle-btn.active .line-3 { transform: rotate(45deg) translate(-3px, -1px); }
+  
+  .navbar {
+    position: absolute;
+    top: calc(100% - 1px);
+    right: 12px;
+    left: 12px;
+    background-color: var(--bg-oxford-blue);
+    padding: 0 15px;
+    clip-path: var(--clip-path-1);
+    visibility: hidden;
+    transition: clip-path 500ms var(--cubic-out);
+  }
+  
+  .navbar.active {
+    clip-path: var(--clip-path-2);
+    visibility: visible;
+  }
+  
+  .navbar-link {
+    padding: 12px 25px;
+    text-transform: uppercase;
+    font-size: var(--fontSize-7);
+    font-weight: var(--weight-semiBold);
+    color: var(--text-white);
+  }
+  
+  .navbar-item { border-block-start: 1px solid var(--border-space-cadet); }
+  
+  .navbar-item:last-child { border-block-end: 1px solid var(--border-space-cadet); }
+  
+  
+  
+  
+  
+  /*-----------------------------------*\
+    #HERO
+  \*-----------------------------------*/
+  
+  .hero {
+    padding-block-start: 170px;
+    text-align: center;
+  }
+  
+  .hero .section-subtitle { letter-spacing: 5px; }
+  
+  .hero-title { margin-block: 20px 25px; }
+  
+  .hero .btn { margin-inline: auto; }
+  
+  .hero::before {
+    background-image: var(--gradient-2);
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    z-index: 1;
+  }
+  
+  .hero-banner {
+    position: relative;
+    margin-block-start: 50px;
+  }
+  
+  .hero-banner-bg { display: none; }
+  
+  
+  
+  
+  
+  /*-----------------------------------*\
+    #UPCOMING
+  \*-----------------------------------*/
+  
+  .upcoming-item:not(:last-child) { margin-block-end: 90px; }
+  
+  .upcoming-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .upcoming-card::before {
+    top: 50%;
+    background-image: var(--gradient-1);
+    transform: translateY(-50%);
+    width: 90%;
+    height: 80px;
+    z-index: -1;
+    opacity: 0.3;
+    border-radius: var(--radius-5);
+  }
+  
+  .upcoming-card.left::before {
+    right: 0;
+    clip-path: var(--clip-path-4);
+  }
+  
+  .upcoming-card.right::before {
+    left: 0;
+    clip-path: var(--clip-path-6);
+  }
+  
+  .upcoming-card .card-title { text-transform: uppercase; }
+  
+  .upcoming-card.left .card-title {
+    margin-inline-end: 50px;
+    text-align: right;
+  }
+  
+  .upcoming-card.right .card-title {
+    margin-inline-start: 50px;
+    text-align: left;
+  }
+  
+  .upcoming-card .card-meta {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-image: var(--gradient-1);
+    width: max-content;
+    padding: 6px 20px;
+    font-size: var(--fontSize-7);
+    font-weight: var(--weight-semiBold);
+    text-transform: uppercase;
+    border-radius: var(--radius-3);
+  }
+  
+  .upcoming-card.left .card-meta { clip-path: var(--clip-path-5); }
+  
+  .upcoming-card.right .card-meta { clip-path: var(--clip-path-7); }
+  
+  .upcoming-card .card-banner { width: 30%; }
+  
+  .upcoming-card.right .card-banner { order: 1; }
+  
+  .upcoming-time { margin-block: 50px 30px; }
+  
+  .upcoming-time :is(.time, .date) { text-align: center; }
+  
+  .upcoming-time .time {
+    color: var(--text-white);
+    font-size: var(--fontSize-1);
+    font-weight: var(--weight-bold);
+    line-height: 1;
+  }
+  
+  .upcoming-time .date {
+    font-size: var(--fontSize-7);
+    font-weight: var(--weight-semiBold);
+    margin-block: 5px;
+  }
+  
+  .upcoming-item .social-wrapper { justify-content: center; }
+  
+  .upcoming-item .social-link {
+    color: var(--text-white);
+    font-size: 2.5rem;
+    transition: var(--transition-1);
+  }
+  
+  .upcoming-item .social-link:is(:hover, :focus-visible) { color: var(--text-purple); }
+  
+  
+  
+  
+  
+  /*-----------------------------------*\
+    #NEWS
+  \*-----------------------------------*/
+  
+  .news-list {
+    display: grid;
+    gap: 30px;
+  }
+  
+  .news-card {
+    background-color: var(--bg-oxford-blue-alpha-90);
+    box-shadow: var(--shadow);
+  }
+  
+  .news-card .card-content {
+    position: relative;
+    padding: 30px;
+  }
+  
+  .card-tag {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background-image: var(--gradient-1);
+    color: var(--text-white);
+    font-size: var(--fontSize-8);
+    font-weight: var(--weight-semiBold);
+    text-transform: uppercase;
+    height: 30px;
+    line-height: 32px;
+    padding-inline: 20px;
+    clip-path: var(--clip-path-3);
+  }
+  
+  .news-card :is(.card-meta-list, .card-meta-item) {
+    display: flex;
+    align-items: center;
+  }
+  
+  .news-card .card-meta-list {
+    flex-wrap: wrap;
+    gap: 5px 10px;
+  }
+  
+  .news-card .card-meta-item { gap: 5px; }
+  
+  .news-card .card-meta-item ion-icon { color: var(--text-purple); }
+  
+  .news-card .card-meta-text,
+  .news-card .link {
+    color: var(--text-champagne-pink);
+    font-size: var(--fontSize-7);
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+  }
+  
+  .news-card .h3 { margin-block: 15px 10px; }
+  
+  .news-card .card-title {
+    display: inline;
+    background-image: linear-gradient(to left, var(--bg-purple), var(--bg-purple));
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 0% 4px;
+    transition: var(--transition-2);
+  }
+  
+  .news-card .card-title:is(:hover, :focus-visible) { background-size: 100% 4px; }
+  
+  .news-card .link {
+    max-width: max-content;
+    margin-block-start: 15px;
+    padding-inline-start: 30px;
+    transition: var(--transition-1);
+  }
+  
+  .news-card .link::before {
+    top: 50%;
+    left: 0;
+    transform: translateY(-100%);
+    width: 20px;
+    height: 4px;
+    background-color: var(--bg-purple);
+  }
+  
+  .news-card .link:is(:hover, :focus-visible) { color: var(--text-purple); }
+  
+  
+  
+  
+  
+  /*-----------------------------------*\
+    #FOOTER
+  \*-----------------------------------*/
+  
+  .footer-top .container {
+    display: grid;
+    gap: 35px;
+  }
+  
+  .footer-text { margin-block: 20px 25px; }
+  
+  .social-list {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .footer .social-link {
+    width: 40px;
+    height: 40px;
+    background-color: var(--bg-purple-alpha-30);
+    display: grid;
+    place-items: center;
+    clip-path: var(--clip-path-8);
+    transition: var(--transition-1);
+  }
+  
+  .footer .social-link:is(:hover, :focus-visible) {
+    background-color: var(--bg-purple);
+    transform: translateY(-2px);
+  }
+  
+  .footer-list-title {
+    font-size: var(--fontSize-3);
+    font-weight: var(--weight-semiBold);
+    line-height: 1;
+    position: relative;
+    padding-block-end: 10px;
+    margin-block-end: 20px;
+    max-width: max-content;
+  }
+  
+  .footer-list-title::after {
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 4px;
+    background-color: var(--bg-purple);
+  }
+  
+  .footer-link {
+    padding-block: 5px;
+    color: var(--text-white);
+    transition: var(--transition-1);
+  }
+  
+  .footer-link:is(:hover, :focus-visible) { color: var(--text-purple); }
+  
+  .contact-item .span {
+    color: var(--text-purple);
+    font-size: var(--fontSize-7);
+    text-transform: uppercase;
+    font-weight: var(--weight-semiBold);
+  }
+  
+  .contact-item:not(:last-child) { margin-block-end: 15px; }
+  
+  .input-field {
+    background-color: var(--bg-oxford-blue-alpha-90);
+    color: var(--text-white);
+    font-size: var(--fontSize-5);
+    padding: 18px 12px;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--border-purple-alpha-30);
+    margin-block-end: 15px;
+    outline: none;
+  }
+  
+  .input-field::placeholder { color: var(--text-white); }
+  
+  .footer-bottom {
+    clip-path: var(--clip-path-9);
+    background-color: var(--bg-oxford-blue-alpha-80);
+  }
+  
+  .copyright { padding: 30px 20px; }
+  
+  
+  
+  
+  
+  /*-----------------------------------*\
+    #BACK TO TOP
+  \*-----------------------------------*/
+  
+  .back-top-btn {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-image: var(--gradient-1);
+    display: grid;
+    place-items: center;
+    font-size: 2.1rem;
+    clip-path: var(--clip-path-8);
+    opacity: 0;
+    transition: var(--transition-1);
+    z-index: 4;
+  }
+  
+  .back-top-btn.active {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  
+  
+  
+  
+  
+  /*-----------------------------------*\
+    #CUSTOM CURSOR
+  \*-----------------------------------*/
+  
+  .cursor { display: none; }
+  
+  
+  
+  
+  
+  /*-----------------------------------*\
+    #MEDIA QUERIES
+  \*-----------------------------------*/
+  
+  /**
+   * responsive for large than 575px screen
+   */
+  
+  @media (min-width: 575px) {
+  
+    /**
+     * REUSED STYLE
+     */
+  
+    .container {
+      max-width: 540px;
+      width: 100%;
+      margin-inline: auto;
+    }
+  
+  
+  
+    /**
+     * HEADER
+     */
+  
+    .header .logo img { width: 160px; }
+  
+  
+  
+    /**
+     * UPCOMING
+     */
+  
+    .upcoming-card.left .card-meta {
+      left: auto;
+      right: -15%;
+    }
+  
+    .upcoming-card.right .card-meta { left: 25%; }
+  
+  
+  
+    /**
+     * FOOTER
+     */
+  
+    .footer-top .container { grid-template-columns: 1fr 1fr; }
+  
+  }
+  
+  
+  
+  
+  
+  /**
+   * responsive for large than 768px screen
+   */
+  
+  @media (min-width: 768px) {
+  
+    /**
+     * CUSTOM PROPERTY
+     */
+  
+    :root {
+  
+      /**
+       * TYPOGRAPHY
+       */
+  
+      /* font size */
+      --fontSize-1: 6.5rem;
+      --fontSize-2: 3.2rem;
+  
+    }
+  
+  
+  
+    /**
+     * REUSED STYLE
+     */
+  
+    .container { max-width: 720px; }
+  
+    .h1 { line-height: 1; }
+  
+  
+  
+    /**
+     * HERO
+     */
+  
+    .hero .section-subtitle { letter-spacing: 10px; }
+  
+    .hero-banner-bg {
+      display: block;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: scale(1.3);
+      transform-origin: bottom;
+      z-index: -1;
+    }
+  
+  
+  
+    /**
+     * UPCOMING
+     */
+  
+    .upcoming-card::before { height: 110px; }
+  
+    .upcoming-card .card-meta {
+      padding-block: 12px;
+      bottom: 20px;
+    }
+  
+    .upcoming-card .card-title { --fontSize-3: 2.8rem; }
+  
+    .upcoming-card.left .card-meta { right: -10%; }
+  
+    .upcoming-card.right .card-meta { left: 20%; }
+  
+    .upcoming-time .time { --fontSize-1: 5rem; }
+  
+  
+  
+    /**
+     * NEWS 
+     */
+  
+    .news-list { grid-template-columns: 1fr 1fr; }
+  
+  
+  
+    /**
+     * CUSTOM CURSOR
+     */
+  
+    .cursor {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      background-color: var(--bg-purple);
+      border-radius: var(--radius-circle);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 6;
+      transition: var(--transition-1);
+      transition-property: opacity, transform;
+    }
+  
+    body:hover .cursor { opacity: 0.5; }
+  
+    body .cursor.hovered {
+      transform: translate(-50%, -50%) scale(1.3);
+      opacity: 0.75;
+    }
+  
+  }
+  
+  
+  
+  
+  
+  /**
+   * responsive for large than 992px screen
+   */
+  
+  @media (min-width: 992px) {
+  
+    /**
+     * CUSTOM PROPERTY
+     */
+  
+    :root {
+      
+      /**
+       * TYPOGRAPHY
+       */
+  
+      /* font size */
+      --fontSize-2: 4.5rem;
+  
+      /**
+       * SPACING
+       */
+  
+      --section-spacing: 100px;
+  
+    }
+  
+  
+  
+    /**
+     * REUSED STYLE
+     */
+  
+    .container { max-width: 960px; }
+  
+    .h2 { line-height: 1.1; }
+  
+  
+  
+    /**
+     * HEADER
+     */
+  
+    .nav-toggle-btn { display: none; }
+  
+    .navbar,
+    .navbar.active {
+      all: unset;
+      display: block;
+    }
+  
+    .navbar-item,
+    .navbar-item:last-child { border: none; }
+  
+    .navbar-list { display: flex; }
+  
+    .header .btn {
+      display: grid;
+      text-align: center;
+    }
+  
+  
+  
+    /**
+     * HERO
+     */
+  
+    .hero-banner-bg { transform: scale(1.2); }
+  
+  
+  
+    /**
+     * UPCOMING
+     */
+  
+    .upcoming-item {
+      display: grid;
+      grid-template-columns: 1fr 0.5fr 1fr;
+      align-items: center;
+    }
+  
+    .upcoming-time { margin-block: 0; }
+  
+    .upcoming-card .card-meta {
+      left: 50%;
+      bottom: -30px;
+      transform: translateX(-50%);
+    }
+  
+    .upcoming-card.right .card-meta { left: 50%; }
+  
+  
+  
+    /**
+     * NEWS
+     */
+  
+    .news-list { grid-template-columns: repeat(3, 1fr); }
+  
+  
+  
+    /**
+     * FOOTER
+     */
+     
+    .footer-top .container { grid-template-columns: repeat(4, 1fr); }
+  
+  }
+  
+  
+  
+  
+  
+  /**
+   * responsive for large than 1200px screen
+   */
+  
+  @media (min-width: 1200px) {
+  
+    /**
+     * REUSED STYLE
+     */
+  
+    .container { max-width: 1140px; }
+  
+    .section-text { margin-block-end: 60px; }
+  
+  
+  
+    /**
+     * HERO
+     */
+  
+    .hero { padding-block-start: 250px; }
+  
+    .hero-banner-bg { transform: scale(1.2); }
+  
+    .hero-banner .w-100 {
+      max-width: max-content;
+      margin-inline: auto;
+    }
+  
+  
+  
+    /**
+     * UPCOMING
+     */
+  
+    .upcoming-card .card-banner {
+      max-height: 180px;
+      width: auto;
+    }
+  
+    .upcoming-card .card-meta { bottom: 0; }
+  
+    .upcoming-card.right .card-meta { left: 35%; }
+  
+    .upcoming-time .time { --fontSize-1: 6.2rem; }
+  
+  
+  
+    /**
+     * FOOTER
+     */
+  
+    .footer-top .container { grid-template-columns: 1f 0.5fr 0.5fr 1fr; }
+  
+    .footer .logo img { width: 205px; }
+  
+  }
+  </style>
+
+
+</head>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header active" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="./images/logo.svg" width="110" height="53" alt="unigine home">
+      </a>
+
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="#home" class="navbar-link" data-nav-link>home</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#tournament" class="navbar-link" data-nav-link>tournament</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#news" class="navbar-link" data-nav-link>news</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#" class="navbar-link" data-nav-link>contact</a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <a href="#" class="btn" data-btn>join our team</a>
+
+      <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
+      </button>
+
+    </div>
+  </header>
+
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <div class="hero has-before" id="home">
+        <div class="container">
+
+          <p class="section-subtitle">Enjoy The Games</p>
+
+          <h1 class="h1 title hero-title">esports Games Made For <br> True Gamers!</h1>
+
+          <a href="#" class="btn" data-btn>Join With Us</a>
+
+          <div class="hero-banner">
+            <img src="./images/hero-banner.png" width="850" height="414" alt="hero banner" class="w-100">
+
+            <img src="./images/hero-banner-bg.png" alt="" class="hero-banner-bg">
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
+      <!-- 
+        - #UPCOMING
+      -->
+
+      <section class="section upcoming" aria-labelledby="upcoming-label" id="tournament">
+        <div class="container">
+
+          <p class="section-subtitle" id="upcoming-label" data-reveal="bottom">
+            Upcoming Matches
+          </p>
+
+          <h2 class="h2 section-title" data-reveal="bottom">
+            Battles Extreme <br> Masters <span class="span">Tournament</span>
+          </h2>
+
+          <p class="section-text" data-reveal="bottom">
+            Our success in creating business solutions is due in large part to our talented and highly committed team.
+          </p>
+
+          <ol class="upcoming-list">
+
+            <li class="upcoming-item">
+
+              <div class="upcoming-card left has-before" data-reveal="left">
+
+                <img src="./images/team-logo-1.png" width="86" height="81" loading="lazy"
+                  alt="Purple Death Cadets" class="card-banner">
+
+                <h3 class="h3 card-title">Purple Death Cadets</h3>
+
+                <div class="card-meta">Group 04 | Match 06th</div>
+
+              </div>
+
+              <div class="upcoming-time" data-reveal="bottom">
+                <time class="time" datetime="10:00">10:00</time>
+
+                <time class="date" datetime="2022-05-25">25TH May 2024</time>
+
+                <div class="social-wrapper">
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-youtube"></ion-icon>
+                  </a>
+
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-twitch"></ion-icon>
+                  </a>
+                </div>
+              </div>
+
+              <div class="upcoming-card right has-before" data-reveal="right">
+
+                <img src="./images/team-logo-2.png" width="86" height="81" loading="lazy"
+                  alt="Trigger Brain Squad" class="card-banner">
+
+                <h3 class="h3 card-title">Trigger Brain Squad</h3>
+
+                <div class="card-meta">Group 04 | Match 06th</div>
+
+              </div>
+
+            </li>
+
+            <li class="upcoming-item">
+
+              <div class="upcoming-card left has-before" data-reveal="left">
+
+                <img src="./images/team-logo-3.png" width="86" height="81" loading="lazy"
+                  alt="The Black Hat Hackers" class="card-banner">
+
+                <h3 class="h3 card-title">The Black Hat Hackers</h3>
+
+                <div class="card-meta">Group 05 | Match 02nd</div>
+
+              </div>
+
+              <div class="upcoming-time" data-reveal="bottom">
+                <time class="time" datetime="12:30">12:30</time>
+
+                <time class="date" datetime="2024-01-10">10TH Jan 2024</time>
+
+                <div class="social-wrapper">
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-youtube"></ion-icon>
+                  </a>
+
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-twitch"></ion-icon>
+                  </a>
+                </div>
+              </div>
+
+              <div class="upcoming-card right has-before" data-reveal="right">
+
+                <img src="./images/team-logo-4.png" width="86" height="81" loading="lazy"
+                  alt="Your Worst Nightmare" class="card-banner">
+
+                <h3 class="h3 card-title">Your Worst Nightmare</h3>
+
+                <div class="card-meta">Group 05 | Match 02nd</div>
+
+              </div>
+
+            </li>
+
+            <li class="upcoming-item">
+
+              <div class="upcoming-card left has-before" data-reveal="left">
+
+                <img src="./images/team-logo-5.png" width="86" height="81" loading="lazy"
+                  alt="Witches And Quizards" class="card-banner">
+
+                <h3 class="h3 card-title">Witches And Quizards</h3>
+
+                <div class="card-meta">Group 02 | Match 03rd</div>
+
+              </div>
+
+              <div class="upcoming-time" data-reveal="bottom">
+                <time class="time" datetime="04:20">04:20</time>
+
+                <time class="date" datetime="2024-12-15">15th Dec 2024</time>
+
+                <div class="social-wrapper">
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-youtube"></ion-icon>
+                  </a>
+
+                  <a href="#" class="social-link">
+                    <ion-icon name="logo-twitch"></ion-icon>
+                  </a>
+                </div>
+              </div>
+
+              <div class="upcoming-card right has-before" data-reveal="right">
+
+                <img src="./images/team-logo-6.png" width="86" height="81" loading="lazy"
+                  alt="Resting Bitch Faces" class="card-banner">
+
+                <h3 class="h3 card-title">Resting Bitch Faces</h3>
+
+                <div class="card-meta">Group 02 | Match 03rd</div>
+
+              </div>
+
+            </li>
+
+          </ol>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #NEWS
+      -->
+
+      <section class="section news" aria-label="our latest news" id="news">
+        <div class="container">
+
+          <p class="section-subtitle" data-reveal="bottom">What's On Our Mind</p>
+
+          <h2 class="h2 section-title" data-reveal="bottom">
+            News And <span class="span">Headlines</span>
+          </h2>
+
+          <p class="section-text" data-reveal="bottom">
+            Our success in creating business solutions is due in large part to our talented and highly committed team.
+          </p>
+
+          <ul class="news-list">
+
+            <li data-reveal="bottom">
+              <div class="news-card">
+
+                <figure class="card-banner img-holder" style="--width: 600; --height: 400;">
+                  <img src="./images/news-1.jpg" width="600" height="400" loading="lazy"
+                    alt="Innovative Business All Over The World." class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <a href="#" class="card-tag">Business</a>
+
+                  <ul class="card-meta-list">
+
+                    <li class="card-meta-item">
+                      <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+
+                      <time class="card-meta-text" datetime="2022-01-01">Jan 01 2022</time>
+                    </li>
+
+                    <li class="card-meta-item">
+                      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+                      <p class="card-meta-text">Elliot Alderson</p>
+                    </li>
+
+                  </ul>
+
+                  <h3 class="h3">
+                    <a href="#" class="card-title">Innovative Business All Over The World.</a>
+                  </h3>
+
+                  <p class="card-text">
+                    Financial experts support or help you to to find out which way you can raise your funds more...
+                  </p>
+
+                  <a href="#" class="link has-before">Read More</a>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li data-reveal="bottom">
+              <div class="news-card">
+
+                <figure class="card-banner img-holder" style="--width: 600; --height: 400;">
+                  <img src="./images/news-2.jpg" width="600" height="400" loading="lazy"
+                    alt="How To Start Initiating An Startup In Few Days." class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <a href="#" class="card-tag">Startup</a>
+
+                  <ul class="card-meta-list">
+
+                    <li class="card-meta-item">
+                      <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+
+                      <time class="card-meta-text" datetime="2022-01-01">Jan 01 2022</time>
+                    </li>
+
+                    <li class="card-meta-item">
+                      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+                      <p class="card-meta-text">Elliot Alderson</p>
+                    </li>
+
+                  </ul>
+
+                  <h3 class="h3">
+                    <a href="#" class="card-title">How To Start Initiating An Startup In Few Days.</a>
+                  </h3>
+
+                  <p class="card-text">
+                    Financial experts support or help you to to find out which way you can raise your funds more...
+                  </p>
+
+                  <a href="#" class="link has-before">Read More</a>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li data-reveal="bottom">
+              <div class="news-card">
+
+                <figure class="card-banner img-holder" style="--width: 600; --height: 400;">
+                  <img src="./images/news-3.jpg" width="600" height="400" loading="lazy"
+                    alt="Financial Experts Support Help You To Find Out." class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <a href="#" class="card-tag">Finance</a>
+
+                  <ul class="card-meta-list">
+
+                    <li class="card-meta-item">
+                      <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+
+                      <time class="card-meta-text" datetime="2022-01-01">Jan 01 2022</time>
+                    </li>
+
+                    <li class="card-meta-item">
+                      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+                      <p class="card-meta-text">Elliot Alderson</p>
+                    </li>
+
+                  </ul>
+
+                  <h3 class="h3">
+                    <a href="#" class="card-title">Financial Experts Support Help You To Find Out.</a>
+                  </h3>
+
+                  <p class="card-text">
+                    Financial experts support or help you to to find out which way you can raise your funds more...
+                  </p>
+
+                  <a href="#" class="link has-before">Read More</a>
+
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+
+    <div class="section footer-top">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <img src="./images/logo.svg" width="150" height="73" loading="lazy" alt="Unigine logo">
+          </a>
+
+          <p class="footer-text">
+            Our success in creating business solutions is due in large part to our talented and highly committed team.
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-youtube"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="footer-list">
+
+          <p class="title footer-list-title has-after">Usefull Links</p>
+
+          <ul>
+
+            <li>
+              <a href="#" class="footer-link">Tournaments</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Help Center</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Privacy and Policy</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Terms of Use</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Contact Us</a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="footer-list">
+
+          <p class="title footer-list-title has-after">Contact Us</p>
+
+          <div class="contact-item">
+            <span class="span">Location:</span>
+
+            <address class="contact-link">
+              153 Williamson Plaza, Maggieberg, MT 09514
+            </address>
+          </div>
+
+          <div class="contact-item">
+            <span class="span">Join Us:</span>
+
+            <a href="mailto:Info@unigine.com" class="contact-link">Info@unigine.com</a>
+          </div>
+
+          <div class="contact-item">
+            <span class="span">Phone:</span>
+
+            <a href="tel:+12345678910" class="contact-link">+1 (234) 567-8910</a>
+          </div>
+
+        </div>
+
+        <div class="footer-list">
+
+          <p class="title footer-list-title has-after">Newsletter Signup</p>
+
+          <form action="./index.html" method="get" class="footer-form">
+            <input type="email" name="email_address" required placeholder="Your Email" autocomplete="off"
+              class="input-field">
+
+            <button type="submit" class="btn" data-btn>Subscribe Now</button>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2022 codewithsadee All Rights Reserved.
+        </p>
+
+      </div>
+    </div>
+
+  </footer>
+
+
+
+
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="arrow-up-outline" aria-hidden="true"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - #CUSTOM CURSOR
+  -->
+
+  <div class="cursor" data-cursor></div>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script >
+  'use strict';
+
+
+
+/**
+ * add event on multiple elements
+ */
+
+const addEventOnElements = function (elements, eventType, callback) {
+  for (let i = 0, len = elements.length; i < len; i++) {
+    elements[i].addEventListener(eventType, callback);
+  }
+}
+
+
+
+/**
+ * MOBILE NAVBAR
+ * navbar will show after clicking menu button
+ */
+
+const navbar = document.querySelector("[data-navbar]");
+const navToggler = document.querySelector("[data-nav-toggler]");
+const navLinks = document.querySelectorAll("[data-nav-link]");
+
+const toggleNav = function () {
+  navbar.classList.toggle("active");
+  this.classList.toggle("active");
+}
+
+navToggler.addEventListener("click", toggleNav);
+
+const navClose = () => {
+  navbar.classList.remove("active");
+  navToggler.classList.remove("active");
+}
+
+addEventOnElements(navLinks, "click", navClose);
+
+
+
+/**
+ * HEADER and BACK TOP BTN
+ * header and back top btn will be active after scrolled down to 100px of screen
+ */
+
+const header = document.querySelector("[data-header]");
+const backTopBtn = document.querySelector("[data-back-top-btn]");
+
+const activeEl = function () {
+  if (window.scrollY > 100) {
+    header.classList.add("active");
+    backTopBtn.classList.add("active");
+  } else {
+    header.classList.remove("active");
+    backTopBtn.classList.remove("active");
+  }
+}
+
+window.addEventListener("scroll", activeEl);
+
+
+
+/**
+ * Button hover ripple effect
+ */
+
+const buttons = document.querySelectorAll("[data-btn]");
+
+const buttonHoverRipple = function (event) {
+  this.style.setProperty("--top", `${event.offsetY}px`);
+  this.style.setProperty("--left", `${event.offsetX}px`);
+}
+
+addEventOnElements(buttons, "mousemove", buttonHoverRipple);
+
+
+
+/**
+ * Scroll reveal
+ */
+
+const revealElements = document.querySelectorAll("[data-reveal]");
+
+const revealElementOnScroll = function () {
+  for (let i = 0, len = revealElements.length; i < len; i++) {
+    const isElementInsideWindow = revealElements[i].getBoundingClientRect().top < window.innerHeight / 1.1;
+
+    if (isElementInsideWindow) {
+      revealElements[i].classList.add("revealed");
+    }
+  }
+}
+
+window.addEventListener("scroll", revealElementOnScroll);
+
+window.addEventListener("load", revealElementOnScroll);
+
+
+
+/**
+ * Custom cursor
+ */
+
+const cursor = document.querySelector("[data-cursor]");
+const hoverElements = [...document.querySelectorAll("a"), ...document.querySelectorAll("button")];
+
+const cursorMove = function (event) {
+  cursor.style.top = `${event.clientY}px`;
+  cursor.style.left = `${event.clientX}px`;
+}
+
+window.addEventListener("mousemove", cursorMove);
+
+addEventOnElements(hoverElements, "mouseover", function () {
+  cursor.classList.add("hovered");
+});
+
+addEventOnElements(hoverElements, "mouseout", function () {
+  cursor.classList.remove("hovered");
+});
+  </script>
+
+</body>
+
+</html>
