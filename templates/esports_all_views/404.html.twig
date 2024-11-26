@@ -6,13 +6,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>GoodGames | Website Offline</title>
+    <title>GoodGames | 404</title>
 
     <meta name="description" content="GoodGames - Bootstrap template for communities and games store">
     <meta name="keywords" content="game, gaming, template, HTML template, responsive, Bootstrap, premium">
     <meta name="author" content="_nK">
 
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="icon" type="image/png" href="{{asset('images/favicon.png')}}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,38 +22,38 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('vendor/bootstrap/dist/css/bootstrap.min.css')}}">
 
     <!-- FontAwesome -->
-    <script defer src="assets/vendor/fontawesome-free/js/all.js"></script>
-    <script defer src="assets/vendor/fontawesome-free/js/v4-shims.js"></script>
+    <script defer src="{{asset('vendor/fontawesome-free/js/all.js')}}"></script>
+    <script defer src="{{asset('vendor/fontawesome-free/js/v4-shims.js')}}"></script>
 
     <!-- IonIcons -->
-    <link rel="stylesheet" href="assets/vendor/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{asset('vendor/ionicons/css/ionicons.min.css')}}">
 
     <!-- Flickity -->
-    <link rel="stylesheet" href="assets/vendor/flickity/dist/flickity.min.css">
+    <link rel="stylesheet" href="{{asset('vendor/flickity/dist/flickity.min.css')}}">
 
     <!-- Photoswipe -->
-    <link rel="stylesheet" type="text/css" href="assets/vendor/photoswipe/dist/photoswipe.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/photoswipe/dist/default-skin/default-skin.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/photoswipe/dist/photoswipe.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/photoswipe/dist/default-skin/default-skin.css')}}">
 
     <!-- Seiyria Bootstrap Slider -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css">
+    <link rel="stylesheet" href="{{asset('vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css')}}">
 
     <!-- Summernote -->
-    <link rel="stylesheet" type="text/css" href="assets/vendor/summernote/dist/summernote-bs4.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('vendor/summernote/dist/summernote-bs4.css')}}">
 
     <!-- GoodGames -->
-    <link rel="stylesheet" href="assets/css/goodgames.css">
+    <link rel="stylesheet" href="{{asset('css/goodgames.css')}}">
 
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     
     <!-- END: Styles -->
 
     <!-- jQuery -->
-    <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="{{asset('vendor/jquery/dist/jquery.min.js')}}"></script>
     
     
 </head>
@@ -75,7 +75,7 @@
     <div class="nk-fullscreen-block-top">
         <div class="text-center">
             <div class="nk-gap-4"></div>
-            <a href="index.html"><img src="assets/images/logo-2.png" alt="GoodGames"></a>
+            <a href="index.html"><img src="{{asset('images/logo-2.png')}}" alt="GoodGames"></a>
             <div class="nk-gap-2"></div>
         </div>
     </div>
@@ -83,23 +83,15 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                    <h1 class="h2"><span class="text-main-1">Site is</span> Offline</h1>
+                    <h1 class="text-main-1" style="font-size: 150px;">404</h1>
 
-                    <div class="text-white">You gonna have to wait a while. Subscribe now and we'll let you know when we're ready to continue.</div>
-                    <div class="nk-gap-2"></div>
+                    <div class="nk-gap"></div>
+                    <h2 class="h4">You chose the wrong path!</h2>
 
-                    <!-- START: MailChimp Signup Form -->
-                    <form action="//nkdev.us11.list-manage.com/subscribe/post?u=d433160c0c43dcf8ecd52402f&amp;id=7eafafe8f0" method="post" class="nk-mchimp validate" target="_blank">
-                        <div class="input-group">
-                            <input type="email" value="" name="EMAIL" class="required email form-control" placeholder="Enter your Email">
-                            <button class="nk-btn nk-btn-rounded nk-btn-color-white ml-20">Subscribe</button>
-                        </div>
-                        <div class="nk-form-response-success"></div>
-                        <div class="nk-form-response-error"></div>
-                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_d433160c0c43dcf8ecd52402f_7eafafe8f0" tabindex="-1" value=""></div>
-                    </form>
-                    <!-- END: MailChimp Signup Form -->
+                    <div>Or such a page just doesn't exist... <br> Would you like to go back to the homepage?</div>
+                    <div class="nk-gap-3"></div>
+
+                    <a href="index.html" class="nk-btn nk-btn-rounded nk-btn-color-white">Return to Homepage</a>
                 </div>
             </div>
             <div class="nk-gap-3"></div>
@@ -154,7 +146,7 @@
     
         <!-- START: Page Background -->
 
-    <div class="nk-page-background-fixed" style="background-image: url('assets/images/bg-fixed-3.jpg');"></div>
+    <div class="nk-page-background-fixed" style="background-image: url('{{asset('images/bg-fixed-2.jpg')}}"></div>
 
 <!-- END: Page Background -->
 
@@ -247,64 +239,64 @@
 <!-- START: Scripts -->
 
 <!-- Object Fit Polyfill -->
-<script src="assets/vendor/object-fit-images/dist/ofi.min.js"></script>
+<script src="{{asset('vendor/object-fit-images/dist/ofi.min.js')}}"></script>
 
 <!-- GSAP -->
-<script src="assets/vendor/gsap/src/minified/TweenMax.min.js"></script>
-<script src="assets/vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js"></script>
+<script src="{{asset('vendor/gsap/src/minified/TweenMax.min.js')}}"></script>
+<script src="{{asset('vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js')}}"></script>
 
 <!-- Popper -->
-<script src="assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="{{asset('vendor/popper.js')}}/dist/umd/popper.min.js')}}"></script>
 
 <!-- Bootstrap -->
-<script src="assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="{{asset('vendor/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
 <!-- Sticky Kit -->
-<script src="assets/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+<script src="{{asset('vendor/sticky-kit/dist/sticky-kit.min.js')}}"></script>
 
 <!-- Jarallax -->
-<script src="assets/vendor/jarallax/dist/jarallax.min.js"></script>
-<script src="assets/vendor/jarallax/dist/jarallax-video.min.js"></script>
+<script src="{{asset('vendor/jarallax/dist/jarallax.min.js')}}"></script>
+<script src="{{asset('vendor/jarallax/dist/jarallax-video.min.js')}}"></script>
 
 <!-- imagesLoaded -->
-<script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script src="{{asset('vendor/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
 
 <!-- Flickity -->
-<script src="assets/vendor/flickity/dist/flickity.pkgd.min.js"></script>
+<script src="{{asset('vendor/flickity/dist/flickity.pkgd.min.js')}}"></script>
 
 <!-- Photoswipe -->
-<script src="assets/vendor/photoswipe/dist/photoswipe.min.js"></script>
-<script src="assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+<script src="{{asset('vendor/photoswipe/dist/photoswipe.min.js')}}"></script>
+<script src="{{asset('vendor/photoswipe/dist/photoswipe-ui-default.min.js')}}"></script>
 
 <!-- Jquery Validation -->
-<script src="assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="{{asset('vendor/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 
 <!-- Jquery Countdown + Moment -->
-<script src="assets/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
-<script src="assets/vendor/moment/min/moment.min.js"></script>
-<script src="assets/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+<script src="{{asset('vendor/jquery-countdown/dist/jquery.countdown.min.js')}}"></script>
+<script src="{{asset('vendor/moment/min/moment.min.js')}}"></script>
+<script src="{{asset('vendor/moment-timezone/builds/moment-timezone-with-data.min.js')}}"></script>
 
-<!-- Hammer.js -->
-<script src="assets/vendor/hammerjs/hammer.min.js"></script>
+<!-- Hammer.js')}} -->
+<script src="{{asset('vendor/hammerjs/hammer.min.js')}}"></script>
 
 <!-- NanoSroller -->
-<script src="assets/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
+<script src="{{asset('vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js')}}"></script>
 
 <!-- SoundManager2 -->
-<script src="assets/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>
+<script src="{{asset('vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js')}}"></script>
 
 <!-- Seiyria Bootstrap Slider -->
-<script src="assets/vendor/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+<script src="{{asset('vendor/bootstrap-slider/dist/bootstrap-slider.min.js')}}"></script>
 
 <!-- Summernote -->
-<script src="assets/vendor/summernote/dist/summernote-bs4.min.js"></script>
+<script src="{{asset('vendor/summernote/dist/summernote-bs4.min.js')}}"></script>
 
 <!-- nK Share -->
-<script src="assets/plugins/nk-share/nk-share.js"></script>
+<script src="{{asset('plugins/nk-share/nk-share.js')}}"></script>
 
 <!-- GoodGames -->
-<script src="assets/js/goodgames.min.js"></script>
-<script src="assets/js/goodgames-init.js"></script>
+<script src="{{asset('js/goodgames.min.js')}}"></script>
+<script src="{{asset('js/goodgames-init.js')}}"></script>
 <!-- END: Scripts -->
 
 
