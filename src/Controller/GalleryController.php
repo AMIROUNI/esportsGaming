@@ -11,7 +11,7 @@ class GalleryController extends AbstractController
     #[Route('/gallery', name: 'gallery')]
     public function gallery(): Response
     {
-        return $this->render('esports_all_views/gallery.html.twig', [
+        return $this->render('esports_all_views/gallery/gallery.html.twig', [
             'controller_name' => 'GalleryController',
         ]);
     }

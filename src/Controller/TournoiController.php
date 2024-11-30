@@ -5,16 +5,18 @@ namespace App\Controller;
 use App\Entity\Tournoi;
 use App\Form\TournoiType;
 use App\Repository\TournoiRepository;
+use Doctrine\DBAL\Schema\Index;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/tournoi')]
+#[Route('/tournaments')]
 final class TournoiController extends AbstractController
 {
-    #[Route(name: 'app_tournoi_index', methods: ['GET'])]
+    /*
+    #[Route('/index',name: 'app_tournoi_index', methods: ['GET'])]
     public function index(TournoiRepository $tournoiRepository): Response
     {
         return $this->render('tournoi/index.html.twig', [
@@ -78,4 +80,32 @@ final class TournoiController extends AbstractController
 
         return $this->redirectToRoute('app_tournoi_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+
+    #[Route('', name: 'tournaments')]
+    public function tournaments(): Response
+    {
+        return $this->render('esports_all_views/tournaments.html.twig', [
+            'controller_name' => 'TournoiController',
+        ]);
+    }
+
+
+
+    
+    #[Route('/teammate', name: 'tournament_teammate')]
+    public function teammate(): Response
+    {
+        return $this->render('esports_all_views/tournaments-teammate.html.twig');
+    }
+
+
+    #[Route('/teams', name: 'tournament_teams')]
+    public function teams(): Response
+    {
+        return $this->render('esports_all_views/tournaments-teams.html.twig');
+    }
+*/
 }
