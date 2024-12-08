@@ -1,4 +1,5 @@
 <?php
+// src/Entity/Coach.php
 
 namespace App\Entity;
 
@@ -35,7 +36,6 @@ class Coach extends User
     public function setDescription(?string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -47,13 +47,9 @@ class Coach extends User
     public function setNiveau(?string $niveau): static
     {
         $this->niveau = $niveau;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, DemandeDeProgrammeC>
-     */
     public function getDemandeDeProgrammeCs(): Collection
     {
         return $this->demandeDeProgrammeCs;
@@ -65,19 +61,16 @@ class Coach extends User
             $this->demandeDeProgrammeCs->add($demandeDeProgrammeC);
             $demandeDeProgrammeC->setCoach($this);
         }
-
         return $this;
     }
 
     public function removeDemandeDeProgrammeC(DemandeDeProgrammeC $demandeDeProgrammeC): static
     {
         if ($this->demandeDeProgrammeCs->removeElement($demandeDeProgrammeC)) {
-            // set the owning side to null (unless already changed)
             if ($demandeDeProgrammeC->getCoach() === $this) {
                 $demandeDeProgrammeC->setCoach(null);
             }
         }
-
         return $this;
     }
 }

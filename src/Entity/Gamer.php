@@ -1,4 +1,5 @@
-<?php
+<?php 
+// src/Entity/Gamer.php
 
 namespace App\Entity;
 
@@ -22,29 +23,9 @@ class Gamer extends User
     #[ORM\OneToMany(targetEntity: DemandeDeProgrammeC::class, mappedBy: 'gamer')]
     private Collection $demandeDeProgrammeC;
 
-    /**
-     * @var Collection<int, Commande>
-     */
-    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'gamer')]
-    private Collection $commande;
-
-    /**
-     * @var Collection<int, ParticipationTournoi>
-     */
-    #[ORM\OneToMany(targetEntity: ParticipationTournoi::class, mappedBy: 'gamer')]
-    private Collection $participationTournoi;
-
-    /**
-     * @var Collection<int, Group>
-     */
-    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'gamer')]
-    private ?Collection $groups =  null;
     public function __construct()
     {
         $this->demandeDeProgrammeC = new ArrayCollection();
-        $this->commande = new ArrayCollection();
-        $this->participationTournoi = new ArrayCollection();
-        $this->groups = new ArrayCollection();
     }
 
     public function getSurNom(): ?string
@@ -69,9 +50,6 @@ class Gamer extends User
         return $this;
     }
 
-    /**
-     * @return Collection<int, DemandeDeProgrammeC>
-     */
     public function getDemandeDeProgrammeC(): Collection
     {
         return $this->demandeDeProgrammeC;
@@ -89,94 +67,10 @@ class Gamer extends User
     public function removeDemandeDeProgrammeC(DemandeDeProgrammeC $demandeDeProgrammeC): static
     {
         if ($this->demandeDeProgrammeC->removeElement($demandeDeProgrammeC)) {
-            // set the owning side to null (unless already changed)
             if ($demandeDeProgrammeC->getGamer() === $this) {
                 $demandeDeProgrammeC->setGamer(null);
             }
         }
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Commande>
-     */
-    public function getCommande(): Collection
-    {
-        return $this->commande;
-    }
-
-    public function addCommande(Commande $commande): static
-    {
-        if (!$this->commande->contains($commande)) {
-            $this->commande->add($commande);
-            $commande->setGamer($this);
-        }
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): static
-    {
-        if ($this->commande->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
-            if ($commande->getGamer() === $this) {
-                $commande->setGamer(null);
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, ParticipationTournoi>
-     */
-    public function getParticipationTournoi(): Collection
-    {
-        return $this->participationTournoi;
-    }
-
-    public function addParticipationTournoi(ParticipationTournoi $participationTournoi): static
-    {
-        if (!$this->participationTournoi->contains($participationTournoi)) {
-            $this->participationTournoi->add($participationTournoi);
-            $participationTournoi->setGamer($this);
-        }
-        return $this;
-    }
-
-    public function removeParticipationTournoi(ParticipationTournoi $participationTournoi): static
-    {
-        if ($this->participationTournoi->removeElement($participationTournoi)) {
-            // set the owning side to null (unless already changed)
-            if ($participationTournoi->getGamer() === $this) {
-                $participationTournoi->setGamer(null);
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Group>
-     */
-    public function getGroups(): Collection
-    {
-        return $this->groups;
-    }
-
-    public function addGroup(Group $group): static
-    {
-        if (!$this->groups->contains($group)) {
-            $this->groups->add($group);
-            $group->addGamer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGroup(Group $group): static
-    {
-        if ($this->groups->removeElement($group)) {
-            $group->removeGamer($this);
-        }
-
         return $this;
     }
 }
