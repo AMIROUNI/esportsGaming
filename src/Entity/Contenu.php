@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\ContenuRepository;
@@ -21,6 +20,9 @@ class Contenu
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
+
+    #[ORM\Column(type: "datetime")]
+    private ?\DateTimeInterface $data =null; // New attribute
 
     public function getId(): ?int
     {
@@ -53,12 +55,24 @@ class Contenu
 
     public function getImage(): ?string
     {
-        return $this->image;
+        return $this->image ? 'upload/images/contenu/' . $this->image : null;
     }
 
     public function setImage(string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getData(): ?\DateTimeInterface
+    {
+        return $this->data;
+    }
+
+    public function setData(\DateTimeInterface $data): static
+    {
+        $this->data = $data;
 
         return $this;
     }

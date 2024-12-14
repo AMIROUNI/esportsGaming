@@ -3,11 +3,26 @@
 {% block title %}Edit Game{% endblock %}
 
 {% block body %}
-    <h1>Edit Game</h1>
 
-    {{ include('game/_form.html.twig', {'button_label': 'Update'}) }}
+    <section class="form-section mb-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;"> <!-- Container centré -->
+                    <div class="row justify-content-center"> <!-- Centrer les éléments dans la ligne -->
+                        <div class="col-12 col-md-8 col-lg-6"> <!-- Contrôle de la taille de la colonne -->
+                            <h1 class="text-center mb-4">Edit Game</h1>
 
-    <a href="{{ path('app_game_index') }}">back to list</a>
+                            {{ include('game/_form.html.twig', {'button_label': 'Update'}) }}
 
-    {{ include('game/_delete_form.html.twig') }}
+                            <!-- Lien vers la liste des jeux centré -->
+                            <div class="d-flex justify-content-center mt-4">
+                                <a href="{{ path('app_game_index') }}" class="btn btn-secondary">Back to list</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 {% endblock %}

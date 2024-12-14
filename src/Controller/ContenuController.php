@@ -14,12 +14,46 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/contenu')]
 final class ContenuController extends AbstractController
 {
-    #[Route(name: 'app_contenu_index', methods: ['GET'])]
-    public function index(ContenuRepository $contenuRepository): Response
+    #[Route('/', name: 'app_contenu_index', methods: ['GET', 'POST'])]
+    public function index(ContenuRepository $contenuRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $contenu = new Contenu();
+        $form = $this->createForm(ContenuType::class, $contenu);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->handleImageUpload($form, $contenu);
+            $contenu->setData(new \DateTime());
+            $entityManager->persist($contenu);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Nouveau contenu ajouté avec succès !');
+            return $this->redirectToRoute('app_contenu_index');
+        }
+
+        $contenus = $contenuRepository->findAll();
+
         return $this->render('contenu/index.html.twig', [
-            'contenus' => $contenuRepository->findAll(),
+            'contenus' => $contenus,
+            'form' => $form->createView(),
         ]);
+    }
+
+    private function handleImageUpload($form, Contenu $contenu): void
+    {
+        $imageFile = $form->get('image')->getData();
+        if ($imageFile) {
+            $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+            try {
+                $imageFile->move(
+                    $this->getParameter('contenu_images_directory') ,
+                    $newFilename
+                );
+                $contenu->setImage($newFilename);
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Erreur lors de l\'upload de l\'image : ' . $e->getMessage());
+            }
+        }
     }
 
     #[Route('/new', name: 'app_contenu_new', methods: ['GET', 'POST'])]
@@ -57,8 +91,12 @@ final class ContenuController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('image')->getData()) {
+                $this->handleImageUpload($form, $contenu);
+            }
             $entityManager->flush();
 
+            $this->addFlash('success', 'contenu modifié avec succès !');
             return $this->redirectToRoute('app_contenu_index', [], Response::HTTP_SEE_OTHER);
         }
 

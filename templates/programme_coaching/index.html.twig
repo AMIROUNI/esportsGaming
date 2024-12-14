@@ -1,41 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ProgrammeCoaching index{% endblock %}
+{% block title %}Liste des Programmes de Coaching{% endblock %}
 
 {% block body %}
-    <h1>ProgrammeCoaching index</h1>
+    {% block navbar %}
+        {{ parent() }}
+    {% endblock %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Duree</th>
-                <th>Prix</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for programme_coaching in programme_coachings %}
-            <tr>
-                <td>{{ programme_coaching.id }}</td>
-                <td>{{ programme_coaching.titre }}</td>
-                <td>{{ programme_coaching.duree }}</td>
-                <td>{{ programme_coaching.prix }}</td>
-                <td>{{ programme_coaching.description }}</td>
-                <td>
-                    <a href="{{ path('app_programme_coaching_show', {'id': programme_coaching.id}) }}">show</a>
-                    <a href="{{ path('app_programme_coaching_edit', {'id': programme_coaching.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container mt-4">
+        <header class="text-center mb-4">
+            <h1 class="display-4">Gestion des Programmes de Coaching</h1>
+        </header>
 
-    <a href="{{ path('app_programme_coaching_new') }}">Create new</a>
+        <section class="form-section mb-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="container mt-4">
+                        <h1>Ajouter un Nouveau Programme</h1>
+
+                        {{ form_start(form) }}
+                        {{ form_row(form.titre) }}
+                        {{ form_row(form.duree) }}
+                        {{ form_row(form.prix) }}
+                        {{ form_row(form.description) }}
+                        <button class="btn btn-primary">Enregistrer</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="programme-list-section">
+            <h2 class="h3 text-center mb-4">Liste des Programmes</h2>
+
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Durée (jours)</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for programme in programmes %}
+                        <tr>
+                            <td>{{ programme.id }}</td>
+                            <td>{{ programme.titre }}</td>
+                            <td>{{ programme.duree }}</td>
+                            <td>{{ programme.prix }}</td>
+                            <td>
+                                <a href="{{ path('app_programme_coaching_edit', {'id': programme.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                                <a href="{{ path('app_programme_coaching_delete', {'id': programme.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">Aucun programme trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
 {% endblock %}

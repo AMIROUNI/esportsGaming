@@ -1,39 +1,71 @@
+{# templates/contenu/index.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Contenu index{% endblock %}
-
+{% block title %}Gestion des Contenus{% endblock %}
 {% block body %}
-    <h1>Contenu index</h1>
+    {% block navbar %}
+        {{ parent() }}
+    {% endblock %}
+<div class="container mt-4">
+    <h1>Gestion des Contenus</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for contenu in contenus %}
-            <tr>
-                <td>{{ contenu.id }}</td>
-                <td>{{ contenu.titre }}</td>
-                <td>{{ contenu.description }}</td>
-                <td>{{ contenu.image }}</td>
-                <td>
-                    <a href="{{ path('app_contenu_show', {'id': contenu.id}) }}">show</a>
-                    <a href="{{ path('app_contenu_edit', {'id': contenu.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <section class="form-section mb-5">
+        {{ form_start(form) }}
+        {{ form_row(form.titre) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.image) }}
+        <button class="btn btn-primary">Enregistrer</button>
+        {{ form_end(form) }}
+    </section>
 
-    <a href="{{ path('app_contenu_new') }}">Create new</a>
+    <section class="contenu-list">
+        <h2 class="h3">Liste des Contenus</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Date</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contenu in contenus %}
+                    <tr>
+                        <td>{{ contenu.id }}</td>
+                        <td>{{ contenu.titre }}</td>
+                        <td>{{ contenu.description }}</td>
+                        <td>
+                            {% if contenu.image %}
+                                <img src="{{ asset(contenu.image) }}" alt="{{ contenu.titre }}" style="max-width: 100px;">
+                            {% else %}
+                                <span class="text-muted">Pas d'image</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ contenu.data|date('Y-m-d H:i') }}</td>
+                        <td>
+                            <a href="{{ path('app_contenu_delete', {'id': contenu.id}) }}" class="btn btn-info btn-sm">Delete</a>
+                            <a href="{{ path('app_contenu_edit', {'id': contenu.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucun contenu trouvé</td>
+                    </tr>
+
+                   
+
+                      
+
+
+                
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </section>
+</div>
 {% endblock %}

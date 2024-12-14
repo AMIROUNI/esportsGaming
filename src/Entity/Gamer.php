@@ -17,11 +17,19 @@ class Gamer extends User
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $badge = null;
 
-    /**
-     * @var Collection<int, DemandeDeProgrammeC>
-     */
-    #[ORM\OneToMany(targetEntity: DemandeDeProgrammeC::class, mappedBy: 'gamer')]
+    #[ORM\OneToMany(mappedBy: 'gamer', targetEntity: DemandeDeProgrammeC::class)]
     private Collection $demandeDeProgrammeC;
+
+
+    #[ORM\OneToMany(mappedBy: 'gamer', targetEntity: Commande::class)]
+    private Collection $commande;
+
+    #[ORM\OneToMany(mappedBy: 'gamer', targetEntity: ParticipationTournoi::class)]
+    private Collection $participationTournoi;
+
+    #[ORM\ManyToMany(mappedBy: 'gamer', targetEntity: Group::class)]
+    private Collection $groups;
+
 
     public function __construct()
     {
@@ -33,7 +41,7 @@ class Gamer extends User
         return $this->surNom;
     }
 
-    public function setSurNom(?string $surNom): static
+    public function setSurNom(?string $surNom): self
     {
         $this->surNom = $surNom;
         return $this;
@@ -44,11 +52,12 @@ class Gamer extends User
         return $this->badge;
     }
 
-    public function setBadge(?string $badge): static
+    public function setBadge(?string $badge): self
     {
         $this->badge = $badge;
         return $this;
     }
+
 
     public function getDemandeDeProgrammeC(): Collection
     {
@@ -73,4 +82,5 @@ class Gamer extends User
         }
         return $this;
     }
+
 }

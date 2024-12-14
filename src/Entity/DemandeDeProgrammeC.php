@@ -47,7 +47,7 @@ class DemandeDeProgrammeC
         return $this->gamer;
     }
 
-    public function setGamer(?Gamer $gamer): static
+    public function setGamer(?Gamer $gamer): self
     {
         $this->gamer = $gamer;
         return $this;
@@ -58,7 +58,7 @@ class DemandeDeProgrammeC
         return $this->coach;
     }
 
-    public function setCoach(?Coach $coach): static
+    public function setCoach(?Coach $coach): self
     {
         $this->coach = $coach;
         return $this;
@@ -69,7 +69,7 @@ class DemandeDeProgrammeC
         return $this->programmeCoaching;
     }
 
-    public function setProgrammeCoaching(?ProgrammeCoaching $programmeCoaching): static
+    public function setProgrammeCoaching(?ProgrammeCoaching $programmeCoaching): self
     {
         $this->programmeCoaching = $programmeCoaching;
         return $this;

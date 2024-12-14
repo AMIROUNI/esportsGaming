@@ -1,37 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
+{% block title %}Liste des Produits{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+    {% block navbar %}
+        {{ parent() }}
+    {% endblock %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomProduits</th>
-                <th>Prix</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.nomProduits }}</td>
-                <td>{{ produit.prix }}</td>
-                <td>
-                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container mt-4">
+        <header class="text-center mb-4">
+            <h1 class="display-4">Gestion des Produits</h1>
+        </header>
 
-    <a href="{{ path('app_produit_new') }}">Create new</a>
+        <section class="form-section mb-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="container mt-4">
+                        <h1>Ajouter un Nouveau Produit</h1>
+
+                        {{ form_start(form) }}
+                        {{ form_row(form.nomProduits) }}
+                        {{ form_row(form.prix) }}
+                        {{ form_row(form.image) }}
+                        {{ form_row(form.rating) }}
+                        <button class="btn btn-primary">Enregistrer</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="produit-list-section">
+            <h2 class="h3 text-center mb-4">Liste des Produits</h2>
+
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Note</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produit in produits %}
+                        <tr>
+                            <td>{{ produit.id }}</td>
+                            <td>{{ produit.nomProduits }}</td>
+                            <td>{{ produit.prix }}</td>
+                            <td>
+                                {% if produit.image %}
+                                    <img src="{{ asset( produit.image) }}" alt="{{ produit.nomProduits }}" class="img-thumbnail" style="max-width: 100px;">
+                                {% else %}
+                                    <span class="text-muted">Pas d'image</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ produit.rating }}</td>
+                            <td>
+                                <a href="{{ path('app_produit_delete', {'id': produit.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">Supprimer</a>
+                                <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">Aucun produit trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
 {% endblock %}

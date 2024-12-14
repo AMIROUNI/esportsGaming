@@ -3,11 +3,16 @@
 {% block title %}Edit Contenu{% endblock %}
 
 {% block body %}
-    <h1>Edit Contenu</h1>
-
-    {{ include('contenu/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_contenu_index') }}">back to list</a>
-
-    {{ include('contenu/_delete_form.html.twig') }}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h1>Edit Contenu</h1>
+        </div>
+        <div class="card-body">
+            {{ include('contenu/_form.html.twig', {'button_label': 'Update'}) }}
+            <a href="{{ path('app_contenu_index') }}" class="btn btn-secondary mt-3">Back to list</a>
+        </div>
+     
+    </div>
+</div>
 {% endblock %}
