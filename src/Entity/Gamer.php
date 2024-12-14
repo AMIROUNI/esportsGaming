@@ -1,4 +1,5 @@
-<?php
+<?php 
+// src/Entity/Gamer.php
 
 namespace App\Entity;
 
@@ -19,6 +20,7 @@ class Gamer extends User
     #[ORM\OneToMany(mappedBy: 'gamer', targetEntity: DemandeDeProgrammeC::class)]
     private Collection $demandeDeProgrammeC;
 
+
     #[ORM\OneToMany(mappedBy: 'gamer', targetEntity: Commande::class)]
     private Collection $commande;
 
@@ -28,12 +30,10 @@ class Gamer extends User
     #[ORM\ManyToMany(mappedBy: 'gamer', targetEntity: Group::class)]
     private Collection $groups;
 
+
     public function __construct()
     {
         $this->demandeDeProgrammeC = new ArrayCollection();
-        $this->commande = new ArrayCollection();
-        $this->participationTournoi = new ArrayCollection();
-        $this->groups = new ArrayCollection();
     }
 
     public function getSurNom(): ?string
@@ -58,5 +58,29 @@ class Gamer extends User
         return $this;
     }
 
-    // Methods for demandeDeProgrammeC, commande, participationTournoi, and groups...
+
+    public function getDemandeDeProgrammeC(): Collection
+    {
+        return $this->demandeDeProgrammeC;
+    }
+
+    public function addDemandeDeProgrammeC(DemandeDeProgrammeC $demandeDeProgrammeC): static
+    {
+        if (!$this->demandeDeProgrammeC->contains($demandeDeProgrammeC)) {
+            $this->demandeDeProgrammeC->add($demandeDeProgrammeC);
+            $demandeDeProgrammeC->setGamer($this);
+        }
+        return $this;
+    }
+
+    public function removeDemandeDeProgrammeC(DemandeDeProgrammeC $demandeDeProgrammeC): static
+    {
+        if ($this->demandeDeProgrammeC->removeElement($demandeDeProgrammeC)) {
+            if ($demandeDeProgrammeC->getGamer() === $this) {
+                $demandeDeProgrammeC->setGamer(null);
+            }
+        }
+        return $this;
+    }
+
 }

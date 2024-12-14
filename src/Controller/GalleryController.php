@@ -6,8 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class GalleryController extends AbstractController
-{
+
+
+class GalleryController extends AbstractController{
     #[Route('/gallery', name: 'gallery')]
     public function gallery(): Response
     {
