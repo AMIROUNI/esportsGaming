@@ -19,13 +19,10 @@ class Commande
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateDeCommande = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Commande')]
+    #[ORM\ManyToOne(inversedBy: 'commande')]
     private ?Gamer $gamer = null;
 
-    /**
-     * @var Collection<int, Lp>
-     */
-    #[ORM\OneToMany(targetEntity: Lp::class, mappedBy: 'commande')]
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Lp::class)]
     private Collection $lp;
 
     public function __construct()
@@ -43,7 +40,7 @@ class Commande
         return $this->dateDeCommande;
     }
 
-    public function setDateDeCommande(\DateTimeInterface $dateDeCommande): static
+    public function setDateDeCommande(\DateTimeInterface $dateDeCommande): self
     {
         $this->dateDeCommande = $dateDeCommande;
 
@@ -55,40 +52,12 @@ class Commande
         return $this->gamer;
     }
 
-    public function setGamer(?Gamer $gamer): static
+    public function setGamer(?Gamer $gamer): self
     {
         $this->gamer = $gamer;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Lp>
-     */
-    public function getLp(): Collection
-    {
-        return $this->lp;
-    }
-
-    public function addLp(Lp $lp): static
-    {
-        if (!$this->lp->contains($lp)) {
-            $this->lp->add($lp);
-            $lp->setCommande($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLp(Lp $lp): static
-    {
-        if ($this->lp->removeElement($lp)) {
-            // set the owning side to null (unless already changed)
-            if ($lp->getCommande() === $this) {
-                $lp->setCommande(null);
-            }
-        }
-
-        return $this;
-    }
+    // Methods for lp...
 }

@@ -19,7 +19,7 @@ class Coach extends User
     /**
      * @var Collection<int, DemandeDeProgrammeC>
      */
-    #[ORM\OneToMany(targetEntity: DemandeDeProgrammeC::class, mappedBy: 'Coach')]
+    #[ORM\OneToMany(mappedBy: 'coach', targetEntity: DemandeDeProgrammeC::class)]
     private Collection $demandeDeProgrammeCs;
 
     public function __construct()
@@ -32,7 +32,7 @@ class Coach extends User
         return $this->description;
     }
 
-    public function setDescription(?string $description): static
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -44,7 +44,7 @@ class Coach extends User
         return $this->niveau;
     }
 
-    public function setNiveau(?string $niveau): static
+    public function setNiveau(?string $niveau): self
     {
         $this->niveau = $niveau;
 
@@ -59,7 +59,7 @@ class Coach extends User
         return $this->demandeDeProgrammeCs;
     }
 
-    public function addDemandeDeProgrammeC(DemandeDeProgrammeC $demandeDeProgrammeC): static
+    public function addDemandeDeProgrammeC(DemandeDeProgrammeC $demandeDeProgrammeC): self
     {
         if (!$this->demandeDeProgrammeCs->contains($demandeDeProgrammeC)) {
             $this->demandeDeProgrammeCs->add($demandeDeProgrammeC);
@@ -69,10 +69,9 @@ class Coach extends User
         return $this;
     }
 
-    public function removeDemandeDeProgrammeC(DemandeDeProgrammeC $demandeDeProgrammeC): static
+    public function removeDemandeDeProgrammeC(DemandeDeProgrammeC $demandeDeProgrammeC): self
     {
         if ($this->demandeDeProgrammeCs->removeElement($demandeDeProgrammeC)) {
-            // set the owning side to null (unless already changed)
             if ($demandeDeProgrammeC->getCoach() === $this) {
                 $demandeDeProgrammeC->setCoach(null);
             }
