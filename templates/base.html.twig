@@ -119,6 +119,44 @@ button.btn:hover {
     background-color: #333;
 }
 
+input[type="file"] {
+    display: inline-block;
+    font-size: 18px;
+    font-family: 'Orbitron', Arial, sans-serif; /* Style futuriste pour le texte */
+    color: #fff;
+    background-color: #e63946; /* Rouge vif */
+    border: 2px solid #e63946;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(230, 57, 70, 0.3); /* Effet d'ombre */
+}
+
+/* Au survol */
+input[type="file"]:hover {
+    background-color: #d62839; /* Rouge plus sombre au survol */
+    box-shadow: 0 6px 12px rgba(230, 57, 70, 0.5); /* Effet d'ombre accentué */
+}
+
+/* Lorsqu'il est en focus */
+input[type="file"]:focus {
+    outline: none;
+    box-shadow: 0 0 8px 2px rgba(230, 57, 70, 0.75); /* Contour lumineux */
+}
+
+/* Désactivé */
+input[type="file"]:disabled {
+    background-color: #555;
+    border-color: #555;
+    cursor: not-allowed;
+    color: #aaa;
+    box-shadow: none;
+}
+
+
 		</style>
 
 

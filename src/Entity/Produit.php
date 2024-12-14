@@ -21,6 +21,14 @@ class Produit
     #[ORM\Column]
     private ?float $prix = null;
 
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\Column(type: 'float')]
+    private float $rating;
+
+
     /**
      * @var Collection<int, Lp>
      */
@@ -35,6 +43,31 @@ class Produit
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+
+    public function getImage(): ?string
+    {
+        return $this->image ? 'upload/images/produits/' . $this->image : null;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getRating(): float
+    {
+        return $this->rating;
+    }
+
+    public function setRating(float $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
     }
 
     public function getNomProduits(): ?string

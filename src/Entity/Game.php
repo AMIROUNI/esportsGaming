@@ -54,7 +54,7 @@ class Game
 
     public function getImage(): ?string
     {
-        return $this->image ? 'upload/images/' . $this->image : null;
+        return $this->image ? 'upload/images/games/' . $this->image : null;
     }
 
     public function setImage(string $image): static

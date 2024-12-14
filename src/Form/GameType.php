@@ -18,7 +18,7 @@ class GameType extends AbstractType
                 'label' => 'Nom du Jeu',
             ])
             ->add('image', FileType::class, [
-                'label' => 'Image du Jeu (fichier)',
+                
                 'required' => false,
                 'mapped' => false,
             ]);
