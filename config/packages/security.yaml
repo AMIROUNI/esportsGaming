@@ -38,14 +38,10 @@ security:
                 path: / # Make it available throughout the entire application
                 always_remember_me: true
 
-            # CSRF protection for login forms (enabled by default)
-            csrf_protection: true
+           
 
     # Access control: restrict access to certain routes based on roles
-    access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allow anyone to access the login page
-        - { path: ^/admin, roles: ROLE_ADMIN } # Only admins can access /admin
-        - { path: ^/profile, roles: ROLE_USER } # Only authenticated users can access /profile
+     # Only authenticated users can access /profile
 
 # Testing specific configuration (to speed up tests by reducing password hashing workload)
 when@test:
