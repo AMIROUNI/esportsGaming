@@ -21,7 +21,7 @@ class Game
     private ?string $nom = null;
 
 
-    #[ORM\Column(type: Types::BLOB, nullable: true)]
+  #[ORM\Column(length: 255)]
     private ?string $image = null;
 
     /**
@@ -54,7 +54,7 @@ class Game
 
     public function getImage(): ?string
     {
-        return $this->image ? 'uploads/games/' . $this->image : null;
+        return $this->image ? 'upload/images/' . $this->image : null;
     }
 
     public function setImage(string $image): static
