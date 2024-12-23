@@ -20,7 +20,7 @@ class Commande
     private ?\DateTimeInterface $dateDeCommande = null;
 
     #[ORM\ManyToOne(inversedBy: 'commande')]
-    private ?Gamer $gamer = null;
+    private ?User $gamer = null;  // Replaced Gamer with User
 
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Lp::class)]
     private Collection $lp;
@@ -47,12 +47,12 @@ class Commande
         return $this;
     }
 
-    public function getGamer(): ?Gamer
+    public function getGamer(): ?User  // Updated return type to User
     {
         return $this->gamer;
     }
 
-    public function setGamer(?Gamer $gamer): self
+    public function setGamer(?User $gamer): self  // Updated parameter type to User
     {
         $this->gamer = $gamer;
 

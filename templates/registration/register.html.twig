@@ -1,10 +1,39 @@
-<h1>Inscription</h1>
+{% extends 'base.html.twig' %}
 
-{{ form_start(userForm) }}
-    {{ form_row(userForm.nom) }}
-    {{ form_row(userForm.prenom) }}
-    {{ form_row(userForm.email) }}
-    {{ form_row(userForm.plainPassword) }}
-    {{ form_row(userForm.roles) }}
-    <button class="btn">S'inscrire</button>
-{{ form_end(userForm) }}
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card p-4" style="width: 100%; max-width: 500px;">
+        <h1 class="h4 mb-3 text-center font-weight-normal">Inscription</h1>
+        {{ form_start(userForm) }}
+            <div class="mb-3">
+                {{ form_row(userForm.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(userForm.prenom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(userForm.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(userForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                <label for="roles" class="form-label">Rôles</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="roles[]" id="role_gamer" value="ROLE_GAMER">
+                    <label class="form-check-label" for="role_gamer">Gamer</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="roles[]" id="role_coach" value="ROLE_COACH">
+                    <label class="form-check-label" for="role_coach">Coach</label>
+                </div>
+            </div>
+            <div class="d-grid">
+                <button class="btn btn-primary btn-lg">S'inscrire</button>
+            </div>
+        {{ form_end(userForm) }}
+    </div>
+</div>
+{% endblock %}

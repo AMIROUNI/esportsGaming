@@ -18,10 +18,10 @@ class DemandeDeProgrammeC
     private EtatDeParticipation $etat;
 
     #[ORM\ManyToOne(inversedBy: 'demandeDeProgrammeC')]
-    private ?Gamer $gamer = null;
+    private ?User $gamer = null;  // Replaced Gamer with User
 
     #[ORM\ManyToOne(inversedBy: 'demandeDeProgrammeCs')]
-    private ?Coach $coach = null;
+    private ?User $coach = null;  // Replaced Coach with User
 
     #[ORM\ManyToOne(inversedBy: 'demandeDeProgrammeC')]
     private ?ProgrammeCoaching $programmeCoaching = null;
@@ -42,23 +42,23 @@ class DemandeDeProgrammeC
         return $this;
     }
 
-    public function getGamer(): ?Gamer
+    public function getGamer(): ?User
     {
         return $this->gamer;
     }
 
-    public function setGamer(?Gamer $gamer): self
+    public function setGamer(?User $gamer): self
     {
         $this->gamer = $gamer;
         return $this;
     }
 
-    public function getCoach(): ?Coach
+    public function getCoach(): ?User
     {
         return $this->coach;
     }
 
-    public function setCoach(?Coach $coach): self
+    public function setCoach(?User $coach): self
     {
         $this->coach = $coach;
         return $this;

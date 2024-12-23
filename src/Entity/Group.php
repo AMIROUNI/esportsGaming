@@ -19,15 +19,14 @@ class Group
     #[ORM\Column(length: 255)]
     private ?string $nomGroup = null;
 
-
     #[ORM\Column(length: 255)]
     private ?string $logo = null;
 
     /**
-     * @var Collection<int, Gamer>
+     * @var Collection<int, User>
      */
-    #[ORM\ManyToMany(targetEntity: Gamer::class, inversedBy: 'groups')]
-    private Collection $gamer;
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'groups')]
+    private Collection $gamer;  // Replaced Gamer with User
 
     public function __construct()
     {
@@ -56,7 +55,7 @@ class Group
         return $this->logo;
     }
 
-    public function setlogo(string $logo): static
+    public function setLogo(string $logo): static
     {
         $this->logo = $logo;
 
@@ -64,14 +63,14 @@ class Group
     }
 
     /**
-     * @return Collection<int, Gamer>
+     * @return Collection<int, User>
      */
     public function getGamer(): Collection
     {
         return $this->gamer;
     }
 
-    public function addGamer(Gamer $gamer): static
+    public function addGamer(User $gamer): static  // Updated parameter type to User
     {
         if (!$this->gamer->contains($gamer)) {
             $this->gamer->add($gamer);
@@ -80,7 +79,7 @@ class Group
         return $this;
     }
 
-    public function removeGamer(Gamer $gamer): static
+    public function removeGamer(User $gamer): static  // Updated parameter type to User
     {
         $this->gamer->removeElement($gamer);
 
