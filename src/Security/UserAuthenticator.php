@@ -2,59 +2,77 @@
 
 namespace App\Security;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\SecurityRequestAttributes;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class UserAuthenticator extends AbstractLoginFormAuthenticator
+class UserAuthenticator extends AbstractAuthenticator
 {
-    use TargetPathTrait;
+    private UrlGeneratorInterface $urlGenerator;
 
-    public const LOGIN_ROUTE = 'app_login';
-
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator)
     {
+        $this->urlGenerator = $urlGenerator;
+    }
+
+    /**
+     * Called on every request to decide if this authenticator should be
+     * used for the request. Returning `false` will cause this authenticator
+     * to be skipped.
+     */
+    public function supports(Request $request): ?bool
+    {
+        return $request->headers->has('X-AUTH-TOKEN'); // Example check
     }
 
     public function authenticate(Request $request): Passport
     {
-        $email = $request->getPayload()->getString('email');
+        $apiToken = $request->headers->get('X-AUTH-TOKEN');
+        if (null === $apiToken) {
+            // Token is missing; throw an exception
+            throw new CustomUserMessageAuthenticationException('No API token provided');
+        }
 
-        $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
-
-        return new Passport(
-            new UserBadge($email),
-            new PasswordCredentials($request->getPayload()->getString('password')),
-            [
-                new CsrfTokenBadge('authenticate', $request->getPayload()->getString('_csrf_token')),
-                new RememberMeBadge(),
-            ]
-        );
+        // Use a UserBadge for token-based authentication
+        return new SelfValidatingPassport(new UserBadge($apiToken));
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
+        $user = $token->getUser();
+
+        // Check user roles and redirect based on role
+        if (in_array('ROLE_GAMER', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_esports_accueil_'));
         }
 
-        // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_esports_accueil_'));
+        }
+
+        if (in_array('ROLE_COACH', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_esports_accueil_'));
+        }
+
+        // Default redirection if no roles match
+        return new RedirectResponse($this->urlGenerator->generate('app_esports_accueil_'));
     }
 
-    protected function getLoginUrl(Request $request): string
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+        $data = [
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData()),
+        ];
+
+        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }
 }

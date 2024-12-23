@@ -9,8 +9,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GamerRepository::class)]
-class Gamer extends User
+class Gamer
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $surNom = null;
 

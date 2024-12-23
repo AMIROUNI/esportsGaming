@@ -1,0 +1,10 @@
+<h1>Inscription</h1>
+
+{{ form_start(userForm) }}
+    {{ form_row(userForm.nom) }}
+    {{ form_row(userForm.prenom) }}
+    {{ form_row(userForm.email) }}
+    {{ form_row(userForm.plainPassword) }}
+    {{ form_row(userForm.roles) }}
+    <button class="btn">S'inscrire</button>
+{{ form_end(userForm) }}
