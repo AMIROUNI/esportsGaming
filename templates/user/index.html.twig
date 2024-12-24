@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Registration{% endblock %}
+
+{% block body %}
+    {% block navbar %}
+        {{ parent() }}
+    {% endblock %}
+    <div class="container mt-5">
+        <!-- Flash Message -->
+        {% for message in app.session.flashbag().get('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <!-- User Registration Card with red background -->
+        <div class="card bg-danger text-white">
+            <div class="card-header text-center">
+                <!-- Title with stars before and after -->
+                <h3>
+                    <span class="text-warning">★</span> 
+                    User Registration 
+                    <span class="text-warning">★</span>
+                </h3>
+            </div>
+            <div class="card-body">
+                <!-- Display the User Registration Form -->
+                {{ form_start(userForm) }}
+                    <div class="mb-3">
+                        {{ form_row(userForm.nom) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(userForm.prenom) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(userForm.email) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(userForm.plainPassword) }}
+                    </div>
+
+                    <!-- Roles Field as a select dropdown -->
+                    <div class="mb-3">
+                        <label for="user_roles">Roles</label>
+                        {{ form_row(userForm.roles) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_row(userForm.description) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(userForm.niveau) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(userForm.surNom) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(userForm.badge) }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Register</button>
+                {{ form_end(userForm) }}
+            </div>
+        </div>
+
+        <!-- Registered Users Table -->
+        <h2 class="mt-5">Registered Users</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.nom }}</td>
+                        <td>{{ user.prenom }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% for role in user.roles %}
+                                <span>{{ role }}</span><br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <!-- Using Flexbox to align buttons on the same line -->
+                            <div class="d-flex align-items-center">
+                                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning me-2">Edit</a>
+                                <form method="post" action="{{ path('app_user_delete', {'id': user.id}) }}" style="display:inline;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

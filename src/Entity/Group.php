@@ -50,9 +50,10 @@ class Group
         return $this;
     }
 
+   
     public function getLogo(): ?string
     {
-        return $this->logo;
+        return $this->logo ? 'upload/images/group/' . $this->logo : null;
     }
 
     public function setLogo(string $logo): static

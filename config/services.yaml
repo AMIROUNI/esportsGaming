@@ -7,6 +7,7 @@ parameters:
            game_images_directory: "%kernel.project_dir%/public/upload/images/games"
            produit_images_directory: "%kernel.project_dir%/public/upload/images/produits"
            contenu_images_directory: "%kernel.project_dir%/public/upload/images/contenu"
+           groupLog_images_directory: "%kernel.project_dir%/public/upload/images/group"
 
 
 

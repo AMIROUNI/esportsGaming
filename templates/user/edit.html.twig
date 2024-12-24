@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <!-- Red title and centered -->
+        <h1 class="text-center text-danger">Edit User</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Edit User Information</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            <div class="mb-3">
+                                {{ form_label(form.nom) }}
+                                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.nom) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.prenom) }}
+                                {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.prenom) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.email) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.plainPassword) }}
+                                {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.plainPassword) }}
+                            </div>
+
+                            <!-- Roles field as a select dropdown -->
+                            <div class="mb-3">
+                                {{ form_label(form.roles) }}
+                                {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.roles) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.description) }}
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.description) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.niveau) }}
+                                {{ form_widget(form.niveau, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.niveau) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.surNom) }}
+                                {{ form_widget(form.surNom, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.surNom) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.badge) }}
+                                {{ form_widget(form.badge, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.badge) }}
+                            </div>
+
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-lg">Save Changes</button>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="{{ path('app_user_index') }}" class="btn btn-secondary mt-3 d-block mx-auto">Back to list</a>
+
+    </div>
+{% endblock %}

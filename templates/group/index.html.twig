@@ -1,37 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Group index{% endblock %}
+{% block title %}Manage Groups{% endblock %}
 
 {% block body %}
-    <h1>Group index</h1>
+    <h1>Manage Groups</h1>
 
+    <h3>Create a New Group</h3>
+    {{ form_start(groupForm) }}
+        {{ form_row(groupForm.nomGroup) }}
+        {{ form_row(groupForm.logo) }}
+
+        <div>
+            <label for="group_gamer">Choose Gamers</label>
+            {{ form_widget(groupForm.gamer) }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Group</button>
+    {{ form_end(groupForm) }}
+
+    <hr>
+
+    <h3>Existing Groups</h3>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>NomGroup</th>
+                <th>ID</th>
+                <th>Name</th>
                 <th>Logo</th>
-                <th>actions</th>
+                <th>Gamers</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for group in groups %}
-            <tr>
-                <td>{{ group.id }}</td>
-                <td>{{ group.nomGroup }}</td>
-                <td>{{ group.logo }}</td>
-                <td>
-                    <a href="{{ path('app_group_show', {'id': group.id}) }}">show</a>
-                    <a href="{{ path('app_group_edit', {'id': group.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for group in groups %}
+                <tr>
+                    <td>{{ group.id }}</td>
+                    <td>{{ group.nomGroup }}</td>
+                    <td>
+                        {% if group.logo %}
+                            <img src="{{ asset(group.getLogo()) }}" alt="{{ group.nomGroup }}" width="50" />
+                        {% else %}
+                            No logo
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for gamer in group.gamer %}
+                            {{ gamer.nom }} {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ path('app_group_edit', {'id': group.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form method="POST" action="{{ path('app_group_delete', {'id': group.id}) }}" style="display:inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ group.id) }}" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">No groups found.</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_group_new') }}">Create new</a>
+    <hr>
+    <a href="{{ path('app_group_index') }}">Back to Group List</a>
+
+    {% for flash_message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
 {% endblock %}
