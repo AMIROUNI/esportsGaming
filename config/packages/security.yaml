@@ -20,14 +20,16 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticators:
-                - App\Security\UserAuthenticator  # Specify custom authenticator
 
+                - App\Security\UserAuthenticator  # Use this to specify your custom authenticator
             logout:
-                path: app_logout  # Path for logout
-                target: app_esports_accueil_  # Redirection after logout
+                path: app_logout
+                # Redirection after logout
+                target: app_esports_accueil_
 
-    # Access control settings (uncomment and configure based on roles)
-    # access_control:
-    #    - { path: ^/profile, roles: ROLE_GAMER }
-    #    - { path: ^/admin, roles: ROLE_ADMIN }
-    #    - { path: ^/coach, roles: ROLE_COACH }
+    # Access control settings
+#    access_control:
+#        - { path: ^/profile, roles: ROLE_GAMER }
+#        - { path: ^/admin, roles: ROLE_ADMIN }
+#        - { path: ^/coach, roles: ROLE_COACH }
+
