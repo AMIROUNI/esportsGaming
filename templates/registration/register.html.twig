@@ -20,15 +20,19 @@
                 {{ form_row(userForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
             </div>
             <div class="mb-3">
-                <label for="roles" class="form-label">Rôles</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="roles[]" id="role_gamer" value="ROLE_GAMER">
-                    <label class="form-check-label" for="role_gamer">Gamer</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="roles[]" id="role_coach" value="ROLE_COACH">
-                    <label class="form-check-label" for="role_coach">Coach</label>
-                </div>
+                {{ form_row(userForm.roles) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(userForm.description, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(userForm.niveau, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(userForm.surNom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(userForm.badge, {'attr': {'class': 'form-control'}}) }}
             </div>
             <div class="d-grid">
                 <button class="btn btn-primary btn-lg">S'inscrire</button>

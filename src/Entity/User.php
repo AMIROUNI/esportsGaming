@@ -19,12 +19,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-
     #[ORM\Column(length: 100)] // Add the "nom" property
     private ?string $nom = null;
 
     #[ORM\Column(length: 100)] // Add the "prenom" property
     private ?string $prenom = null;
+
     /**
      * @var list<string> The user roles
      */
@@ -37,6 +37,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    // New properties
+    #[ORM\Column(type: "text", nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(type: "integer", nullable: true)]
+    private ?int $niveau = null;
+
+    #[ORM\Column(type: "string", length: 100, nullable: true)]
+    private ?string $surNom = null;
+
+    #[ORM\Column(type: "string", length: 100, nullable: true)]
+    private ?string $badge = null;
+
+    // Getters and setters
     public function getId(): ?int
     {
         return $this->id;
@@ -54,33 +68,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     *
-     * @return list<string>
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -88,9 +88,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -103,15 +100,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // Clear sensitive data
     }
-
 
     public function getNom(): ?string
     {
@@ -133,6 +125,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(string $prenom): static
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?int
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?int $niveau): static
+    {
+        $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    public function getSurNom(): ?string
+    {
+        return $this->surNom;
+    }
+
+    public function setSurNom(?string $surNom): static
+    {
+        $this->surNom = $surNom;
+
+        return $this;
+    }
+
+    public function getBadge(): ?string
+    {
+        return $this->badge;
+    }
+
+    public function setBadge(?string $badge): static
+    {
+        $this->badge = $badge;
 
         return $this;
     }

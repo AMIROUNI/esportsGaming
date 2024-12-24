@@ -6,6 +6,8 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,20 +19,35 @@ class UserType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('email')
-            ->add('plainPassword', PasswordType::class, [ // Add plainPassword field
-                'mapped' => false, // Do not map this field to the User entity
+            ->add('plainPassword', PasswordType::class, [
+                'mapped' => false,
                 'required' => true,
-                'label' => 'Password',
+                'label' => 'Mot de passe',
             ])
-            ->add('roles', ChoiceType::class, [ // Champ pour sélectionner un rôle
+            ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'ROLE_GAMER' => 'ROLE_GAMER',   // Affiche "ROLE_GAMER"
-                    'ROLE_COACHE' => 'ROLE_COACHE', // Affiche "ROLE_COACHE"
+                    'ROLE_GAMER' => 'ROLE_GAMER',
+                    'ROLE_COACHE' => 'ROLE_COACHE',
                 ],
-                'multiple' => true, // Permet de sélectionner plusieurs rôles si nécessaire
-                'expanded' => true, // Affiche les choix sous forme de cases à cocher
+                'multiple' => true,
+                'expanded' => true,
+            ])
+            ->add('description', TextType::class, [
+                'required' => false,
+                'label' => 'Description',
+            ])
+            ->add('niveau', IntegerType::class, [
+                'required' => false,
+                'label' => 'Niveau',
+            ])
+            ->add('surNom', TextType::class, [
+                'required' => false,
+                'label' => 'Surnom',
+            ])
+            ->add('badge', TextType::class, [
+                'required' => false,
+                'label' => 'Badge',
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
