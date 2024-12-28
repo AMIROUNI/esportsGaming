@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Form;
-
-use App\Entity\Gamer;
+use App\Entity\Game;
 use App\Entity\Group;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,7 +26,7 @@ class GamerType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Gamer::class,
+            'data_class' => Game::class,
         ]);
     }
 }
