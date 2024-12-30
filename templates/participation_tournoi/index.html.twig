@@ -1,35 +1,40 @@
+{# templates/participation_tournoi/index.html.twig #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}ParticipationTournoi index{% endblock %}
+{% block title %}Participations - {{ tournoi.name }}{% endblock %}
 
 {% block body %}
-    <h1>ParticipationTournoi index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Etat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for participation_tournoi in participation_tournois %}
-            <tr>
-                <td>{{ participation_tournoi.id }}</td>
-                <td>{{ participation_tournoi.etat }}</td>
-                <td>
-                    <a href="{{ path('app_participation_tournoi_show', {'id': participation_tournoi.id}) }}">show</a>
-                    <a href="{{ path('app_participation_tournoi_edit', {'id': participation_tournoi.id}) }}">edit</a>
-                </td>
-            </tr>
+   {% block header %}
+		{{ parent() }}
+	{% endblock %}
+    <h1>Participations pour {{ tournoi.nomTournoi }}</h1>
+
+    {# Displaying any success or error messages #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    
+    {# Displaying the participation form #}
+    <h2>Ajouter une participation</h2>
+    {{ form_start(form) }}
+        {{ form_row(form.etat) }}
+        {{ form_row(form.group) }} {# Displaying the group (partition) field #}
+        {{ form_row(form.tournoi) }} {# Displaying the tournament field, this will be hidden #}
+        <button type="submit" class="btn btn-primary">Enregistrer la participation</button>
+    {{ form_end(form) }}
+
+    <h2>Liste des participations</h2>
+    <ul>
+        {% for participation in participations %}
+            <li>
+                {{ participation.group.nomGroup }} - {{ participation.etat }} 
+                <a href="{{ path('app_participation_tournoi_modifier', {'id': participation.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                <a href="{{ path('app_participation_tournoi_supprimer', {'id': participation.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+            </li>
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+            <li>Aucune participation pour ce tournoi.</li>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_participation_tournoi_new') }}">Create new</a>
+    </ul>
 {% endblock %}

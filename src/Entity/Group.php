@@ -1,4 +1,5 @@
 <?php
+// src/Entity/Group.php
 
 namespace App\Entity;
 
@@ -26,8 +27,10 @@ class Group
      * @var Collection<int, User>
      */
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'groups')]
-    private Collection $gamer;  // Replaced Gamer with User
-
+    #[ORM\JoinTable(name: 'group_gamer')] // Explicit join table name
+    #[ORM\JoinColumn(name: 'group_id', referencedColumnName: 'id')] // Specify join column for Group
+    #[ORM\InverseJoinColumn(name: 'gamer_id', referencedColumnName: 'id')] // Specify join column for User
+    private Collection $gamer;
     public function __construct()
     {
         $this->gamer = new ArrayCollection();
@@ -46,11 +49,9 @@ class Group
     public function setNomGroup(string $nomGroup): static
     {
         $this->nomGroup = $nomGroup;
-
         return $this;
     }
 
-   
     public function getLogo(): ?string
     {
         return $this->logo ? 'upload/images/group/' . $this->logo : null;
@@ -59,7 +60,6 @@ class Group
     public function setLogo(string $logo): static
     {
         $this->logo = $logo;
-
         return $this;
     }
 
@@ -71,19 +71,17 @@ class Group
         return $this->gamer;
     }
 
-    public function addGamer(User $gamer): static  // Updated parameter type to User
+    public function addGamer(User $gamer): static
     {
         if (!$this->gamer->contains($gamer)) {
             $this->gamer->add($gamer);
         }
-
         return $this;
     }
 
-    public function removeGamer(User $gamer): static  // Updated parameter type to User
+    public function removeGamer(User $gamer): static
     {
         $this->gamer->removeElement($gamer);
-
         return $this;
     }
 }

@@ -1,45 +1,142 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tournoi index{% endblock %}
+{% block title %}Tournoi Management{% endblock %}
 
 {% block body %}
-    <h1>Tournoi index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomTournoi</th>
-                <th>Description</th>
-                <th>DateDebut</th>
-                <th>DateFin</th>
-                <th>Recompense</th>
-                <th>MaxParticipants</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tournoi in tournois %}
-            <tr>
-                <td>{{ tournoi.id }}</td>
-                <td>{{ tournoi.nomTournoi }}</td>
-                <td>{{ tournoi.description }}</td>
-                <td>{{ tournoi.dateDebut ? tournoi.dateDebut|date('Y-m-d') : '' }}</td>
-                <td>{{ tournoi.dateFin ? tournoi.dateFin|date('Y-m-d') : '' }}</td>
-                <td>{{ tournoi.recompense }}</td>
-                <td>{{ tournoi.maxParticipants }}</td>
-                <td>
-                    <a href="{{ path('app_tournoi_show', {'id': tournoi.id}) }}">show</a>
-                    <a href="{{ path('app_tournoi_edit', {'id': tournoi.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% block header %}
+		{{ parent() }}
+	{% endblock %}
 
-    <a href="{{ path('app_tournoi_new') }}">Create new</a>
+<div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">🎮 Tournoi Management 🎮</h1>
+
+    <div class="row">
+        <!-- Form Section (left side) -->
+        <div class="col-md-4 mb-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">{{ form.vars.value.id ? 'Edit Tournoi' : 'Create New Tournoi' }}</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="mb-3">
+                        {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <button class="btn btn-success w-100 mt-3">{{ form.vars.value.id ? 'Update' : 'Create' }}</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section (right side) -->
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Tournoi List</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Tournoi Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Reward</th>
+                                <th scope="col">Max Participants</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tournoi in tournois %}
+                                <tr>
+                                    <td>{{ tournoi.nomTournoi }}</td>
+                                    <td>{{ tournoi.description }}</td>
+                                    <td>{{ tournoi.dateDebut ? tournoi.dateDebut|date('Y-m-d') : 'N/A' }}</td>
+                                    <td>{{ tournoi.dateFin ? tournoi.dateFin|date('Y-m-d') : 'N/A' }}</td>
+                                    <td>{{ tournoi.recompense }}</td>
+                                    <td>{{ tournoi.maxParticipants }}</td>
+                                    <td>
+                                        <!-- Edit -->
+                                        <a href="{{ path('app_tournoi_edit', {'id': tournoi.id}) }}" class="btn btn-warning btn-sm text-dark">Edit</a>
+                                        <!-- Participation -->
+                                        <a href="{{ path('app_participation_tournoi_index', {'id': tournoi.id}) }}" class="btn btn-info btn-sm text-dark">Participate</a>
+                                        <!-- Delete -->
+                                        <form action="{{ path('app_tournoi_delete', {'id': tournoi.id}) }}" method="post" onsubmit="return confirm('Are you sure?');" class="d-inline">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tournoi.id) }}">
+                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7" class="text-center">No records found</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    body {
+        background: url('{{ asset('images/bg-fixed-1.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        color: #f5f5f5;
+        font-family: 'Orbitron', sans-serif;
+    }
+    h1 {
+        font-family: 'Orbitron', sans-serif;
+        color: #ffcc00;
+    }
+    h2 {
+        font-family: 'Orbitron', sans-serif;
+        color: #d1d1d1;
+    }
+    .btn {
+        font-weight: bold;
+        border-radius: 5px;
+    }
+    .btn-warning {
+        background: linear-gradient(90deg, #ff8000, #ff6600);
+    }
+    .btn-info {
+        background: linear-gradient(90deg, #17a2b8, #138496);
+    }
+    .btn-danger {
+        background: linear-gradient(90deg, #dc3545, #c82333);
+    }
+    .table-dark {
+        background: #232526;
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+    }
+    .table td, .table th {
+        vertical-align: middle;
+    }
+    .alert {
+        background: #444;
+        color: #f5f5f5;
+    }
+    /* Styling for the input fields to make them uniform */
+    .form-control {
+        background: #1d1d1d;
+        border: 1px solid #ff8000;
+        color: #f5f5f5;
+        border-radius: 5px;
+    }
+    .form-control:focus {
+        background: #1d1d1d;
+        border-color: #ff8000;
+        box-shadow: none;
+    }
+</style>
 {% endblock %}

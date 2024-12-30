@@ -1,12 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit ProgrammeCoaching{% endblock %}
+{% block title %}Modifier le Programme de Coaching{% endblock %}
 
 {% block body %}
-    <h1>Edit ProgrammeCoaching</h1>
+    <div class="container my-5">
+        <h1 class="text-center text-primary mb-5">🎮 Modifier le Programme de Coaching 🎮</h1>
 
-    {{ include('programme_coaching/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="row">
+            <!-- Form Section (for editing a specific programme) -->
+            <div class="col-md-6 mb-5">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-dark text-white">
+                        <h4 class="mb-0">Modifier le Programme</h4>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="mb-3">
+                            {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <button class="btn btn-success w-100 mt-3">Mettre à jour</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('app_programme_coaching_index') }}">back to list</a>
-
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background: url('{{ asset('images/bg-fixed-3.jpg') }}') no-repeat center center fixed;
+            background-size: cover;
+            color: #f5f5f5;
+        }
+        .card {
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #20233a, #1d1e2f);
+        }
+        .btn {
+            font-weight: bold;
+        }
+        .btn-warning {
+            background: linear-gradient(90deg, #ff8000, #ff6600);
+        }
+        .btn-success {
+            background: linear-gradient(90deg, #28a745, #218838);
+        }
+        .btn-danger {
+            background: linear-gradient(90deg, #dc3545, #c82333);
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #ffcc00;
+        }
+    </style>
 {% endblock %}

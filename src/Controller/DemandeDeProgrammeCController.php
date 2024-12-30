@@ -11,19 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/demande/de/programme/c')]
+#[Route('/demandeDeprogrammeC')]
 final class DemandeDeProgrammeCController extends AbstractController
 {
-    #[Route(name: 'app_demande_de_programme_c_index', methods: ['GET'])]
-    public function index(DemandeDeProgrammeCRepository $demandeDeProgrammeCRepository): Response
-    {
-        return $this->render('demande_de_programme_c/index.html.twig', [
-            'demande_de_programme_cs' => $demandeDeProgrammeCRepository->findAll(),
-        ]);
-    }
+   
 
-    #[Route('/new', name: 'app_demande_de_programme_c_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('', name: 'app_demande_de_programme_c_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager,DemandeDeProgrammeCRepository $demandeDeProgrammeCRepository): Response
     {
         $demandeDeProgrammeC = new DemandeDeProgrammeC();
         $form = $this->createForm(DemandeDeProgrammeCType::class, $demandeDeProgrammeC);
@@ -33,13 +27,15 @@ final class DemandeDeProgrammeCController extends AbstractController
             $entityManager->persist($demandeDeProgrammeC);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_demande_de_programme_c_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_demande_de_programme_c_new', [], Response::HTTP_SEE_OTHER);
         }
+        $dc=$demandeDeProgrammeCRepository->findAll();
 
         return $this->render('demande_de_programme_c/new.html.twig', [
             'demande_de_programme_c' => $demandeDeProgrammeC,
             'form' => $form,
-        ]);
+            'demande_de_programme_cs'=>$dc       
+         ]);
     }
 
     #[Route('/{id}', name: 'app_demande_de_programme_c_show', methods: ['GET'])]
@@ -59,7 +55,7 @@ final class DemandeDeProgrammeCController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_demande_de_programme_c_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_demande_de_programme_c_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('demande_de_programme_c/edit.html.twig', [
@@ -76,6 +72,6 @@ final class DemandeDeProgrammeCController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_demande_de_programme_c_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_demande_de_programme_c_new', [], Response::HTTP_SEE_OTHER);
     }
 }

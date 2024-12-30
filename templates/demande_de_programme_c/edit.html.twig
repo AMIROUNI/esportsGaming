@@ -1,13 +1,103 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit DemandeDeProgrammeC{% endblock %}
+{% block title %}📑 Edit DemandeDeProgrammeC 📑{% endblock %}
 
 {% block body %}
-    <h1>Edit DemandeDeProgrammeC</h1>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="text-center text-warning">📑 Edit DemandeDeProgrammeC 📑</h1>
+        </div>
+        <div class="card-body">
+            <!-- Include the form -->
+            <section class="form-section mb-5 p-4" style="background-color: #333; border-radius: 8px;">
+                {{ include('demande_de_programme_c/_form.html.twig', {'button_label': 'Update'}) }}
+            </section>
 
-    {{ include('demande_de_programme_c/_form.html.twig', {'button_label': 'Update'}) }}
+            <!-- Back to list button -->
+            <a href="{{ path('app_demande_de_programme_c_index') }}" class="btn btn-secondary mt-3">Back to list</a>
 
-    <a href="{{ path('app_demande_de_programme_c_index') }}">back to list</a>
+            <!-- Delete form -->
+            {{ include('demande_de_programme_c/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
 
-    {{ include('demande_de_programme_c/_delete_form.html.twig') }}
+<style>
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #162447);
+        color: #f5f5f5;
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    h1, h2 {
+        font-family: 'Orbitron', sans-serif;
+        color: #ffcc00;
+    }
+
+    .btn {
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .btn-success {
+        background: linear-gradient(90deg, #4CAF50, #388E3C);
+        border: none;
+    }
+
+    .btn-warning {
+        background: linear-gradient(90deg, #ff8000, #ff6600);
+        border: none;
+    }
+
+    .btn-danger {
+        background: linear-gradient(90deg, #dc3545, #c82333);
+        border: none;
+    }
+
+    .table-dark {
+        background: #232526;
+        color: #f5f5f5;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+    }
+
+    .form-control {
+        background: #444;
+        border: 1px solid #ff8000;
+        color: #f5f5f5;
+        border-radius: 5px;
+    }
+
+    .form-control:focus {
+        background: #444;
+        border-color: #ff8000;
+        box-shadow: none;
+    }
+
+    .form-control-file {
+        background: #444;
+        border: 1px solid #ff8000;
+        color: #f5f5f5;
+        border-radius: 5px;
+    }
+
+    .form-control-file:focus {
+        background: #444;
+        border-color: #ff8000;
+        box-shadow: none;
+    }
+
+    .container {
+        margin-top: 50px;
+    }
+</style>
 {% endblock %}

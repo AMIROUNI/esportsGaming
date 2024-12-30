@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\User1Type;
 use App\Form\UserType;
 use App\Repository\GroupRepository;
 use App\Repository\UserRepository;
@@ -24,8 +22,10 @@ final class UserController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-    #[Route(name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository,GroupRepository $groupRepository,Request $request, UserPasswordHasherInterface $passwordHasher): Response
+
+    // Adjusting the route to handle both GET and POST requests for user creation
+    #[Route(name: 'app_user_index', methods: ['GET', 'POST'])]
+    public function index(Request $request, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository, GroupRepository $groupRepository): Response
     {
         $user = new User();
 
@@ -48,13 +48,14 @@ final class UserController extends AbstractController
             $this->addFlash('success', 'Registration successful! You can now log in.');
 
             // Redirecting to the home page after registration
-            return $this->redirectToRoute('app_esports_accueil_');
+            return $this->redirectToRoute('app_user_index');
         }
+
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
             'user' => $user,
             'userForm' => $form->createView(),
-            'groups'=>$groupRepository->findAll(),
+            'groups' => $groupRepository->findAll(),
         ]);
     }
 
@@ -79,8 +80,8 @@ final class UserController extends AbstractController
         }
 
         return $this->render('user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
+            'users' => $user,
+            'userForm' => $form->createView(),
         ]);
     }
 

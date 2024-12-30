@@ -1,11 +1,103 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New DemandeDeProgrammeC{% endblock %}
+{% block title %}Manage DemandeDeProgrammeC{% endblock %}
 
 {% block body %}
-    <h1>Create new DemandeDeProgrammeC</h1>
+  {% block header %}
+		{{ parent() }}
+	{% endblock %}
+<div class="container my-5">
+    <h1 class="text-center text-primary mb-5">🎮 Manage Demande De Programme C 🎮</h1>
 
-    {{ include('demande_de_programme_c/_form.html.twig') }}
+    <div class="row">
+        <!-- Form Section -->
+        <div class="col-md-4 mb-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Create New Demande</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+                    <button class="btn btn-success w-100 mt-3">Submit</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
 
-    <a href="{{ path('app_demande_de_programme_c_index') }}">back to list</a>
+        <!-- Table Section -->
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Existing Demandes</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Gamer</th>
+                               
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for demande_de_programme_c in demande_de_programme_cs %}
+                            <tr>
+                                <td>{{ demande_de_programme_c.id }}</td>
+                                <td>
+                                    <span class="badge 
+                                        {% if demande_de_programme_c.etat == 'pending' %}bg-warning text-dark
+                                        {% elseif demande_de_programme_c.etat == 'approved' %}bg-success
+                                        {% else %}bg-danger {% endif %}
+                                    ">
+                                       
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ path('app_demande_de_programme_c_show', {'id': demande_de_programme_c.id}) }}" 
+                                       class="btn btn-info btn-sm me-2">View</a>
+                                    <a href="{{ path('app_demande_de_programme_c_edit', {'id': demande_de_programme_c.id}) }}" 
+                                       class="btn btn-primary btn-sm me-2">Edit</a>
+                                    <form method="post" action="{{ path('app_demande_de_programme_c_delete', {'id': demande_de_programme_c.id}) }}" 
+                                          class="d-inline">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ demande_de_programme_c.id) }}">
+                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center">No records found.</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #1e1e2f, #162447);
+        color: #f5f5f5;
+    }
+    .card {
+        border-radius: 1rem;
+    }
+    .btn {
+        font-weight: bold;
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+    h1 {
+        font-family: 'Orbitron', sans-serif;
+    }
+    .badge {
+        font-size: 0.9rem;
+    }
+</style>
 {% endblock %}

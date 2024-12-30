@@ -3,11 +3,106 @@
 {% block title %}Edit Tournoi{% endblock %}
 
 {% block body %}
-    <h1>Edit Tournoi</h1>
+<div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">🎮 Edit Tournoi 🎮</h1>
 
-    {{ include('tournoi/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="row">
+        <!-- Form Section (left side) -->
+        <div class="col-md-4 mb-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Edit Tournoi</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="mb-3">
+                        <label for="nomTournoi" class="form-label">Tournoi Name</label>
+                        {{ form_widget(form.nomTournoi, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateDebut" class="form-label">Start Date</label>
+                        {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateFin" class="form-label">End Date</label>
+                        {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="recompense" class="form-label">Reward</label>
+                        {{ form_widget(form.recompense, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="maxParticipants" class="form-label">Max Participants</label>
+                        {{ form_widget(form.maxParticipants, {'attr': {'class': 'form-control'}}) }}
+                    </div>
 
-    <a href="{{ path('app_tournoi_index') }}">back to list</a>
+                    <button class="btn btn-success w-100 mt-3">Update Tournoi</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    {{ include('tournoi/_delete_form.html.twig') }}
+<!-- Custom Styles -->
+<style>
+    body {
+        background: url('{{ asset('images/bg-fixed-1.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        color: #f5f5f5;
+        font-family: 'Orbitron', sans-serif;
+    }
+    h1 {
+        font-family: 'Orbitron', sans-serif;
+        color: #ffcc00;
+    }
+    h2 {
+        font-family: 'Orbitron', sans-serif;
+        color: #d1d1d1;
+    }
+    .btn {
+        font-weight: bold;
+        border-radius: 5px;
+    }
+    .btn-warning {
+        background: linear-gradient(90deg, #ff8000, #ff6600);
+    }
+    .btn-info {
+        background: linear-gradient(90deg, #17a2b8, #138496);
+    }
+    .btn-danger {
+        background: linear-gradient(90deg, #dc3545, #c82333);
+    }
+    .table-dark {
+        background: #232526;
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+    }
+    .table td, .table th {
+        vertical-align: middle;
+    }
+    .alert {
+        background: #444;
+        color: #f5f5f5;
+    }
+    /* Styling for the input fields to make them uniform */
+    .form-control {
+        background: #1d1d1d;
+        border: 1px solid #ff8000;
+        color: #f5f5f5;
+        border-radius: 5px;
+    }
+    .form-control:focus {
+        background: #1d1d1d;
+        border-color: #ff8000;
+        box-shadow: none;
+    }
+</style>
 {% endblock %}

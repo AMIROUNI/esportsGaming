@@ -22,7 +22,7 @@ class LpType extends AbstractType
             ])
             ->add('produit', EntityType::class, [
                 'class' => Produit::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nomProduits',
             ])
         ;
     }

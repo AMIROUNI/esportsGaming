@@ -1,71 +1,179 @@
-{# templates/contenu/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Gestion des Contenus{% endblock %}
+
 {% block body %}
-    {% block navbar %}
-        {{ parent() }}
-    {% endblock %}
-<div class="container mt-4">
-    <h1>Gestion des Contenus</h1>
+    {% block header %}
+		{{ parent() }}
+	{% endblock %}
 
-    <section class="form-section mb-5">
-        {{ form_start(form) }}
-        {{ form_row(form.titre) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.image) }}
-        <button class="btn btn-primary">Enregistrer</button>
-        {{ form_end(form) }}
-    </section>
+    <div class="container mt-4">
+        <h1 class="text-center text-warning mb-4">📄 Gestion des Contenus 📄</h1>
 
-    <section class="contenu-list">
-        <h2 class="h3">Liste des Contenus</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Titre</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Date</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for contenu in contenus %}
-                    <tr>
-                        <td>{{ contenu.id }}</td>
-                        <td>{{ contenu.titre }}</td>
-                        <td>{{ contenu.description }}</td>
-                        <td>
-                            {% if contenu.image %}
-                                <img src="{{ asset(contenu.image) }}" alt="{{ contenu.titre }}" style="max-width: 100px;">
-                            {% else %}
-                                <span class="text-muted">Pas d'image</span>
-                            {% endif %}
-                        </td>
-                        <td>{{ contenu.data|date('Y-m-d H:i') }}</td>
-                        <td>
-                            <a href="{{ path('app_contenu_delete', {'id': contenu.id}) }}" class="btn btn-info btn-sm">Delete</a>
-                            <a href="{{ path('app_contenu_edit', {'id': contenu.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="5" class="text-center">Aucun contenu trouvé</td>
-                    </tr>
+        <div class="row">
+            <!-- Form Section (Left Side) -->
+            <div class="col-md-6">
+                <section class="form-section mb-5 p-4" style="background-color: #333; border-radius: 8px;">
+                    {{ form_start(form, { 'attr': { 'class': 'form-horizontal' } }) }}
+                        <div class="mb-3">
+                            {{ form_widget(form.titre, {
+                                'attr': {
+                                    'class': 'form-control form-control-lg',
+                                    'style': 'background: #444; color: #f5f5f5; border: 1px solid #ff8000;',
+                                    'placeholder': 'Entrez le titre du contenu'
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_widget(form.description, {
+                                'attr': {
+                                    'class': 'form-control form-control-lg',
+                                    'style': 'background: #444; color: #f5f5f5; border: 1px solid #ff8000;',
+                                    'placeholder': 'Entrez une description du contenu'
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_widget(form.image, {
+                                'attr': {
+                                    'class': 'form-control-file',
+                                    'style': 'background: #444; color: #f5f5f5; border: 1px solid #ff8000;',
+                                    'placeholder': 'Sélectionnez une image'
+                                }
+                            }) }}
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">{{ form.vars.value.id ? 'Mettre à jour' : 'Enregistrer' }}</button>
+                    {{ form_end(form) }}
+                </section>
+            </div>
 
-                   
+            <!-- Table Section (Right Side) -->
+            <div class="col-md-6">
+                <section class="contenu-list">
+                    <h2 class="h3 text-center text-info">Liste des Contenus</h2>
+                    <div class="table-responsive mt-4">
+                        <table class="table table-bordered text-center table-dark">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Titre</th>
+                                    <th>Description</th>
+                                    <th>Image</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for contenu in contenus %}
+                                    <tr>
+                                        <td>{{ contenu.id }}</td>
+                                        <td>{{ contenu.titre }}</td>
+                                        <td>{{ contenu.description }}</td>
+                                        <td>
+                                            {% if contenu.image %}
+                                                <img src="{{ asset(contenu.image) }}" alt="{{ contenu.titre }}" style="max-width: 100px;">
+                                            {% else %}
+                                                <span class="text-muted">Pas d'image</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ contenu.data|date('Y-m-d H:i') }}</td>
+                                        <td>
+                                            <!-- Delete Button -->
+                                            <a href="{{ path('app_contenu_delete', {'id': contenu.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</a>
+                                            <!-- Edit Button -->
+                                            <a href="{{ path('app_contenu_edit', {'id': contenu.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="text-center">Aucun contenu trouvé</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 
-                      
+    <style>
+        body {
+            background: url('{{ asset('images/bg-fixed-2.jpg') }}') no-repeat center center fixed;
+            background-size: cover;
+            color: #f5f5f5;
+            font-family: 'Orbitron', sans-serif;
+        }
 
+        h1, h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #ffcc00;
+        }
 
-                
-                {% endfor %}
+        .btn {
+            font-weight: bold;
+            border-radius: 5px;
+        }
 
-            </tbody>
-        </table>
-    </section>
-</div>
+        .btn-success {
+            background: linear-gradient(90deg, #4CAF50, #388E3C);
+            border: none;
+        }
+
+        .btn-warning {
+            background: linear-gradient(90deg, #ff8000, #ff6600);
+            border: none;
+        }
+
+        .btn-danger {
+            background: linear-gradient(90deg, #dc3545, #c82333);
+            border: none;
+        }
+
+        .table-dark {
+            background: #232526;
+            color: #f5f5f5;
+        }
+
+        .table td, .table th {
+            vertical-align: middle;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(0, 123, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+        }
+
+        .form-control {
+            background: #444;
+            border: 1px solid #ff8000;
+            color: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .form-control:focus {
+            background: #444;
+            border-color: #ff8000;
+            box-shadow: none;
+        }
+
+        .form-control-file {
+            background: #444;
+            border: 1px solid #ff8000;
+            color: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .form-control-file:focus {
+            background: #444;
+            border-color: #ff8000;
+            box-shadow: none;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+
 {% endblock %}

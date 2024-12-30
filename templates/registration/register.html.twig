@@ -3,41 +3,77 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="card p-4" style="width: 100%; max-width: 500px;">
-        <h1 class="h4 mb-3 text-center font-weight-normal">Inscription</h1>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh; background: linear-gradient(135deg, #3a003c, #660033);">
+    <div class="card p-4" style="width: 100%; max-width: 500px; background: rgba(0, 0, 0, 0.7); border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);">
+        <h1 class="h4 mb-4 text-center text-danger font-weight-normal" style="font-family: 'Orbitron', sans-serif;">Inscription</h1>
+        
         {{ form_start(userForm) }}
             <div class="mb-3">
-                {{ form_row(userForm.nom, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(userForm.nom, {'attr': {'class': 'form-control form-control-lg text-white', 'style': 'background: #333; border-color: #ff4d4d;'}}) }}
             </div>
             <div class="mb-3">
-                {{ form_row(userForm.prenom, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(userForm.prenom, {'attr': {'class': 'form-control form-control-lg text-white', 'style': 'background: #333; border-color: #ff4d4d;'}}) }}
             </div>
             <div class="mb-3">
-                {{ form_row(userForm.email, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(userForm.email, {'attr': {'class': 'form-control form-control-lg text-white', 'style': 'background: #333; border-color: #ff4d4d;'}}) }}
             </div>
             <div class="mb-3">
-                {{ form_row(userForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(userForm.plainPassword, {'attr': {'class': 'form-control form-control-lg text-white', 'style': 'background: #333; border-color: #ff4d4d;'}}) }}
             </div>
             <div class="mb-3">
-                {{ form_row(userForm.roles) }}
+                {{ form_row(userForm.roles, {'attr': {'class': 'form-control form-control-lg text-white', 'style': 'background: #333; border-color: #ff4d4d;'}}) }}
             </div>
             <div class="mb-3">
-                {{ form_row(userForm.description, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(userForm.description, {'attr': {'class': 'form-control form-control-lg text-white', 'style': 'background: #333; border-color: #ff4d4d;'}}) }}
             </div>
             <div class="mb-3">
-                {{ form_row(userForm.niveau, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(userForm.niveau, {'attr': {'class': 'form-control form-control-lg text-white', 'style': 'background: #333; border-color: #ff4d4d;'}}) }}
             </div>
             <div class="mb-3">
-                {{ form_row(userForm.surNom, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(userForm.surNom, {'attr': {'class': 'form-control form-control-lg text-white', 'style': 'background: #333; border-color: #ff4d4d;'}}) }}
             </div>
             <div class="mb-3">
-                {{ form_row(userForm.badge, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(userForm.badge, {'attr': {'class': 'form-control form-control-lg text-white', 'style': 'background: #333; border-color: #ff4d4d;'}}) }}
             </div>
             <div class="d-grid">
-                <button class="btn btn-primary btn-lg">S'inscrire</button>
+                <button class="btn btn-danger btn-lg">S'inscrire</button>
             </div>
         {{ form_end(userForm) }}
     </div>
 </div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #3a003c, #660033);
+        color: #f5f5f5;
+        font-family: 'Orbitron', sans-serif;
+    }
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    .btn-danger {
+        background: linear-gradient(90deg, #ff4d4d, #ff1a1a);
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    .form-control {
+        background: #333;
+        border: 1px solid #ff4d4d;
+        color: #fff;
+        border-radius: 5px;
+    }
+    .form-control:focus {
+        background: #333;
+        border-color: #ff4d4d;
+        box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
+    }
+    .h4 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.5rem;
+    }
+    .d-grid {
+        margin-top: 20px;
+    }
+</style>
 {% endblock %}

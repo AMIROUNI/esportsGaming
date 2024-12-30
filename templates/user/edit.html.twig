@@ -1,85 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}🎮 User Registration 🎮{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <!-- Red title and centered -->
-        <h1 class="text-center text-danger">Edit User</h1>
-        
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Edit User Information</h4>
+<div class="container my-5">
+    <h1 class="text-center text-warning mb-5">🎮 User Registration 🎮</h1>
+
+    <div class="row">
+        <!-- Form Section -->
+        <div class="col-md-6 mb-5 mx-auto">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Create New User</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(userForm) }}
+                    <div class="mb-3">
+                        {{ form_label(userForm.nom, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(userForm.nom, {'attr': {'class': 'form-control'}}) }}
                     </div>
-                    <div class="card-body">
-                        {{ form_start(form) }}
-                            <div class="mb-3">
-                                {{ form_label(form.nom) }}
-                                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.nom) }}
-                            </div>
-
-                            <div class="mb-3">
-                                {{ form_label(form.prenom) }}
-                                {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.prenom) }}
-                            </div>
-
-                            <div class="mb-3">
-                                {{ form_label(form.email) }}
-                                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.email) }}
-                            </div>
-
-                            <div class="mb-3">
-                                {{ form_label(form.plainPassword) }}
-                                {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.plainPassword) }}
-                            </div>
-
-                            <!-- Roles field as a select dropdown -->
-                            <div class="mb-3">
-                                {{ form_label(form.roles) }}
-                                {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.roles) }}
-                            </div>
-
-                            <div class="mb-3">
-                                {{ form_label(form.description) }}
-                                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.description) }}
-                            </div>
-
-                            <div class="mb-3">
-                                {{ form_label(form.niveau) }}
-                                {{ form_widget(form.niveau, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.niveau) }}
-                            </div>
-
-                            <div class="mb-3">
-                                {{ form_label(form.surNom) }}
-                                {{ form_widget(form.surNom, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.surNom) }}
-                            </div>
-
-                            <div class="mb-3">
-                                {{ form_label(form.badge) }}
-                                {{ form_widget(form.badge, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.badge) }}
-                            </div>
-
-                            <div class="d-grid">
-                                <button class="btn btn-primary btn-lg">Save Changes</button>
-                            </div>
-                        {{ form_end(form) }}
+                    <div class="mb-3">
+                        {{ form_label(userForm.prenom, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(userForm.prenom, {'attr': {'class': 'form-control'}}) }}
                     </div>
+                    <div class="mb-3">
+                        {{ form_label(userForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(userForm.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(userForm.plainPassword, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(userForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <!-- Roles Field as a select dropdown -->
+                    <div class="mb-3">
+                        {{ form_label(userForm.roles, 'Roles', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(userForm.roles, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(userForm.description, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(userForm.description, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(userForm.niveau, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(userForm.niveau, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(userForm.surNom, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(userForm.surNom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(userForm.badge, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(userForm.badge, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 mt-3">Register</button>
+                    {{ form_end(userForm) }}
                 </div>
             </div>
         </div>
-
-        <a href="{{ path('app_user_index') }}" class="btn btn-secondary mt-3 d-block mx-auto">Back to list</a>
-
     </div>
+</div>
+
+<!-- Custom Style for File Input -->
+<style>
+    body {
+        background: url('{{ asset('images/bg-fixed-2.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        color: #f5f5f5;
+    }
+    .card {
+        border-radius: 1rem;
+    }
+    .btn {
+        font-weight: bold;
+    }
+    h1, h4 {
+        font-family: 'Orbitron', sans-serif;
+    }
+    .custom-file {
+        position: relative;
+        width: 100%;
+    }
+    .custom-file .custom-file-input {
+        cursor: pointer;
+        width: 100%;
+        height: calc(2.25rem + 2px);
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        padding: 0.375rem 1.25rem;
+    }
+    .custom-file .custom-file-input:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+</style>
 {% endblock %}

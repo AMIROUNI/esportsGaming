@@ -26,13 +26,13 @@ class UserType extends AbstractType
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'ROLE_GAMER' => 'ROLE_GAMER',
-                    'ROLE_COACHE' => 'ROLE_COACHE',
+                    'Gamer' => 'ROLE_GAMER',
+                    'Coach' => 'ROLE_COACHE',
                 ],
-                'multiple' => true,  // Allow multiple selection
-                'expanded' => false, // Use a select dropdown instead of checkboxes
-                'label' => 'Roles', // Optional: You can add a label for the select
-                'attr' => ['class' => 'form-control'], // Optional: Add Bootstrap class for styling
+                'multiple' => true,  // Permet la sélection multiple
+                'expanded' => true,  // Affiche des cases à cocher
+                'label' => 'Roles', // Libellé pour les rôles
+                'attr' => ['class' => 'form-check'], // Optionnel : Ajoute une classe CSS pour le style
             ])
             ->add('description', TextType::class, [
                 'required' => false,
@@ -51,5 +51,11 @@ class UserType extends AbstractType
                 'label' => 'Badge',
             ]);
     }
-    
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => User::class,
+        ]);
+    }
 }

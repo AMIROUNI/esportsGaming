@@ -1,18 +1,123 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Contenu{% endblock %}
+{% block title %}Gestion des Contenus{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header">
-            <h1>Edit Contenu</h1>
+    <div class="container mt-4">
+        <h1 class="text-center text-warning mb-4">📄 Gestion des Contenus 📄</h1>
+
+        <div class="row justify-content-center">
+            <!-- Form Section -->
+            <div class="col-md-6">
+                <section class="form-section mb-5 p-4" style="background-color: #333; border-radius: 8px;">
+                    {{ form_start(form, { 'attr': { 'class': 'form-horizontal' } }) }}
+                        <div class="mb-3">
+                            {{ form_widget(form.titre, {
+                                'attr': {
+                                    'class': 'form-control form-control-lg',
+                                    'style': 'background: #444; color: #f5f5f5; border: 1px solid #ff8000;',
+                                    'placeholder': 'Entrez le titre du contenu'
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_widget(form.description, {
+                                'attr': {
+                                    'class': 'form-control form-control-lg',
+                                    'style': 'background: #444; color: #f5f5f5; border: 1px solid #ff8000;',
+                                    'placeholder': 'Entrez une description du contenu'
+                                }
+                            }) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_widget(form.image, {
+                                'attr': {
+                                    'class': 'form-control-file',
+                                    'style': 'background: #444; color: #f5f5f5; border: 1px solid #ff8000;',
+                                    'placeholder': 'Sélectionnez une image'
+                                }
+                            }) }}
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">{{ form.vars.value.id ? 'Mettre à jour' : 'Enregistrer' }}</button>
+                    {{ form_end(form) }}
+                </section>
+            </div>
         </div>
-        <div class="card-body">
-            {{ include('contenu/_form.html.twig', {'button_label': 'Update'}) }}
-            <a href="{{ path('app_contenu_index') }}" class="btn btn-secondary mt-3">Back to list</a>
-        </div>
-     
     </div>
-</div>
+
+    <style>
+        body {
+            background: url('{{ asset('images/bg-fixed-2.jpg') }}') no-repeat center center fixed;
+            background-size: cover;
+            color: #f5f5f5;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        h1, h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #ffcc00;
+        }
+
+        .btn {
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .btn-success {
+            background: linear-gradient(90deg, #4CAF50, #388E3C);
+            border: none;
+        }
+
+        .btn-warning {
+            background: linear-gradient(90deg, #ff8000, #ff6600);
+            border: none;
+        }
+
+        .btn-danger {
+            background: linear-gradient(90deg, #dc3545, #c82333);
+            border: none;
+        }
+
+        .form-control {
+            background: #444;
+            border: 1px solid #ff8000;
+            color: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .form-control:focus {
+            background: #444;
+            border-color: #ff8000;
+            box-shadow: none;
+        }
+
+        .form-control-file {
+            background: #444;
+            border: 1px solid #ff8000;
+            color: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .form-control-file:focus {
+            background: #444;
+            border-color: #ff8000;
+            box-shadow: none;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .row.justify-content-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full screen height */
+        }
+
+        .col-md-6 {
+            max-width: 500px; /* Optional: Limit the maximum width of the form */
+        }
+    </style>
+
 {% endblock %}

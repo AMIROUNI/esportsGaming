@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Commande;
-use App\Entity\Gamer;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,12 +16,14 @@ class CommandeType extends AbstractType
         $builder
             ->add('dateDeCommande', null, [
                 'widget' => 'single_text',
+                'label' => 'Date de Commande',
             ])
             ->add('gamer', EntityType::class, [
-                'class' => Gamer::class,
-                'choice_label' => 'id',
-            ])
-        ;
+                'class' => User::class,
+                'choice_label' => 'nom', // Assumes User entity has a "name" property
+                'label' => 'Gamer',
+                'placeholder' => 'Choisir un gamer',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

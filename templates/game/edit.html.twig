@@ -1,28 +1,87 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Game{% endblock %}
+{% block title %}🎮 Edit Game 🎮{% endblock %}
 
 {% block body %}
+<div class="container my-5">
+    <h1 class="text-center text-primary mb-5">🎮 Edit Game 🎮</h1>
 
-    <section class="form-section mb-5">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;"> <!-- Container centré -->
-                    <div class="row justify-content-center"> <!-- Centrer les éléments dans la ligne -->
-                        <div class="col-12 col-md-8 col-lg-6"> <!-- Contrôle de la taille de la colonne -->
-                            <h1 class="text-center mb-4">Edit Game</h1>
-
-                            {{ include('game/_form.html.twig', {'button_label': 'Update'}) }}
-
-                            <!-- Lien vers la liste des jeux centré -->
-                            <div class="d-flex justify-content-center mt-4">
-                                <a href="{{ path('app_game_index') }}" class="btn btn-secondary">Back to list</a>
-                            </div>
+    <div class="row">
+        <!-- Form Section -->
+        <div class="col-md-6 mb-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Edit Game</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="mb-3">
+                        {{ form_label(form.nom, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.image, null, {'label_attr': {'class': 'form-label'}}) }}
+                        <div class="custom-file">
+                            {{ form_widget(form.image, {'attr': {'class': 'form-control custom-file-input'}}) }}
                         </div>
                     </div>
+                    <button class="btn btn-success w-100 mt-3">Submit</button>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
+    <!-- Super Mario character animation -->
+    <div class="super-mario-animation" style="position: absolute; bottom: 20px; left: 20px;">
+        <img src="{{ asset('images/favicon.png') }}" alt="Super Mario" style="width: 100px; animation: marioMove 5s infinite;">
+    </div>
+</div>
+
+<!-- Custom Style for File Input -->
+<style>
+    body {
+        background: url('{{ asset('images/bg-fixed-2.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        color: #f5f5f5;
+    }
+    .card {
+        border-radius: 1rem;
+    }
+    .btn {
+        font-weight: bold;
+    }
+    h1, h4 {
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Super Mario animation */
+    @keyframes marioMove {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(10px); }
+        50% { transform: translateX(20px); }
+        75% { transform: translateX(10px); }
+        100% { transform: translateX(0); }
+    }
+
+    /* Custom Style for File Input */
+    .custom-file {
+        position: relative;
+        width: 100%;
+    }
+    .custom-file .custom-file-input {
+        cursor: pointer;
+        width: 100%;
+        height: calc(2.25rem + 2px);
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        padding: 0.375rem 1.25rem;
+    }
+    .custom-file .custom-file-input:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+</style>
 {% endblock %}

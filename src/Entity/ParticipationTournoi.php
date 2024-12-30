@@ -17,8 +17,9 @@ class ParticipationTournoi
     #[ORM\Column(type: 'string', enumType: EtatDeParticipationTournoi::class)]
     private EtatDeParticipationTournoi $etat;
 
-    #[ORM\ManyToOne(inversedBy: 'participationTournoi')]
-    private ?User $gamer = null;  // Replaced Gamer with User
+    #[ORM\ManyToOne(targetEntity: Group::class)]
+    #[ORM\JoinColumn(name: 'group_id', referencedColumnName: 'id')] 
+    private ?Group $group = null;
 
     #[ORM\ManyToOne(inversedBy: 'participationTournois')]
     #[ORM\JoinColumn(nullable: false)]
@@ -40,15 +41,14 @@ class ParticipationTournoi
         return $this;
     }
 
-    public function getGamer(): ?User
+    public function getGroup(): ?Group
     {
-        return $this->gamer;  // Return User instead of Gamer
+        return $this->group;
     }
 
-    public function setGamer(?User $gamer): static
+    public function setGroup(?Group $group): static
     {
-        $this->gamer = $gamer;
-
+        $this->group = $group;
         return $this;
     }
 
@@ -60,7 +60,6 @@ class ParticipationTournoi
     public function setTournoi(?Tournoi $tournoi): static
     {
         $this->tournoi = $tournoi;
-
         return $this;
     }
 }

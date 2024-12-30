@@ -1,13 +1,92 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Produit{% endblock %}
+{% block title %}🎮 Edit Product 🎮{% endblock %}
 
 {% block body %}
-    <h1>Edit Produit</h1>
+<div class="container my-5">
+    <h1 class="text-center text-primary mb-5">🎮 Edit Your Product 🎮</h1>
 
-    {{ include('produit/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="row justify-content-center">
+        <!-- Form Section -->
+        <div class="col-md-6 mb-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Edit Product</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="mb-3">
+                        {{ form_label(form.nomProduits, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.nomProduits, {'attr': {'class': 'form-control game-input'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.prix, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.prix, {'attr': {'class': 'form-control game-input'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.image, null, {'label_attr': {'class': 'form-label'}}) }}
+                        <div class="custom-file">
+                            {{ form_widget(form.image, {'attr': {'class': 'form-control game-input custom-file-input'}}) }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.rating, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.rating, {'attr': {'class': 'form-control game-input'}}) }}
+                    </div>
+                    <button class="btn btn-success w-100 mt-3">Update</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <a href="{{ path('app_produit_index') }}">back to list</a>
+<!-- Custom Styles -->
+<style>
+    body {
+        background: url('{{ asset('images/bg-fixed-3.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        color: #f5f5f5;
+    }
 
-    {{ include('produit/_delete_form.html.twig') }}
+    .card {
+        border-radius: 1rem;
+    }
+
+    .btn {
+        font-weight: bold;
+    }
+
+    h1, h4 {
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Custom styling for form inputs */
+    .game-input {
+        background-color: #212529;
+        border: 1px solid #495057;
+        color: #f8f9fa;
+    }
+
+    .game-input:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+
+    /* Custom Style for File Input */
+    .custom-file .custom-file-input {
+        cursor: pointer;
+        background-color: #212529;
+        color: #f8f9fa;
+        border: 1px solid #495057;
+    }
+
+    .custom-file .custom-file-input:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+</style>
+
 {% endblock %}

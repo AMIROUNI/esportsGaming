@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Produit;
 use App\Form\ProduitType;
+use App\Repository\LpRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -94,4 +95,19 @@ class ProduitController extends AbstractController
             }
         }
     }
+
+
+
+
+#[Route('/produit/{id}', name: 'app_lp_by_produit', methods: ['GET'])]
+public function findByProduit(Produit $produit, LpRepository $lpRepository): Response
+{
+    $lps = $lpRepository->findBy(['produit' => $produit]);
+
+    return $this->render('lp/index.html.twig', [
+        'lps' => $lps,
+        'produit' => $produit,
+    ]);
+}
+
 }

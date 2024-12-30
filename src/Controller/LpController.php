@@ -14,16 +14,10 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/lp')]
 final class LpController extends AbstractController
 {
-    #[Route(name: 'app_lp_index', methods: ['GET'])]
-    public function index(LpRepository $lpRepository): Response
-    {
-        return $this->render('lp/index.html.twig', [
-            'lps' => $lpRepository->findAll(),
-        ]);
-    }
+   
 
-    #[Route('/new', name: 'app_lp_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('', name: 'app_lp_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager,LpRepository $lpRepository): Response
     {
         $lp = new Lp();
         $form = $this->createForm(LpType::class, $lp);
@@ -33,12 +27,14 @@ final class LpController extends AbstractController
             $entityManager->persist($lp);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_lp_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_lp_new', [], Response::HTTP_SEE_OTHER);
         }
 
+        $lps=$lpRepository->findAll();
         return $this->render('lp/new.html.twig', [
             'lp' => $lp,
             'form' => $form,
+            'lps' => $lps,
         ]);
     }
 
@@ -59,7 +55,7 @@ final class LpController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_lp_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_lp_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('lp/edit.html.twig', [
@@ -76,6 +72,6 @@ final class LpController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_lp_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_lp_new', [], Response::HTTP_SEE_OTHER);
     }
 }
