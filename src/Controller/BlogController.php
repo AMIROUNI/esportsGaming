@@ -2,15 +2,22 @@
 
 namespace App\Controller;
 
+use App\Repository\ContenuRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/blog')]
 class BlogController extends AbstractController
 {
      
+    private EntityManagerInterface $entityManager;
 
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     #[Route('', name: 'app_blog')]
     public function features(): Response
@@ -20,11 +27,14 @@ class BlogController extends AbstractController
         ]);
     }
 
-#[Route('/news', name: 'news')]
-    public function news(): Response
+    #[Route('/news', name: 'app_contenu_news', methods: ['GET'])]
+    public function news(ContenuRepository $contenuRepository): Response
     {
+        $contenus = $contenuRepository->findAll();
+        $c=$this->entityManager->getRepository(ContenuController::class)->findAll();
+    
         return $this->render('esports_all_views/blog/news.html.twig', [
-            'controller_name' => 'BlogController',
+            'contenus' => $c,
         ]);
     }
 

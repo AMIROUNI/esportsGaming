@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contenu;
 use App\Form\ContenuType;
+use App\Repository\BlogCategoryRepository;
 use App\Repository\ContenuRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,32 +13,56 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/contenu')]
-final class ContenuController extends AbstractController
+ class ContenuController extends AbstractController
 {
-    #[Route('/', name: 'app_contenu_index', methods: ['GET', 'POST'])]
-    public function index(ContenuRepository $contenuRepository, Request $request, EntityManagerInterface $entityManager): Response
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $contenu = new Contenu();
-        $form = $this->createForm(ContenuType::class, $contenu);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->handleImageUpload($form, $contenu);
-            $contenu->setData(new \DateTime());
-            $entityManager->persist($contenu);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Nouveau contenu ajouté avec succès !');
-            return $this->redirectToRoute('app_contenu_index');
-        }
-
-        $contenus = $contenuRepository->findAll();
-
-        return $this->render('contenu/index.html.twig', [
-            'contenus' => $contenus,
-            'form' => $form->createView(),
-        ]);
+        $this->entityManager = $entityManager;
     }
+    
+   // src/Controller/ContenuController.php
+
+   #[Route('/', name: 'app_contenu_index', methods: ['GET', 'POST'])]
+   public function index(ContenuRepository $contenuRepository, Request $request, BlogCategoryRepository $categoryRepository): Response
+   {
+       $categories = $categoryRepository->findAll(); // Get categories
+       $contenu = new Contenu();
+       $form = $this->createForm(ContenuType::class, $contenu, [
+           'categories' => $categories, // Pass categories to the form
+       ]);
+
+       $form->handleRequest($request);
+
+       if ($form->isSubmitted() && $form->isValid()) {
+           // Handle image upload
+           $this->handleImageUpload($form, $contenu);
+
+           // Handle category selection
+           $selectedCategories = $form->get('categories')->getData();
+           foreach ($selectedCategories as $category) {
+               $contenu->addCategory($category);
+           }
+
+           // Set the data and persist the content
+           $contenu->setData(new \DateTime());
+           $this->entityManager->persist($contenu);
+           $this->entityManager->flush();
+
+           $this->addFlash('success', 'Nouveau contenu ajouté avec succès !');
+           return $this->redirectToRoute('app_contenu_index');
+       }
+
+       $contenus = $contenuRepository->findAll();
+
+       return $this->render('contenu/index.html.twig', [
+           'contenus' => $contenus,
+           'form' => $form->createView(),
+       ]);
+   }
+
 
     private function handleImageUpload($form, Contenu $contenu): void
     {
@@ -59,6 +84,8 @@ final class ContenuController extends AbstractController
     #[Route('/new', name: 'app_contenu_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+
+
         $contenu = new Contenu();
         $form = $this->createForm(ContenuType::class, $contenu);
         $form->handleRequest($request);
@@ -76,7 +103,7 @@ final class ContenuController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_contenu_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_contenu_show',requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(Contenu $contenu): Response
     {
         return $this->render('contenu/show.html.twig', [
@@ -85,9 +112,14 @@ final class ContenuController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_contenu_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Contenu $contenu, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Contenu $contenu, EntityManagerInterface $entityManager, BlogCategoryRepository $categoryRepository): Response
     {
-        $form = $this->createForm(ContenuType::class, $contenu);
+
+        $categories=$categoryRepository->findAll();
+        $form = $this->createForm(ContenuType::class, $contenu, [
+            'categories' => $categories, // Pass categories to the form
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -117,15 +149,24 @@ final class ContenuController extends AbstractController
         return $this->redirectToRoute('app_contenu_index', [], Response::HTTP_SEE_OTHER);
     }
 
-
-
     #[Route('/news', name: 'app_contenu_news', methods: ['GET'])]
-public function news(ContenuRepository $contenuRepository): Response
-{
-    $contenus = $contenuRepository->findAll();
+    public function news(ContenuRepository $contenuRepository): Response
+    {
+        $contenus = $contenuRepository->findAll();
+    
+        return $this->render('esports_all_views/blog/news.html.twig', [
+            'contenus' => $contenus,
+        ]);
+    }
 
-    return $this->render('esports_all_views/blog/news.html.twig', [
-        'contenus' => $contenus,
+
+    #[Route('/article/{id}', name: 'blog_article', methods: ['GET'], requirements: ['id' => '\d+'])]
+public function blog_article($id,ContenuRepository $contenuRepository): Response
+{     
+
+    $contenu = $contenuRepository->find($id);
+    return $this->render('esports_all_views/blog/blog-article.html.twig', [
+        'contenu' => $contenu,
     ]);
 }
 }

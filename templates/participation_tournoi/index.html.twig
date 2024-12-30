@@ -1,5 +1,3 @@
-{# templates/participation_tournoi/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Participations - {{ tournoi.name }}{% endblock %}
@@ -9,32 +7,113 @@
    {% block header %}
 		{{ parent() }}
 	{% endblock %}
-    <h1>Participations pour {{ tournoi.nomTournoi }}</h1>
 
-    {# Displaying any success or error messages #}
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">{{ message }}</div>
-    {% endfor %}
-    
-    {# Displaying the participation form #}
-    <h2>Ajouter une participation</h2>
-    {{ form_start(form) }}
-        {{ form_row(form.etat) }}
-        {{ form_row(form.group) }} {# Displaying the group (partition) field #}
-        {{ form_row(form.tournoi) }} {# Displaying the tournament field, this will be hidden #}
-        <button type="submit" class="btn btn-primary">Enregistrer la participation</button>
-    {{ form_end(form) }}
+<div class="container my-5">
+    <h1 class="text-center text-primary mb-5">Manage Tournament Participations</h1>
 
-    <h2>Liste des participations</h2>
-    <ul>
-        {% for participation in participations %}
-            <li>
-                {{ participation.group.nomGroup }} - {{ participation.etat }} 
-                <a href="{{ path('app_participation_tournoi_modifier', {'id': participation.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
-                <a href="{{ path('app_participation_tournoi_supprimer', {'id': participation.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
-            </li>
-        {% else %}
-            <li>Aucune participation pour ce tournoi.</li>
-        {% endfor %}
-    </ul>
+    <div class="row">
+        <!-- Form Section -->
+        <div class="col-md-4 mb-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Add a Participation</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="mb-3">
+                        {{ form_label(form.etat, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.group, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.group, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.tournoi, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.tournoi, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <button class="btn btn-primary w-100 mt-3">Enregistrer la participation</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">List of Participations</h4>
+                </div>
+                <div class="card-body">
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Group</th>
+                                <th>Status</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for participation in participations %}
+                            <tr>
+                                <td>{{ participation.group.nomGroup }}</td>
+                                <td>{{ participation.etat.value }}</td>
+                                <td class="text-center">
+                                    <a href="{{ path('app_participation_tournoi_modifier', {'id': participation.id}) }}" 
+                                       class="btn btn-warning btn-sm me-2">Edit</a>
+                                    <a href="{{ path('app_participation_tournoi_supprimer', {'id': participation.id}) }}" 
+                                       class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center">No participations found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: url('{{ asset('images/bg-fixed-2.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        color: #f5f5f5;
+    }
+
+    .card {
+        border-radius: 1rem;
+    }
+
+    .btn {
+        font-weight: bold;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    h1, h4 {
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Custom style for the table */
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    /* Custom style for the form inputs */
+    .form-control {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+</style>
+
 {% endblock %}

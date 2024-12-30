@@ -2,6 +2,9 @@
 namespace App\Entity;
 
 use App\Repository\ContenuRepository;
+use App\Entity\BlogCategory;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContenuRepository::class)]
@@ -23,6 +26,18 @@ class Contenu
 
     #[ORM\Column(type: "datetime")]
     private ?\DateTimeInterface $data =null; // New attribute
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $content = null;
+
+    #[ORM\ManyToMany(targetEntity: BlogCategory::class, inversedBy: 'contenus')]
+    private Collection $categories;
+
+    /**
+     * @var Collection<int, BlogCategory>
+     */
+    #[ORM\ManyToMany(targetEntity: BlogCategory::class, mappedBy: 'contenus')]
+    private Collection $blogCategories;
 
     public function getId(): ?int
     {
@@ -76,4 +91,73 @@ class Contenu
 
         return $this;
     }
+
+
+
+
+    public function __construct()
+{
+    $this->categories = new ArrayCollection();
+    $this->blogCategories = new ArrayCollection();
+}
+
+public function getCategories(): Collection
+{
+    return $this->categories;
+}
+
+public function addCategory(BlogCategory $category): self
+{
+    if (!$this->categories->contains($category)) {
+        $this->categories->add($category);
+    }
+    return $this;
+}
+
+public function removeCategory(BlogCategory $category): self
+{
+    $this->categories->removeElement($category);
+    return $this;
+}
+
+/**
+ * @return Collection<int, BlogCategory>
+ */
+public function getBlogCategories(): Collection
+{
+    return $this->blogCategories;
+}
+
+public function addBlogCategory(BlogCategory $blogCategory): static
+{
+    if (!$this->blogCategories->contains($blogCategory)) {
+        $this->blogCategories->add($blogCategory);
+        $blogCategory->addContenu($this);
+    }
+
+    return $this;
+}
+
+public function removeBlogCategory(BlogCategory $blogCategory): static
+{
+    if ($this->blogCategories->removeElement($blogCategory)) {
+        $blogCategory->removeContenu($this);
+    }
+
+    return $this;
+}
+
+
+
+public function getContent(): ?string
+{
+    return $this->content;
+}
+
+public function setContent(?string $content): self
+{
+    $this->content = $content;
+
+    return $this;
+}
 }

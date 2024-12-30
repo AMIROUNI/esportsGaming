@@ -8,6 +8,7 @@ use App\Entity\ParticipationTournoi;
 
 use App\Entity\Tournoi;
 use App\Entity\User;
+use App\Enum\EtatDeParticipationTournoi;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -24,10 +25,13 @@ class ParticipationTournoiType extends AbstractType
         
         $builder
 
-            ->add('etat')
-            ->add('gamer', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
+            
+            ->add('etat', ChoiceType::class, [
+                'choices' => [
+                    'Participant' => EtatDeParticipationTournoi::PARTICIPANT,
+                    'Winner' => EtatDeParticipationTournoi::WINNER,
+                    'Eliminated' => EtatDeParticipationTournoi::ELIMINATED,
+                ],
             ])
             // Add the "group" field with EntityType for selecting the group
             ->add('group', DoctrineEntityType::class, [

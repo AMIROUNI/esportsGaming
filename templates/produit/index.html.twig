@@ -20,6 +20,7 @@
                     <h4 class="mb-0">Create New Product</h4>
                 </div>
                 <div class="card-body">
+                 
                     {{ form_start(form) }}
                     <div class="mb-3">
                         {{ form_label(form.nomProduits, null, {'label_attr': {'class': 'form-label'}}) }}
@@ -52,6 +53,9 @@
                     <h4 class="mb-0">Existing Products</h4>
                 </div>
                 <div class="card-body">
+                 {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
                     <table class="table table-hover table-striped">
                         <thead class="table-dark">
                             <tr>

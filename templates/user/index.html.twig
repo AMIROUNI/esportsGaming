@@ -75,6 +75,9 @@
                     <h4 class="mb-0">Registered Users</h4>
                 </div>
                 <div class="card-body">
+                 {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
                     <table class="table table-hover table-striped">
                         <thead class="table-dark">
                             <tr>

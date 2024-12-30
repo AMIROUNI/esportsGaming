@@ -4,8 +4,8 @@
 
 {% block body %}
     {% block header %}
-		{{ parent() }}
-	{% endblock %}
+        {{ parent() }}
+    {% endblock %}
 
     <div class="container mt-4">
         <h1 class="text-center text-warning mb-4">📄 Gestion des Contenus 📄</h1>
@@ -14,7 +14,7 @@
             <!-- Form Section (Left Side) -->
             <div class="col-md-6">
                 <section class="form-section mb-5 p-4" style="background-color: #333; border-radius: 8px;">
-                    {{ form_start(form, { 'attr': { 'class': 'form-horizontal' } }) }}
+                    {{ form_start(form, { 'attr': { 'class': 'form-horizontal', 'enctype': 'multipart/form-data' } }) }} <!-- Add enctype -->
                         <div class="mb-3">
                             {{ form_widget(form.titre, {
                                 'attr': {
@@ -24,6 +24,7 @@
                                 }
                             }) }}
                         </div>
+
                         <div class="mb-3">
                             {{ form_widget(form.description, {
                                 'attr': {
@@ -33,15 +34,26 @@
                                 }
                             }) }}
                         </div>
+
                         <div class="mb-3">
                             {{ form_widget(form.image, {
                                 'attr': {
                                     'class': 'form-control-file',
-                                    'style': 'background: #444; color: #f5f5f5; border: 1px solid #ff8000;',
-                                    'placeholder': 'Sélectionnez une image'
+                                    'style': 'background: #444; color: #f5f5f5; border: 1px solid #ff8000;'
                                 }
                             }) }}
                         </div>
+
+                        <div class="mb-3">
+                            <label for="categories" class="form-label">Catégories</label>
+                            {{ form_widget(form.categories, {
+                                'attr': {
+                                    'class': 'form-control',
+                                    'style': 'background: #444; color: #f5f5f5; border: 1px solid #ff8000;'
+                                }
+                            }) }}
+                        </div>
+
                         <button type="submit" class="btn btn-success w-100">{{ form.vars.value.id ? 'Mettre à jour' : 'Enregistrer' }}</button>
                     {{ form_end(form) }}
                 </section>
@@ -173,6 +185,19 @@
 
         .container {
             margin-top: 50px;
+        }
+
+        .mb-3 {
+            margin-bottom: 20px; /* Add margin between form fields */
+        }
+
+        .form-section {
+            margin-bottom: 30px; /* Space between form and other sections */
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #ff8000;
         }
     </style>
 

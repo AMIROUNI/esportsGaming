@@ -62,4 +62,8 @@ class ParticipationTournoi
         $this->tournoi = $tournoi;
         return $this;
     }
+    public function __toString(): string
+    {
+        return  (string)  $this->getEtat()->value;  // Accessing the value property of the enum
+    }
 }

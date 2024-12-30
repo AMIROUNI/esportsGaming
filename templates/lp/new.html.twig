@@ -47,6 +47,10 @@
                     <h4 class="mb-0">Existing LPs</h4>
                 </div>
                 <div class="card-body">
+
+                     {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
                     <div class="table-responsive">
                         <table class="table table-hover table-striped">
                             <thead class="table-dark">
