@@ -116,4 +116,16 @@ final class ContenuController extends AbstractController
 
         return $this->redirectToRoute('app_contenu_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+    #[Route('/news', name: 'app_contenu_news', methods: ['GET'])]
+public function news(ContenuRepository $contenuRepository): Response
+{
+    $contenus = $contenuRepository->findAll();
+
+    return $this->render('esports_all_views/blog/news.html.twig', [
+        'contenus' => $contenus,
+    ]);
+}
 }

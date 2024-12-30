@@ -3,12 +3,14 @@
 
 namespace App\Form;
 
-use App\Entity\ParticipationTournoi;
 use App\Entity\Group;
-use App\Enum\EtatDeParticipationTournoi;
+use App\Entity\ParticipationTournoi;
+
+use App\Entity\Tournoi;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType as DoctrineEntityType;
@@ -21,13 +23,11 @@ class ParticipationTournoiType extends AbstractType
         $groups = $options['groups'] ?? [];      // Access the passed groups option
         
         $builder
-            // Add the "etat" field for the tournament participation status
-            ->add('etat', ChoiceType::class, [
-                'choices' => EtatDeParticipationTournoi::cases(),
-                'choice_label' => fn(EtatDeParticipationTournoi $etat) => $etat->getLabel(),  // Use getLabel() or value here
-                'choice_value' => fn(?EtatDeParticipationTournoi $etat) => $etat?->value,  // Store the enum value (string)
-                'label' => 'État de participation',
-                'placeholder' => 'Choisir un état',
+
+            ->add('etat')
+            ->add('gamer', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'id',
             ])
             // Add the "group" field with EntityType for selecting the group
             ->add('group', DoctrineEntityType::class, [
