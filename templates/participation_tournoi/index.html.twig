@@ -1,22 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Participations - {{ tournoi.name }}{% endblock %}
+{% block title %}Manage Tournament - {{ tournoi.nomTournoi }}{% endblock %}
 
 {% block body %}
-
-   {% block header %}
-		{{ parent() }}
-	{% endblock %}
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
 
 <div class="container my-5">
-    <h1 class="text-center text-primary mb-5">Manage Tournament Participations</h1>
+    <h1 class="text-center text-primary mb-5">Manage Tournament - {{ tournoi.nomTournoi }}</h1>
 
-    <div class="row">
-        <!-- Form Section -->
-        <div class="col-md-4 mb-5">
+    <!-- Participation Section -->
+    <div class="row mb-5">
+        <div class="col-md-6">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-dark text-white">
-                    <h4 class="mb-0">Add a Participation</h4>
+                    <h4 class="mb-0">Add a Group to Tournament</h4>
                 </div>
                 <div class="card-body">
                     {{ form_start(form) }}
@@ -28,26 +27,17 @@
                         {{ form_label(form.group, null, {'label_attr': {'class': 'form-label'}}) }}
                         {{ form_widget(form.group, {'attr': {'class': 'form-control'}}) }}
                     </div>
-                    <div class="mb-3">
-                        {{ form_label(form.tournoi, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(form.tournoi, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                    <button class="btn btn-primary w-100 mt-3">Enregistrer la participation</button>
+                    <button class="btn btn-primary w-100 mt-3">Add Group</button>
                     {{ form_end(form) }}
                 </div>
             </div>
         </div>
-
-        <!-- Table Section -->
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-dark text-white">
-                    <h4 class="mb-0">List of Participations</h4>
+                    <h4 class="mb-0">Groups in Tournament</h4>
                 </div>
                 <div class="card-body">
-                    {% for message in app.flashes('success') %}
-                        <div class="alert alert-success">{{ message }}</div>
-                    {% endfor %}
                     <table class="table table-hover table-striped">
                         <thead class="table-dark">
                             <tr>
@@ -70,7 +60,86 @@
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="3" class="text-center">No participations found</td>
+                                <td colspan="3" class="text-center">No groups found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <h2 style="
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: #ffffff;
+    background: linear-gradient(90deg, #007bff, #6610f2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    display: inline-block;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+">
+    Matches
+</h2>
+    <!-- Matches Section -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Add Match to Tournament</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(matchForm) }}
+                    <div class="mb-3">
+                        {{ form_label(matchForm.groupA, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(matchForm.groupA, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(matchForm.groupB, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(matchForm.groupB, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(matchForm.matchDate, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(matchForm.matchDate, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <button class="btn btn-primary w-100 mt-3">Add Match</button>
+                    {{ form_end(matchForm) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Matches in Tournament</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Team A</th>
+                                <th>Team B</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for match in matches %}
+                            <tr>
+                                <td>{{ match.groupA.nomGroup }}</td>
+                                <td>{{ match.groupB.nomGroup }}</td>
+                                <td>{{ match.matchDate|date('Y-m-d H:i') }}</td>
+                                <td>
+                                    <a href="{{ path('app_match_edit', {'id': match.id}) }}" class="btn btn-warning btn-sm me-2">Edit</a>
+                                    <a href="{{ path('app_match_delete', {'id': match.id}) }}" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center">No matches found</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -104,12 +173,6 @@
         font-family: 'Orbitron', sans-serif;
     }
 
-    /* Custom style for the table */
-    .table th, .table td {
-        vertical-align: middle;
-    }
-
-    /* Custom style for the form inputs */
     .form-control {
         font-size: 1rem;
         padding: 0.5rem 1rem;

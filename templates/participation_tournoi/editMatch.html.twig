@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Match{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="text-center text-primary mb-5">Edit Match</h1>
+
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Edit Match Details</h4>
+            </div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.groupA, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.groupA, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.groupB, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.groupB, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.matchDate, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.matchDate, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <button class="btn btn-primary w-100 mt-3">Save Changes</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        body {
+            background: url('{{ asset('images/bg-fixed-2.jpg') }}') no-repeat center center fixed;
+            background-size: cover;
+            color: #f5f5f5;
+        }
+
+        .card {
+            border-radius: 1rem;
+        }
+
+        .btn {
+            font-weight: bold;
+        }
+
+        h1, h4 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .form-control {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+        }
+    </style>
+{% endblock %}
