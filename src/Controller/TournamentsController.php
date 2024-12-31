@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller;
+
+use App\Entity\Group;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +13,12 @@ use Symfony\Component\Routing\Attribute\Route;
 final class TournamentsController extends AbstractController
 {
   
+    private EntityManagerInterface $entityManager;
 
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
 
     #[Route('', name: 'tournaments')]
@@ -32,10 +39,17 @@ final class TournamentsController extends AbstractController
     }
 
 
-    #[Route('/teams', name: 'tournament_teams')]
+   
+    #[Route('/teams', name: 'tournament_teams', methods: ['GET'])]
     public function teams(): Response
     {
-        return $this->render('esports_all_views/tournaments/tournaments-teams.html.twig');
+        // Fetch all groups from the database
+        $groups = $this->entityManager->getRepository(Group::class)->findAll();
+    
+        // Render the view and pass the groups to the template
+        return $this->render('esports_all_views/tournaments/tournaments-teams.html.twig', [
+            'groups' => $groups,
+        ]);
     }
 
 }

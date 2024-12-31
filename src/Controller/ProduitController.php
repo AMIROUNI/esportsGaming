@@ -99,7 +99,7 @@ class ProduitController extends AbstractController
 
 
 
-#[Route('/produit/{id}', name: 'app_lp_by_produit', methods: ['GET'])]
+#[Route('/produit/{id}', name: 'app_lp_by_produit',requirements:["id"=>'\d+'], methods: ['GET'])]
 public function findByProduit(Produit $produit, LpRepository $lpRepository): Response
 {
     $lps = $lpRepository->findBy(['produit' => $produit]);
@@ -107,6 +107,18 @@ public function findByProduit(Produit $produit, LpRepository $lpRepository): Res
     return $this->render('lp/index.html.twig', [
         'lps' => $lps,
         'produit' => $produit,
+    ]);
+}
+
+
+#[Route('/product', name: 'store_product', methods: ['GET'])]
+public function storeProduct(ProduitRepository $produitRepository): Response
+{
+    // Fetch all products from the database
+    $produits = $produitRepository->findAll();
+
+    return $this->render('esports_all_views/store/store-product.html.twig', [
+        'produits' => $produits, // Pass the list of products to the template
     ]);
 }
 

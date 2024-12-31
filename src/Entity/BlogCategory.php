@@ -24,9 +24,12 @@ class BlogCategory
     #[ORM\ManyToMany(targetEntity: Contenu::class, inversedBy: 'blogCategories')]
     private Collection $contenus;
 
+   
+
     public function __construct()
     {
         $this->contenus = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -69,13 +72,17 @@ class BlogCategory
 
         return $this;
     }
-     /**
-     * Convert the object to string.
-     *
-     * @return string The name of the category
-     */
+
     public function __toString(): string
     {
         return $this->getName();
     }
+
+    /**
+     * @return Collection<int, Produit>
+     */
+   
+
+
+   
 }

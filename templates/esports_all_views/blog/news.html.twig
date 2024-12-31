@@ -156,11 +156,16 @@
 							</li>
 
 
+							{% if   app.session.get('user_id') %}
+								<p>{{ app.session.get('user_id') }}</p>
+							{% else %}
 							<li>
-								<a data-toggle="modal" data-target="#modalLogin">
-									<span class="fa fa-user"></span>
-								</a>
-							</li>
+									<a href="#" data-toggle="modal" data-target="#modalLogin">
+										<span class="fa fa-user"></span>
+									</a>
+								</li>
+								
+							{% endif %}
 
 
 							<li>

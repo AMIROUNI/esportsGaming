@@ -67,3 +67,4 @@ class ParticipationTournoi
         return  (string)  $this->getEtat()->value;  // Accessing the value property of the enum
     }
 }
+    

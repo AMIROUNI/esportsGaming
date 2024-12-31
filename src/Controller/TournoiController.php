@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Tournoi;
 use App\Form\TournoiType;
+use App\Repository\MatchesRepository;
 use App\Repository\TournoiRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,4 +71,40 @@ public function edit(Request $request, Tournoi $tournoi, EntityManagerInterface 
 
         return $this->redirectToRoute('app_tournoi_index');
     }
+
+
+
+    #[Route('/tournaments', name: 'tournaments')]
+    public function tournaments(
+        MatchesRepository $matchesRepository
+    ): Response {
+        // Get today's date
+        $today = new DateTime('today');
+    
+        // Fetch all matches
+        $matches = $matchesRepository->findAll();
+    
+        // Filter the matches to find those with a matchDate of today or in the future
+        $validMatches = array_filter($matches, function($match) use ($today) {
+            return $match->getMatchDate() >= $today;
+        });
+    
+        // Find the match that is "now playing" or coming soon
+        $nowPlayingMatch = null;
+        foreach ($matches as $match) {
+            if ($match->getMatchDate() <= $today) {
+                $nowPlayingMatch = $match;
+                break;
+            }
+        }
+    
+        // Pass the necessary data to the view
+        return $this->render('esports_all_views/tournaments/tournaments.html.twig', [
+            'matches' => $matches,
+            'validMatches' => $validMatches,
+            'nowPlayingMatch' => $nowPlayingMatch,
+            'staticBlock' => $nowPlayingMatch === null
+        ]);
+    }
+    
 }

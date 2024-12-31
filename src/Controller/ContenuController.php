@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/contenu')]
  class ContenuController extends AbstractController
@@ -150,23 +151,30 @@ use Symfony\Component\Routing\Attribute\Route;
     }
 
     #[Route('/news', name: 'app_contenu_news', methods: ['GET'])]
-    public function news(ContenuRepository $contenuRepository): Response
+    public function news(ContenuRepository $contenuRepository, SessionInterface $session): Response
     {
+        // Récupérer la variable de session 'user_id'
+        $userId = $session->get('user_id');
+    
+        // Récupérer les contenus
         $contenus = $contenuRepository->findAll();
     
         return $this->render('esports_all_views/blog/news.html.twig', [
             'contenus' => $contenus,
+            'user_id' => $userId, // Passez l'ID utilisateur à la vue
         ]);
     }
+    
 
 
     #[Route('/article/{id}', name: 'blog_article', methods: ['GET'], requirements: ['id' => '\d+'])]
-public function blog_article($id,ContenuRepository $contenuRepository): Response
+public function blog_article($id,ContenuRepository $contenuRepository, SessionInterface $session): Response
 {     
-
+    $userId = $session->get('user_id');
     $contenu = $contenuRepository->find($id);
     return $this->render('esports_all_views/blog/blog-article.html.twig', [
         'contenu' => $contenu,
+        'user_id' => $userId, 
     ]);
 }
 }

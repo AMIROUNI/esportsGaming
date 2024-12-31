@@ -59,6 +59,8 @@ class ParticipationTournoiController extends AbstractController
         $matchForm->handleRequest($request);
         if ($matchForm->isSubmitted() && $matchForm->isValid()) {
             $match->setTournoi($tournoi);
+            $match->setScoreA(0);
+            $match->setScoreB(0);
             $this->entityManager->persist($match);
             $this->entityManager->flush();
             $this->addFlash('success', 'La mathe a été ajoutée avec succès.');

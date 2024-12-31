@@ -56,7 +56,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         $user = $token->getUser();
 
         if (in_array('ROLE_GAMER', $user->getRoles(), true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_produit_index'));
+            return new RedirectResponse($this->urlGenerator->generate('app_esports_accueil_'));
         }
 
         if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {

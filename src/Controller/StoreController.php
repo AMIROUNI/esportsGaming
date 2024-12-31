@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,6 +60,18 @@ class StoreController extends AbstractController
             'controller_name' => 'StoreController',
         ]);
     }
+
+
+    #[Route('/product', name: 'store_product', methods: ['GET'])]
+public function storeProduct(ProduitRepository $produitRepository): Response
+{
+    // Fetch all products from the database
+    $produits = $produitRepository->findAll();
+
+    return $this->render('esports_all_views/store/store-product.html.twig', [
+        'produits' => $produits, // Pass the list of products to the template
+    ]);
+}
 
 
 }

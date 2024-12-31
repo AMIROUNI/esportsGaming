@@ -21,6 +21,9 @@ class Produit
     #[ORM\Column]
     private ?float $prix = null;
 
+    
+    
+
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $image = null;
@@ -34,6 +37,9 @@ class Produit
      */
     #[ORM\OneToMany(targetEntity: Lp::class, mappedBy: 'produit')]
     private Collection $lp;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?ProduitCategory $produitCategory = null;
 
     public function __construct()
     {
@@ -123,4 +129,21 @@ class Produit
 
         return $this;
     }
+
+    public function getProduitCategory(): ?ProduitCategory
+    {
+        return $this->produitCategory;
+    }
+
+    public function setProduitCategory(?ProduitCategory $produitCategory): static
+    {
+        $this->produitCategory = $produitCategory;
+
+        return $this;
+    }
+
+
+
+
+    
 }

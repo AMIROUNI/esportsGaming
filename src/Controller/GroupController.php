@@ -20,6 +20,19 @@ final class GroupController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+
+    #[Route('/teams', name: 'tournament_teams', methods: ['GET'])]
+    public function teams(): Response
+    {
+        // Fetch all groups from the database
+        $groups = $this->entityManager->getRepository(Group::class)->findAll();
+    
+        // Render the view and pass the groups to the template
+        return $this->render('esports_all_views/tournaments/tournaments-teams.html.twig', [
+            'groups' => $groups,
+        ]);
+    }
+
     #[Route('/', name: 'app_group_index')]
     public function index(Request $request): Response
     {
@@ -101,7 +114,7 @@ final class GroupController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_group_delete', methods: ['POST'])]
+    #[Route('/{id}/delete',name: 'app_group_delete',requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, Group $group): Response
     {
         // Check CSRF token validity to prevent CSRF attacks
@@ -137,4 +150,9 @@ final class GroupController extends AbstractController
             }
         }
     }
+
+
+
+   
+
 }

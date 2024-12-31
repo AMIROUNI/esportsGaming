@@ -54,27 +54,29 @@
 		rel="stylesheet" href="{{ asset('css/goodgames.css') }}">
 
 		<!-- Custom Styles -->
-		<link rel="stylesheet" href="{{asset('css/custom.css')}}">
-
-		<!-- END: Styles -->
+		<link rel="stylesheet" href="{{asset('css/custom.css')}}"><!-- END: Styles -->
 
 		<!-- jQuery --><script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"> </script>
+
+
+
+		
 
 
 	</head>
 
 
 	<!--
-	    Additional Classes:
-	        .nk-page-boxed
-	-->
+		    Additional Classes:
+		        .nk-page-boxed
+		-->
 	<body>
 
 
 		<!--
-		    Additional Classes:
-		        .nk-header-opaque
-		-->
+				    Additional Classes:
+				        .nk-header-opaque
+				-->
 		<header
 			class="nk-header nk-header-opaque">
 
@@ -121,29 +123,29 @@
 							</li>
 
 							<!-- Additional Social Buttons
-							                    <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
-							                    <li><a class="nk-social-bitbucket" href="#"><span class="fab fa-bitbucket"></span></a></li>
-							                    <li><a class="nk-social-dropbox" href="#"><span class="fab fa-dropbox"></span></a></li>
-							                    <li><a class="nk-social-dribbble" href="#"><span class="fab fa-dribbble"></span></a></li>
-							                    <li><a class="nk-social-deviantart" href="#"><span class="fab fa-deviantart"></span></a></li>
-							                    <li><a class="nk-social-flickr" href="#"><span class="fab fa-flickr"></span></a></li>
-							                    <li><a class="nk-social-foursquare" href="#"><span class="fab fa-foursquare"></span></a></li>
-							                    <li><a class="nk-social-github" href="#"><span class="fab fa-github"></span></a></li>
-							                    <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
-							                    <li><a class="nk-social-linkedin" href="#"><span class="fab fa-linkedin"></span></a></li>
-							                    <li><a class="nk-social-medium" href="#"><span class="fab fa-medium"></span></a></li>
-							                    <li><a class="nk-social-odnoklassniki" href="#"><span class="fab fa-odnoklassniki"></span></a></li>
-							                    <li><a class="nk-social-paypal" href="#"><span class="fab fa-paypal"></span></a></li>
-							                    <li><a class="nk-social-reddit" href="#"><span class="fab fa-reddit"></span></a></li>
-							                    <li><a class="nk-social-skype" href="#"><span class="fab fa-skype"></span></a></li>
-							                    <li><a class="nk-social-soundcloud" href="#"><span class="fab fa-soundcloud"></span></a></li>
-							                    <li><a class="nk-social-slack" href="#"><span class="fab fa-slack"></span></a></li>
-							                    <li><a class="nk-social-tumblr" href="#"><span class="fab fa-tumblr"></span></a></li>
-							                    <li><a class="nk-social-vimeo" href="#"><span class="fab fa-vimeo"></span></a></li>
-							                    <li><a class="nk-social-vk" href="#"><span class="fab fa-vk"></span></a></li>
-							                    <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
-							                    <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
-							                -->
+														                    <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
+														                    <li><a class="nk-social-bitbucket" href="#"><span class="fab fa-bitbucket"></span></a></li>
+														                    <li><a class="nk-social-dropbox" href="#"><span class="fab fa-dropbox"></span></a></li>
+														                    <li><a class="nk-social-dribbble" href="#"><span class="fab fa-dribbble"></span></a></li>
+														                    <li><a class="nk-social-deviantart" href="#"><span class="fab fa-deviantart"></span></a></li>
+														                    <li><a class="nk-social-flickr" href="#"><span class="fab fa-flickr"></span></a></li>
+														                    <li><a class="nk-social-foursquare" href="#"><span class="fab fa-foursquare"></span></a></li>
+														                    <li><a class="nk-social-github" href="#"><span class="fab fa-github"></span></a></li>
+														                    <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
+														                    <li><a class="nk-social-linkedin" href="#"><span class="fab fa-linkedin"></span></a></li>
+														                    <li><a class="nk-social-medium" href="#"><span class="fab fa-medium"></span></a></li>
+														                    <li><a class="nk-social-odnoklassniki" href="#"><span class="fab fa-odnoklassniki"></span></a></li>
+														                    <li><a class="nk-social-paypal" href="#"><span class="fab fa-paypal"></span></a></li>
+														                    <li><a class="nk-social-reddit" href="#"><span class="fab fa-reddit"></span></a></li>
+														                    <li><a class="nk-social-skype" href="#"><span class="fab fa-skype"></span></a></li>
+														                    <li><a class="nk-social-soundcloud" href="#"><span class="fab fa-soundcloud"></span></a></li>
+														                    <li><a class="nk-social-slack" href="#"><span class="fab fa-slack"></span></a></li>
+														                    <li><a class="nk-social-tumblr" href="#"><span class="fab fa-tumblr"></span></a></li>
+														                    <li><a class="nk-social-vimeo" href="#"><span class="fab fa-vimeo"></span></a></li>
+														                    <li><a class="nk-social-vk" href="#"><span class="fab fa-vk"></span></a></li>
+														                    <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
+														                    <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
+														                -->
 						</ul>
 					</div>
 					<div class="nk-contacts-right">
@@ -156,11 +158,16 @@
 							</li>
 
 
+							{% if   app.session.get('user_id') %}
+								<p>{{ app.session.get('user_id') }}</p>
+							{% else %}
 							<li>
-								<a href="#" data-toggle="modal" data-target="#modalLogin">
-									<span class="fa fa-user"></span>
-								</a>
-							</li>
+									<a href="#" data-toggle="modal" data-target="#modalLogin">
+										<span class="fa fa-user"></span>
+									</a>
+								</li>
+								
+							{% endif %}
 
 
 							<li>
@@ -213,13 +220,13 @@
 
 
 			<!--
-			        START: Navbar
-			
-			        Additional Classes:
-			            .nk-navbar-sticky
-			            .nk-navbar-transparent
-			            .nk-navbar-autohide
-			    -->
+						        START: Navbar
+						
+						        Additional Classes:
+						            .nk-navbar-sticky
+						            .nk-navbar-transparent
+						            .nk-navbar-autohide
+						    -->
 			<nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
 				<div class="container">
 					<div class="nk-nav-table">
@@ -304,7 +311,7 @@
 								<ul class="dropdown">
 
 									<li>
-										<a href="news.html">
+										<a href="{{path('app_contenu_news')}}">
 											News
 
 										</a>
@@ -446,14 +453,14 @@
 
 
 		<!--
-		    START: Navbar Mobile
-		
-		    Additional Classes:
-		        .nk-navbar-left-side
-		        .nk-navbar-right-side
-		        .nk-navbar-lg
-		        .nk-navbar-overlay-content
-		-->
+				    START: Navbar Mobile
+				
+				    Additional Classes:
+				        .nk-navbar-left-side
+				        .nk-navbar-right-side
+				        .nk-navbar-lg
+				        .nk-navbar-overlay-content
+				-->
 		<div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-overlay-content d-lg-none">
 			<div class="nano">
 				<div class="nano-content">
@@ -1112,9 +1119,9 @@
 						<div
 							class="nk-tabs">
 							<!--
-							                    Additional Classes:
-							                        .nav-tabs-fill
-							                -->
+														                    Additional Classes:
+														                        .nav-tabs-fill
+														                -->
 							<ul class="nav nav-tabs nav-tabs-fill" role="tablist">
 								<li class="nav-item">
 									<a class="nav-link active" href="#tabs-1-1" role="tab" data-toggle="tab">Action</a>
@@ -1718,13 +1725,13 @@
 					<div
 						class="col-lg-4">
 						<!--
-						                START: Sidebar
-						
-						                Additional Classes:
-						                    .nk-sidebar-left
-						                    .nk-sidebar-right
-						                    .nk-sidebar-sticky
-						            -->
+												                START: Sidebar
+												
+												                Additional Classes:
+												                    .nk-sidebar-left
+												                    .nk-sidebar-right
+												                    .nk-sidebar-sticky
+												            -->
 						<aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
 							<div class="nk-widget">
 								<div class="nk-widget-content">
@@ -1747,14 +1754,14 @@
 								<div
 									class="nk-widget-content">
 									<!--
-									            Social Links 3
-									
-									            Additional Classes:
-									                .nk-social-links-cols-5
-									                .nk-social-links-cols-4
-									                .nk-social-links-cols-3
-									                .nk-social-links-cols-2
-									        -->
+																		            Social Links 3
+																		
+																		            Additional Classes:
+																		                .nk-social-links-cols-5
+																		                .nk-social-links-cols-4
+																		                .nk-social-links-cols-3
+																		                .nk-social-links-cols-2
+																		        -->
 									<ul class="nk-social-links-3 nk-social-links-cols-4">
 										<li>
 											<a class="nk-social-twitch" href="#">
@@ -1798,28 +1805,28 @@
 										</li>
 
 										<!-- Additional Social Buttons
-										                <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
-										                <li><a class="nk-social-bitbucket" href="#"><span class="fab fa-bitbucket"></span></a></li>
-										                <li><a class="nk-social-dropbox" href="#"><span class="fab fa-dropbox"></span></a></li>
-										                <li><a class="nk-social-dribbble" href="#"><span class="fab fa-dribbble"></span></a></li>
-										                <li><a class="nk-social-deviantart" href="#"><span class="fab fa-deviantart"></span></a></li>
-										                <li><a class="nk-social-flickr" href="#"><span class="fab fa-flickr"></span></a></li>
-										                <li><a class="nk-social-foursquare" href="#"><span class="fab fa-foursquare"></span></a></li>
-										                <li><a class="nk-social-github" href="#"><span class="fab fa-github"></span></a></li>
-										                <li><a class="nk-social-linkedin" href="#"><span class="fab fa-linkedin"></span></a></li>
-										                <li><a class="nk-social-medium" href="#"><span class="fab fa-medium"></span></a></li>
-										                <li><a class="nk-social-odnoklassniki" href="#"><span class="fab fa-odnoklassniki"></span></a></li>
-										                <li><a class="nk-social-paypal" href="#"><span class="fab fa-paypal"></span></a></li>
-										                <li><a class="nk-social-reddit" href="#"><span class="fab fa-reddit"></span></a></li>
-										                <li><a class="nk-social-skype" href="#"><span class="fab fa-skype"></span></a></li>
-										                <li><a class="nk-social-soundcloud" href="#"><span class="fab fa-soundcloud"></span></a></li>
-										                <li><a class="nk-social-steam" href="#"><span class="fab fa-steam"></span></a></li>
-										                <li><a class="nk-social-slack" href="#"><span class="fab fa-slack"></span></a></li>
-										                <li><a class="nk-social-tumblr" href="#"><span class="fab fa-tumblr"></span></a></li>
-										                <li><a class="nk-social-vimeo" href="#"><span class="fab fa-vimeo"></span></a></li>
-										                <li><a class="nk-social-vk" href="#"><span class="fab fa-vk"></span></a></li>
-										                <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
-										            -->
+																				                <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
+																				                <li><a class="nk-social-bitbucket" href="#"><span class="fab fa-bitbucket"></span></a></li>
+																				                <li><a class="nk-social-dropbox" href="#"><span class="fab fa-dropbox"></span></a></li>
+																				                <li><a class="nk-social-dribbble" href="#"><span class="fab fa-dribbble"></span></a></li>
+																				                <li><a class="nk-social-deviantart" href="#"><span class="fab fa-deviantart"></span></a></li>
+																				                <li><a class="nk-social-flickr" href="#"><span class="fab fa-flickr"></span></a></li>
+																				                <li><a class="nk-social-foursquare" href="#"><span class="fab fa-foursquare"></span></a></li>
+																				                <li><a class="nk-social-github" href="#"><span class="fab fa-github"></span></a></li>
+																				                <li><a class="nk-social-linkedin" href="#"><span class="fab fa-linkedin"></span></a></li>
+																				                <li><a class="nk-social-medium" href="#"><span class="fab fa-medium"></span></a></li>
+																				                <li><a class="nk-social-odnoklassniki" href="#"><span class="fab fa-odnoklassniki"></span></a></li>
+																				                <li><a class="nk-social-paypal" href="#"><span class="fab fa-paypal"></span></a></li>
+																				                <li><a class="nk-social-reddit" href="#"><span class="fab fa-reddit"></span></a></li>
+																				                <li><a class="nk-social-skype" href="#"><span class="fab fa-skype"></span></a></li>
+																				                <li><a class="nk-social-soundcloud" href="#"><span class="fab fa-soundcloud"></span></a></li>
+																				                <li><a class="nk-social-steam" href="#"><span class="fab fa-steam"></span></a></li>
+																				                <li><a class="nk-social-slack" href="#"><span class="fab fa-slack"></span></a></li>
+																				                <li><a class="nk-social-tumblr" href="#"><span class="fab fa-tumblr"></span></a></li>
+																				                <li><a class="nk-social-vimeo" href="#"><span class="fab fa-vimeo"></span></a></li>
+																				                <li><a class="nk-social-vk" href="#"><span class="fab fa-vk"></span></a></li>
+																				                <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
+																				            -->
 									</ul>
 								</div>
 							</div>
@@ -2242,29 +2249,29 @@
 								</li>
 
 								<!-- Additional Social Buttons
-								                        <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
-								                        <li><a class="nk-social-bitbucket" href="#"><span class="fab fa-bitbucket"></span></a></li>
-								                        <li><a class="nk-social-dropbox" href="#"><span class="fab fa-dropbox"></span></a></li>
-								                        <li><a class="nk-social-dribbble" href="#"><span class="fab fa-dribbble"></span></a></li>
-								                        <li><a class="nk-social-deviantart" href="#"><span class="fab fa-deviantart"></span></a></li>
-								                        <li><a class="nk-social-flickr" href="#"><span class="fab fa-flickr"></span></a></li>
-								                        <li><a class="nk-social-foursquare" href="#"><span class="fab fa-foursquare"></span></a></li>
-								                        <li><a class="nk-social-github" href="#"><span class="fab fa-github"></span></a></li>
-								                        <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
-								                        <li><a class="nk-social-linkedin" href="#"><span class="fab fa-linkedin"></span></a></li>
-								                        <li><a class="nk-social-medium" href="#"><span class="fab fa-medium"></span></a></li>
-								                        <li><a class="nk-social-odnoklassniki" href="#"><span class="fab fa-odnoklassniki"></span></a></li>
-								                        <li><a class="nk-social-paypal" href="#"><span class="fab fa-paypal"></span></a></li>
-								                        <li><a class="nk-social-reddit" href="#"><span class="fab fa-reddit"></span></a></li>
-								                        <li><a class="nk-social-skype" href="#"><span class="fab fa-skype"></span></a></li>
-								                        <li><a class="nk-social-soundcloud" href="#"><span class="fab fa-soundcloud"></span></a></li>
-								                        <li><a class="nk-social-slack" href="#"><span class="fab fa-slack"></span></a></li>
-								                        <li><a class="nk-social-tumblr" href="#"><span class="fab fa-tumblr"></span></a></li>
-								                        <li><a class="nk-social-vimeo" href="#"><span class="fab fa-vimeo"></span></a></li>
-								                        <li><a class="nk-social-vk" href="#"><span class="fab fa-vk"></span></a></li>
-								                        <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
-								                        <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
-								                    -->
+																                        <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
+																                        <li><a class="nk-social-bitbucket" href="#"><span class="fab fa-bitbucket"></span></a></li>
+																                        <li><a class="nk-social-dropbox" href="#"><span class="fab fa-dropbox"></span></a></li>
+																                        <li><a class="nk-social-dribbble" href="#"><span class="fab fa-dribbble"></span></a></li>
+																                        <li><a class="nk-social-deviantart" href="#"><span class="fab fa-deviantart"></span></a></li>
+																                        <li><a class="nk-social-flickr" href="#"><span class="fab fa-flickr"></span></a></li>
+																                        <li><a class="nk-social-foursquare" href="#"><span class="fab fa-foursquare"></span></a></li>
+																                        <li><a class="nk-social-github" href="#"><span class="fab fa-github"></span></a></li>
+																                        <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
+																                        <li><a class="nk-social-linkedin" href="#"><span class="fab fa-linkedin"></span></a></li>
+																                        <li><a class="nk-social-medium" href="#"><span class="fab fa-medium"></span></a></li>
+																                        <li><a class="nk-social-odnoklassniki" href="#"><span class="fab fa-odnoklassniki"></span></a></li>
+																                        <li><a class="nk-social-paypal" href="#"><span class="fab fa-paypal"></span></a></li>
+																                        <li><a class="nk-social-reddit" href="#"><span class="fab fa-reddit"></span></a></li>
+																                        <li><a class="nk-social-skype" href="#"><span class="fab fa-skype"></span></a></li>
+																                        <li><a class="nk-social-soundcloud" href="#"><span class="fab fa-soundcloud"></span></a></li>
+																                        <li><a class="nk-social-slack" href="#"><span class="fab fa-slack"></span></a></li>
+																                        <li><a class="nk-social-tumblr" href="#"><span class="fab fa-tumblr"></span></a></li>
+																                        <li><a class="nk-social-vimeo" href="#"><span class="fab fa-vimeo"></span></a></li>
+																                        <li><a class="nk-social-vk" href="#"><span class="fab fa-vk"></span></a></li>
+																                        <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
+																                        <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a></li>
+																                    -->
 							</ul>
 						</div>
 					</div>
@@ -2319,16 +2326,20 @@
 							In</h4>
 
 						<div class="nk-gap-1"></div>
-						<form action="#" class="nk-form text-white">
+						<form method="post" action="{{ path('app_login') }}" class="nk-form text-white">
 							<div class="row vertical-gap">
 								<div class="col-md-6">
 									Use email and password:
 
 									<div class="nk-gap"></div>
-									<input type="email" value="" name="email" class=" form-control" placeholder="Email">
+									{% if error %}
+										<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+									{% endif %}
+
+									<input type="email" value="{{ last_username }}" name="_username" class="form-control" placeholder="Email" required autofocus>
 
 									<div class="nk-gap"></div>
-									<input type="password" value="" name="password" class="required form-control" placeholder="Password">
+									<input type="password" name="_password" class="form-control" placeholder="Password" required>
 								</div>
 								<div class="col-md-6">
 									Or social account:
@@ -2358,7 +2369,8 @@
 							<div class="nk-gap-1"></div>
 							<div class="row vertical-gap">
 								<div class="col-md-6">
-									<a href="#" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block">Sign In</a>
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+									<button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block">Sign In</button>
 								</div>
 								<div class="col-md-6">
 									<div class="mnt-5">
@@ -2368,81 +2380,77 @@
 									</div>
 									<div class="mnt-5">
 										<small>
-											<a href="{{path('app_register')}}">Not a member? Sign up</a>
+											<a href="{{ path('app_register') }}">Not a member? Sign up</a>
 										</small>
 									</div>
 								</div>
 							</div>
 						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- END: Login Modal -->
 
 
-		<!-- START: Scripts -->
+						<!-- START: Scripts -->
 
-		<!-- Object Fit Polyfill --><script src="{{ asset('vendor/object-fit-images/dist/ofi.min.js') }}"> </script>
+						<!-- Object Fit Polyfill -->
+						<script src="{{ asset('vendor/object-fit-images/dist/ofi.min.js') }}"></script>
 
-		<!-- GSAP -->
-		<script src="{{ asset('vendor/gsap/src/minified/TweenMax.min.js') }}"></script>
-		<script src="{{ asset('vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js') }}"></script>
+						<!-- GSAP -->
+						<script src="{{ asset('vendor/gsap/src/minified/TweenMax.min.js') }}"></script>
+						<script src="{{ asset('vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js') }}"></script>
 
-		<!-- Popper -->
-		<script src="{{ asset('vendor/popper.js/dist/umd/popper.min.js') }}"></script>
+						<!-- Popper -->
+						<script src="{{ asset('vendor/popper.js/dist/umd/popper.min.js') }}"></script>
 
-		<!-- Bootstrap -->
-		<script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+						<!-- Bootstrap -->
+						<script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
-		<!-- Sticky Kit -->
-		<script src="{{ asset('vendor/sticky-kit/dist/sticky-kit.min.js') }}"></script>
+						<!-- Sticky Kit -->
+						<script src="{{ asset('vendor/sticky-kit/dist/sticky-kit.min.js') }}"></script>
 
-		<!-- Jarallax -->
-		<script src="{{ asset('vendor/jarallax/dist/jarallax.min.js') }}"></script>
-		<script src="{{ asset('vendor/jarallax/dist/jarallax-video.min.js') }}"></script>
+						<!-- Jarallax -->
+						<script src="{{ asset('vendor/jarallax/dist/jarallax.min.js') }}"></script>
+						<script src="{{ asset('vendor/jarallax/dist/jarallax-video.min.js') }}"></script>
 
-		<!-- imagesLoaded -->
-		<script src="{{ asset('vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
+						<!-- imagesLoaded -->
+						<script src="{{ asset('vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
 
-		<!-- Flickity -->
-		<script src="{{ asset('vendor/flickity/dist/flickity.pkgd.min.js') }}"></script>
+						<!-- Flickity -->
+						<script src="{{ asset('vendor/flickity/dist/flickity.pkgd.min.js') }}"></script>
 
-		<!-- Photoswipe -->
-		<script src="{{ asset('vendor/photoswipe/dist/photoswipe.min.js') }}"></script>
-		<script src="{{ asset('vendor/photoswipe/dist/photoswipe-ui-default.min.js') }}"></script>
+						<!-- Photoswipe -->
+						<script src="{{ asset('vendor/photoswipe/dist/photoswipe.min.js') }}"></script>
+						<script src="{{ asset('vendor/photoswipe/dist/photoswipe-ui-default.min.js') }}"></script>
 
-		<!-- Jquery Validation -->
-		<script src="{{ asset('vendor/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+						<!-- Jquery Validation -->
+						<script src="{{ asset('vendor/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 
-		<!-- Jquery Countdown + Moment -->
-		<script src="{{ asset('vendor/jquery-countdown/dist/jquery.countdown.min.js') }}"></script>
-		<script src="{{ asset('vendor/moment/min/moment.min.js') }}"></script>
-		<script src="{{ asset('vendor/moment-timezone/builds/moment-timezone-with-data.min.js') }}"></script>
+						<!-- Jquery Countdown + Moment -->
+						<script src="{{ asset('vendor/jquery-countdown/dist/jquery.countdown.min.js') }}"></script>
+						<script src="{{ asset('vendor/moment/min/moment.min.js') }}"></script>
+						<script src="{{ asset('vendor/moment-timezone/builds/moment-timezone-with-data.min.js') }}"></script>
 
-		<!-- Hammer.js -->
-		<script src="{{ asset('vendor/hammerjs/hammer.min.js') }}"></script>
+						<!-- Hammer.js -->
+						<script src="{{ asset('vendor/hammerjs/hammer.min.js') }}"></script>
 
-		<!-- NanoSroller -->
-		<script src="{{ asset('vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js') }}"></script>
+						<!-- NanoSroller -->
+						<script src="{{ asset('vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js') }}"></script>
 
-		<!-- SoundManager2 -->
-		<script src="{{ asset('vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js') }}"></script>
+						<!-- SoundManager2 -->
+						<script src="{{ asset('vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js') }}"></script>
 
-		<!-- Seiyria Bootstrap Slider -->
-		<script src="{{ asset('vendor/bootstrap-slider/dist/bootstrap-slider.min.js') }}"></script>
+						<!-- Seiyria Bootstrap Slider -->
+						<script src="{{ asset('vendor/bootstrap-slider/dist/bootstrap-slider.min.js') }}"></script>
 
-		<!-- Summernote -->
-		<script src="{{ asset('vendor/summernote/dist/summernote-bs4.min.js') }}"></script>
+						<!-- Summernote -->
+						<script src="{{ asset('vendor/summernote/dist/summernote-bs4.min.js') }}"></script>
 
-		<!-- nK Share -->
-		<script src="{{ asset('plugins/nk-share/nk-share.js') }}"></script>
+						<!-- nK Share -->
+						<script src="{{ asset('plugins/nk-share/nk-share.js') }}"></script>
 
-		<!-- GoodGames -->
-		<script src="{{ asset('js/goodgames.min.js') }}"></script>
-		<script src="{{ asset('js/goodgames-init.js') }}"></script>
-		<!-- END: Scripts -->
+						<!-- GoodGames -->
+						<script src="{{ asset('js/goodgames.min.js') }}"></script>
+						<script src="{{ asset('js/goodgames-init.js') }}"></script>
+						<!-- END: Scripts -->
 
 
-	</body>
-</html>
+					</body>
+				</html>

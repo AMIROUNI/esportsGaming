@@ -28,6 +28,12 @@ class Matches
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $matchDate;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $scoreA = null;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $scoreB = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -74,6 +80,30 @@ class Matches
     public function setMatchDate(\DateTimeInterface $matchDate): self
     {
         $this->matchDate = $matchDate;
+        return $this;
+    }
+
+    // Getter and Setter for scoreA
+    public function getScoreA(): ?int
+    {
+        return $this->scoreA;
+    }
+
+    public function setScoreA(?int $scoreA): self
+    {
+        $this->scoreA = $scoreA;
+        return $this;
+    }
+
+    // Getter and Setter for scoreB
+    public function getScoreB(): ?int
+    {
+        return $this->scoreB;
+    }
+
+    public function setScoreB(?int $scoreB): self
+    {
+        $this->scoreB = $scoreB;
         return $this;
     }
 }
