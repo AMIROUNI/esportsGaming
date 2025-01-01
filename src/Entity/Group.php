@@ -31,6 +31,11 @@ class Group
     #[ORM\JoinColumn(name: 'group_id', referencedColumnName: 'id')] // Specify join column for Group
     #[ORM\InverseJoinColumn(name: 'gamer_id', referencedColumnName: 'id')] // Specify join column for User
     private Collection $gamer;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'admin_id', referencedColumnName: 'id')]
+    private ?User $admin = null;
+
     public function __construct()
     {
         $this->gamer = new ArrayCollection();
@@ -82,6 +87,17 @@ class Group
     public function removeGamer(User $gamer): static
     {
         $this->gamer->removeElement($gamer);
+        return $this;
+    }
+
+    public function getAdmin(): ?User
+    {
+        return $this->admin;
+    }
+
+    public function setAdmin(?User $admin): static
+    {
+        $this->admin = $admin;
         return $this;
     }
 }

@@ -9,6 +9,7 @@ use App\Repository\TournoiRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -74,10 +75,11 @@ public function edit(Request $request, Tournoi $tournoi, EntityManagerInterface 
 
 
 
-    #[Route('/tournaments', name: 'tournaments')]
+    #[Route('/tournaments', name: 'app_tournaments')]
     public function tournaments(
-        MatchesRepository $matchesRepository
+        MatchesRepository $matchesRepository,SessionInterface $session
     ): Response {
+        $userId = $session->get('user_id');
         // Get today's date
         $today = new DateTime('today');
     
@@ -104,6 +106,7 @@ public function edit(Request $request, Tournoi $tournoi, EntityManagerInterface 
             'validMatches' => $validMatches,
             'nowPlayingMatch' => $nowPlayingMatch,
             'staticBlock' => $nowPlayingMatch === null
+            ,'user_id' => $userId,
         ]);
     }
     

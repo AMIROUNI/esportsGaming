@@ -38,8 +38,7 @@ class Produit
     #[ORM\OneToMany(targetEntity: Lp::class, mappedBy: 'produit')]
     private Collection $lp;
 
-    #[ORM\ManyToOne(inversedBy: 'produits')]
-    private ?ProduitCategory $produitCategory = null;
+  
 
     public function __construct()
     {
@@ -130,20 +129,6 @@ class Produit
         return $this;
     }
 
-    public function getProduitCategory(): ?ProduitCategory
-    {
-        return $this->produitCategory;
-    }
-
-    public function setProduitCategory(?ProduitCategory $produitCategory): static
-    {
-        $this->produitCategory = $produitCategory;
-
-        return $this;
-    }
-
-
-
-
+ 
     
 }

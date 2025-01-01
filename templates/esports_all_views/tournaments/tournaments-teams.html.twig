@@ -60,6 +60,35 @@
 		<!-- jQuery --><script src="{{asset('vendor/jquery/dist/jquery.min.js')}}"> </script>
 
 
+		<style>/* Custom styles for the form */
+.custom-file-input {
+    cursor: pointer;
+}
+
+.custom-file-label {
+    background-color: #343a40;
+    color: #fff;
+    border: 1px solid #495057;
+    border-radius: 5px;
+    padding: 0.375rem 0.75rem;
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-check-input {
+    background-color: #495057;
+    border-color: #6c757d;
+}
+
+.form-check-input:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+	</style>
 	</head>
 
 
@@ -155,11 +184,16 @@
 							</li>
 
 
+							{% if   app.session.get('user_id') %}
+								<p>{{ app.session.get('user_id') }}</p>
+							{% else %}
 							<li>
-								<a data-toggle="modal" data-target="#modalLogin">
-									<span class="fa fa-user"></span>
-								</a>
-							</li>
+									<a href="#" data-toggle="modal" data-target="#modalLogin">
+										<span class="fa fa-user"></span>
+									</a>
+								</li>
+								
+							{% endif %}
 
 
 							<li>
@@ -507,6 +541,72 @@
 			<!-- END: Breadcrumbs -->
 
 
+   
+      
+	       <div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0 bg-dark text-white">
+            <div class="card-header bg-primary">
+                <h4 class="mb-0">Créer un Groupe</h4>
+            </div>
+            <div class="card-body">
+                {{ form_start(groupForm, {'method': 'POST'}) }}
+                
+                <!-- Nom du Groupe -->
+                <div class="mb-4">
+                    {{ form_label(groupForm.nomGroup, 'Nom du Groupe', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                    {{ form_widget(groupForm.nomGroup, {'attr': {'class': 'form-control form-control-lg bg-secondary text-white', 'placeholder': 'Entrez le nom du groupe'}}) }}
+                </div>
+
+                <!-- Logo du Groupe -->
+                <div class="mb-4">
+                    {{ form_label(groupForm.logo, 'Logo du Groupe', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                    <div class="input-group">
+                        <div class="custom-file">
+                            {{ form_widget(groupForm.logo, {'attr': {'class': 'custom-file-input bg-secondary text-white', 'id': 'logoInput'}}) }}
+                            <label class="custom-file-label bg-secondary text-white" for="logoInput" id="fileLabel">Choisissez un fichier</label>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Téléversez une image pour le logo du groupe.</small>
+                </div>
+
+                <!-- Sélectionner l'Admin -->
+                <div class="mb-4">
+                    {{ form_label(groupForm.admin, 'Admin du Groupe', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                    {{ form_widget(groupForm.admin, {'attr': {'class': 'form-control form-control-lg bg-secondary text-white'}}) }}
+                </div>
+
+                <!-- Sélectionner des Gamers -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Sélectionner des Gamers</label>
+                    <div class="row">
+                        {% for gamer in groupForm.gamer %}
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check">
+                                    {{ form_widget(gamer, {'attr': {'class': 'form-check-input bg-secondary'}}) }}
+                                    <label for="{{ gamer.vars.id }}" class="form-check-label">{{ gamer.vars.label }}</label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Créer le Groupe</button>
+                </div>
+                {{ form_end(groupForm) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+			  <!-- end the form group -->
+
+
 			<div class="container">
 				<div class="row vertical-gap">
 					<div
@@ -528,7 +628,7 @@
 												{{ group.nomGroup }}</h3>
 											<h4 class="h6 mb-5">Members:</h4>
 											{% for gamer in group.gamer %}
-												<a href="{{ path('gamer_profile', {id: gamer.id}) }}">{{ gamer.username }}</a>
+												<a>{{ gamer.nom }}</a>
 												{% if not loop.last %},
 												{% endif %}
 											{% endfor %}
@@ -540,119 +640,7 @@
 								{% endfor %}
 							</div>
 						{% endblock %}
-						<div class="nk-team">
-							<div class="nk-team-logo">
-								<img src="{{asset('images/team-1-lg.jpg')}}" alt="">
-							</div>
-							<div class="nk-team-cont">
-								<h3 class="h5 mb-20">
-									<span class="text-main-1">Team:</span>
-									SK Telecom T1</h3>
-								<h4 class="h6 mb-5">Members:</h4>
-								<a href="tournaments-teammate.html">Duke</a>,
-								<a href="tournaments-teammate.html">Bangi</a>,
-								<a href="tournaments-teammate.html">Faker</a>,
-								<a href="tournaments-teammate.html">Bang</a>,
-								<a href="tournaments-teammate.html">Wolf</a>
-
-								<div class="nk-team-photo" style="background-image: url('images/team-photo.png');"></div>
-							</div>
-						</div>
-
-						<div class="nk-team">
-							<div class="nk-team-logo">
-								<img src="{{asset('images/team-2-lg.jpg')}}" alt="">
-							</div>
-							<div class="nk-team-cont">
-								<h3 class="h5 mb-20">
-									<span class="text-main-1">Team:</span>
-									Team Solomid</h3>
-								<h4 class="h6 mb-5">Members:</h4>
-								<a href="tournaments-teammate.html">Duke</a>,
-								<a href="tournaments-teammate.html">Bangi</a>,
-								<a href="tournaments-teammate.html">Faker</a>,
-								<a href="tournaments-teammate.html">Bang</a>,
-								<a href="tournaments-teammate.html">Wolf</a>
-
-								<div class="nk-team-photo" style="background-image: url('images/team-photo.png');"></div>
-							</div>
-						</div>
-
-						<div class="nk-team">
-							<div class="nk-team-logo">
-								<img src="{{asset('images/team-3-lg.jpg')}}" alt="">
-							</div>
-							<div class="nk-team-cont">
-								<h3 class="h5 mb-20">
-									<span class="text-main-1">Team:</span>
-									Cloud 9</h3>
-								<h4 class="h6 mb-5">Members:</h4>
-								<a href="tournaments-teammate.html">Duke</a>,
-								<a href="tournaments-teammate.html">Bangi</a>,
-								<a href="tournaments-teammate.html">Faker</a>,
-								<a href="tournaments-teammate.html">Bang</a>,
-								<a href="tournaments-teammate.html">Wolf</a>
-
-								<div class="nk-team-photo" style="background-image: url('images/team-photo.png');"></div>
-							</div>
-						</div>
-
-						<div class="nk-team">
-							<div class="nk-team-logo">
-								<img src="{{asset('images/team-4-lg.jpg')}}" alt="">
-							</div>
-							<div class="nk-team-cont">
-								<h3 class="h5 mb-20">
-									<span class="text-main-1">Team:</span>
-									Counter Logic Gaming</h3>
-								<h4 class="h6 mb-5">Members:</h4>
-								<a href="tournaments-teammate.html">Duke</a>,
-								<a href="tournaments-teammate.html">Bangi</a>,
-								<a href="tournaments-teammate.html">Faker</a>,
-								<a href="tournaments-teammate.html">Bang</a>,
-								<a href="tournaments-teammate.html">Wolf</a>
-
-								<div class="nk-team-photo" style="background-image: url('images/team-photo.png');"></div>
-							</div>
-						</div>
-
-						<div class="nk-team">
-							<div class="nk-team-logo">
-								<img src="{{asset('images/team-1-lg.jpg')}}" alt="">
-							</div>
-							<div class="nk-team-cont">
-								<h3 class="h5 mb-20">
-									<span class="text-main-1">Team:</span>
-									fnatic</h3>
-								<h4 class="h6 mb-5">Members:</h4>
-								<a href="tournaments-teammate.html">Duke</a>,
-								<a href="tournaments-teammate.html">Bangi</a>,
-								<a href="tournaments-teammate.html">Faker</a>,
-								<a href="tournaments-teammate.html">Bang</a>,
-								<a href="tournaments-teammate.html">Wolf</a>
-
-								<div class="nk-team-photo" style="background-image: url('images/team-photo.png');"></div>
-							</div>
-						</div>
-
-						<div class="nk-team">
-							<div class="nk-team-logo">
-								<img src="{{asset('images/team-2-lg.jpg')}}" alt="">
-							</div>
-							<div class="nk-team-cont">
-								<h3 class="h5 mb-20">
-									<span class="text-main-1">Team:</span>
-									Origen</h3>
-								<h4 class="h6 mb-5">Members:</h4>
-								<a href="tournaments-teammate.html">Duke</a>,
-								<a href="tournaments-teammate.html">Bangi</a>,
-								<a href="tournaments-teammate.html">Faker</a>,
-								<a href="tournaments-teammate.html">Bang</a>,
-								<a href="tournaments-teammate.html">Wolf</a>
-
-								<div class="nk-team-photo" style="background-image: url('images/team-photo.png');"></div>
-							</div>
-						</div>
+						
 						<!-- END: Teams -->
 
 					</div>

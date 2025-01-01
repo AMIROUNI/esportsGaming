@@ -192,4 +192,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->groups->removeElement($group);
         return $this;
     }
+
+
+
+    public function __toString(): string
+    {
+        return $this->email; // Or any other field you want to display in the dropdown
+    }
+
 }
