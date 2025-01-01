@@ -19,13 +19,7 @@ class BlogController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('', name: 'app_blog')]
-    public function features(): Response
-    {
-        return $this->render('esports_all_views/index.html.twig', [
-            'controller_name' => 'BlogController',
-        ]);
-    }
+    
 
     #[Route('/news', name: 'app_contenu_news', methods: ['GET'])]
     public function news(ContenuRepository $contenuRepository): Response
@@ -64,7 +58,7 @@ class BlogController extends AbstractController
     }
 
 
-    #[Route('/blog_article', name: 'blog_article')]
+    #[Route('/blog_article', name: 'blog_articleStatique')]
     public function blog_article(): Response
     {
         return $this->render('esports_all_views/blog/blog-article.html.twig', [

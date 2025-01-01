@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/tournaments')]
 final class TournamentsController extends AbstractController
@@ -82,5 +82,36 @@ final class TournamentsController extends AbstractController
             'groups' => $groups,
             'groupForm' => $groupForm->createView(),
         ]);
+    }
+
+    #[Route('/teams/{id}/participate', name: 'tournament_teams_participate', methods: ['POST'])]
+    public function participate(Group $group, SessionInterface $session): Response
+    {
+        // Get the current logged-in user's email from the session
+        $userEmail = $session->get('user_id');
+        if (!$userEmail) {
+            $this->addFlash('error', 'Vous devez être connecté pour participer.');
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Find the user by email
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $userEmail]);
+        if (!$user) {
+            $this->addFlash('error', 'Utilisateur non trouvé.');
+            return $this->redirectToRoute('tournament_teams');
+        }
+
+        // Check if the group has reached the maximum number of participants
+        if ($group->getGamer()->count() >= Group::MAX_GAMERS) {
+            $this->addFlash('error', 'Le groupe est complet.');
+            return $this->redirectToRoute('tournament_teams');
+        }
+
+        // Add the user to the group's gamers
+        $group->addGamer($user);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Vous avez rejoint le groupe avec succès!');
+        return $this->redirectToRoute('tournament_teams');
     }
 }

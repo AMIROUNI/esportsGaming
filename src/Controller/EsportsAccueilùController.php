@@ -36,4 +36,13 @@ class EsportsAccueilùController extends AbstractController
             'error' => $error,
         ]);
     }
+
+
+    #[Route('/logout', name: 'app_logout')]
+    public function logout(): void
+    {
+        // This method can be blank. Symfony will handle the logout process automatically.
+        // The `security.yaml` configuration will take care of redirecting the user after logout.
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
 }

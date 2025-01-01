@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: '`group`')]
 class Group
 {
+
+    const MAX_GAMERS = 5;   
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

@@ -1,0 +1,97 @@
+{# templates/dashboard/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS for the dashboard -->
+    <style>
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .chart-container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="dashboard-container">
+        <!-- Cards for Quick Stats -->
+        <div class="card">
+            <h3>Total Commandes</h3>
+            <p>{{ commandes|length }}</p>
+        </div>
+        <div class="card">
+            <h3>Total Produits</h3>
+            <p>{{ produits|length }}</p>
+        </div>
+        <div class="card">
+            <h3>Total Tournois</h3>
+            <p>{{ tournois|length }}</p>
+        </div>
+        <div class="card">
+            <h3>Total Utilisateurs</h3>
+            <p>{{ users|length }}</p>
+        </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="chart-container">
+        <h3>Commandes par Jour</h3>
+        <canvas id="ordersChart"></canvas>
+    </div>
+
+    <!-- Chart.js Script -->
+    <script>
+        const ordersData = {{ ordersPerDay|raw }};
+        const labels = Object.keys(ordersData);
+        const data = Object.values(ordersData);
+
+        const ctx = document.getElementById('ordersChart').getContext('2d');
+        const ordersChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Commandes',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+{% endblock %}

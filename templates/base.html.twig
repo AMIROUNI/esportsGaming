@@ -323,47 +323,60 @@ input[type="number"].gamer-input { background-color: #1e1e1e; color: #00ff00; bo
     <!-- END: Top Contacts -->
 
     <!-- START: Navbar -->
-    <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
-        <div class="container">
-            <div class="nk-nav-table">
+   <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
+    <div class="container">
+        <div class="nk-nav-table">
+            <!-- Logo -->
+            <a href="{{ path('app_game_index') }}" class="nk-nav-logo">
+                <img src="{{ asset('images/logo.png') }}" alt="GoodGames" width="199">
+            </a>
 
-                <a href="{{ path('app_game_index') }}" class="nk-nav-logo">
-                    <img src="{{ asset('images/logo.png') }}" alt="GoodGames" width="199">
-                </a>
+            <!-- Navigation Links -->
+            <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" style="list-style: none; padding: 0; margin: 0; display: flex; gap: 10px; flex-wrap: wrap;">
+                <li>
+                    <a href="{{ path('app_group_index') }}">Group</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_tournoi_index') }}">Tournoi</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_game_index') }}">Games</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_produit_index') }}">Product</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_commande_index') }}">Commande</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_lp_new') }}">LP</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_programme_coaching_index') }}">Programme Coaching</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_demande_de_programme_c_new') }}">Demande de Programme</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_user_index') }}">Users</a>
+                </li>
+            </ul>
 
-                <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" style="list-style: none; padding: 0; margin: 0; display: flex; gap: 20px;">
-                    <li>
-                        <a href="{{ path('app_group_index') }}">Group</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_tournoi_index') }}">Tournoi</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_game_index') }}">Games</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_produit_index') }}">Product</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_commande_index') }}">Commande</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_lp_new') }}">LP</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_programme_coaching_index') }}">Programme Coaching</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_demande_de_programme_c_new') }}">Demande de Programme</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_user_index') }}">Users</a>
-                    </li>
-                </ul>
-
-            </div>
+            <!-- Mobile Menu Toggle -->
+            <ul class="nk-nav nk-nav-right nk-nav-icons">
+                <li class="single-icon d-lg-none">
+                    <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
+                        <span class="nk-icon-burger">
+                            <span class="nk-t-1"></span>
+                            <span class="nk-t-2"></span>
+                            <span class="nk-t-3"></span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
     <!-- END: Navbar -->
 
 </header>
