@@ -38,11 +38,13 @@
         "symfony/stimulus-bundle": "^2.21",
         "symfony/string": "6.4.*",
         "symfony/translation": "6.4.*",
+        "symfony/twig-bridge": "6.4.*",
         "symfony/twig-bundle": "6.4.*",
         "symfony/ux-turbo": "^2.21",
         "symfony/validator": "6.4.*",
         "symfony/web-link": "6.4.*",
         "symfony/yaml": "6.4.*",
+        "symfonycasts/verify-email-bundle": "^1.17",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },

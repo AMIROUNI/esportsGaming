@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\MailerInterface;
 
 #[Route('/user')]
 final class UserController extends AbstractController
@@ -95,4 +97,20 @@ final class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+    #[Route('/test-email', name: 'app_test_email')]
+public function testEmail(MailerInterface $mailer): Response
+{
+    $email = (new Email())
+        ->from('amirouni162@gmail.com')
+        ->to('recipient@example.com')
+        ->subject('Test Email')
+        ->text('This is a test email.');
+
+    $mailer->send($email);
+
+    return new Response('Email sent!');
+}
 }

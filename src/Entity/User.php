@@ -5,6 +5,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,6 +13,7 @@ use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -22,11 +24,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $nom = null;
+    #[ORM\Column(length: 100, nullable: true)] 
+       private ?string $nom = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $prenom = null;
+#[ORM\Column(length: 100, nullable: true)] 
+       private ?string $prenom = null;
 
     #[ORM\Column]
     private array $roles = [];
@@ -50,9 +52,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'gamer')]
     private Collection $groups;
 
+    #[ORM\Column]
+    private bool $isVerified = false;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
+        $this->nom = 'Default Nom';
+        $this->prenom = 'Default Prenom';
+        $this->roles = ['ROLE_USER'];
     }
 
     public function getId(): ?int
@@ -199,5 +207,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email; // Or any other field you want to display in the dropdown
     }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+
+
 
 }
