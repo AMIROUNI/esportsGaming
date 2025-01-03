@@ -1,3 +1,8 @@
 <p>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :</p>
-<a href="{{ signedUrl }}">Confirmer mon email</a>
-<p>{{ expiresAtMessageKey }} : {{ expiresAtMessageData }}</p>
+{% if signedUrl is not iterable %}
+   <p>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :</p>
+   <a href="{{ signedUrl }}">Cliquez ici pour confirmer votre adresse email</a>
+    <p>Votre adresse email : {{ userEmail }}</p>
+{% else %}
+    <p>URL invalide.</p>
+{% endif %}

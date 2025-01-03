@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
 use App\Form\UserType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,48 +10,63 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
-    {
+    private EmailVerifier $emailVerifier;
+    private MailerInterface $mailer;
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(
+        EmailVerifier $emailVerifier,
+        MailerInterface $mailer,
+        EntityManagerInterface $entityManager
+    ) {
+        $this->emailVerifier = $emailVerifier;
+        $this->mailer = $mailer;
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var string $plainPassword */
+            if (empty($user->getEmail())) {
+                throw new \InvalidArgumentException("L'utilisateur doit avoir une adresse email valide.");
+            }
+
+            // Hash du mot de passe
             $plainPassword = $form->get('plainPassword')->getData();
-
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-            $entityManager->persist($user);
-            $entityManager->flush();
 
-        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-    (new TemplatedEmail())
-        ->from(new Address('amirouni162@gmail.com', 'Amir EL_OUNI'))
-        ->to((string) $user->getEmail())
-        ->subject('Please Confirm your Email')
-        ->htmlTemplate('registration/confirmation_email.html.twig')
-        ->context([
-            'user' => $user,
-        ])
-);
+            // Sauvegarde de l'utilisateur
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
-        
-        
-
-            // do anything else you need here, like send an email
+            // Envoi de l'email de confirmation
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
+                (new TemplatedEmail())
+                    ->from(new Address('amirouni162@gmail.com', 'Amir EL_OUNI'))
+                    ->to($user->getEmail())
+                    ->subject('Veuillez confirmer votre adresse e-mail')
+                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->context([
+                        'userEmail' => $user->getEmail(), // Use the same key name as in EmailVerifier
+                    ])
+            );
+            
 
             return $this->redirectToRoute('app_esports_accueil_');
         }
@@ -61,55 +75,60 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form,
         ]);
     }
-
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        // validate email confirmation link, sets User::isVerified=true and persists
+        $email = $request->query->get('email'); // Retrieve 'email' from query parameters
+        if (!$email) {
+            throw $this->createNotFoundException('Email utilisateur manquant.');
+        }
+    
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+    
+        if (!$user) {
+            throw $this->createNotFoundException('Utilisateur non trouvé.');
+        }
+    
         try {
-            /** @var User $user */
-            $user = $this->getUser();
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
-
             return $this->redirectToRoute('app_register');
         }
-
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
-
-        return $this->redirectToRoute('app_register');
-    }
-
-
-
-    #[Route('/test')]
-    public function testEmail(EntityManagerInterface $entityManager): Response
-    {
-        $user = $entityManager->getRepository(User::class)->find(1);
-        
-        $email = (new TemplatedEmail())
-            ->from(new Address('amirouni162@gmail.com', 'Amir EL_OUNI'))
-            ->to('test@example.com')
-            ->subject('Test Email')
-            ->htmlTemplate('registration/confirmation_email.html.twig')
-            ->textTemplate('registration/confirmation_email.txt.twig')
-            ->context([
-                'signedUrl' => 'http://example.com/verify',
-                'expiresAtMessageKey' => 'This link expires in {{ expiry }}.',
-                'expiresAtMessageData' => ['expiry' => '24 hours'],
-            ]);
-        
-        try {
-            $htmlContent = $this->renderView($email->getHtmlTemplate(), $email->getContext());
-            $textContent = $this->renderView($email->getTextTemplate(), $email->getContext());
-            return new Response("HTML Content: $htmlContent\n\nText Content: $textContent");
-        } catch (\Exception $e) {
-            return new Response('Error rendering templates: ' . $e->getMessage());
-        }
+    
+        $this->addFlash('success', 'Votre adresse email a été vérifiée.');
+        return $this->redirectToRoute('app_esports_accueil_');
     }
     
+
+
+    #[Route('/test', name: 'app_test_email')]
+    public function testEmail(): Response
+    {
+        $email = (new TemplatedEmail())
+            ->from('test@example.com')
+            ->to('recipient@example.com')
+            ->subject('Test Email')
+            ->htmlTemplate('emails/test_email.html.twig')
+            ->context(['message' => 'Ceci est un email de test.']);
+
+        $this->mailer->send($email);
+
+        return new Response('Email envoyé avec succès.');
+    }
+
+    #[Route('/test/simple-email', name: 'test_simple_email')]
+    public function testSimpleEmail(): Response
+    {
+        $email = (new TemplatedEmail())
+            ->from('test@example.com')
+            ->to('recipient@example.com')
+            ->subject('Test Email Simple')
+            ->htmlTemplate('emails/simple_email.html.twig')
+            ->context(['message' => 'Ceci est un test d\'email simple.']);
+
+        $this->mailer->send($email);
+
+        return new Response('Email envoyé avec succès.');
+    }
 }

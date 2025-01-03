@@ -20,22 +20,25 @@ class EmailVerifier
     }
 
     public function sendEmailConfirmation(string $verifyEmailRouteName, User $user, TemplatedEmail $email): void
-    {
-        $signatureComponents = $this->verifyEmailHelper->generateSignature(
-            $verifyEmailRouteName,
-            (string) $user->getId(),
-            (string) $user->getEmail()
-        );
+{
+    $signatureComponents = $this->verifyEmailHelper->generateSignature(
+        $verifyEmailRouteName,
+        (string) $user->getId(),
+        $user->getEmail(),
+        ['email' => $user->getEmail()] // Add email to the query parameters
+    );
 
-        $context = $email->getContext();
-        $context['signedUrl'] = $signatureComponents->getSignedUrl();
-        $context['expiresAtMessageKey'] = $signatureComponents->getExpirationMessageKey();
-        $context['expiresAtMessageData'] = $signatureComponents->getExpirationMessageData();
+    $context = array_merge($email->getContext(), [
+        'signedUrl' => $signatureComponents->getSignedUrl(),
+        'userEmail' => $user->getEmail(),
+        'expiresAtMessageKey' => $signatureComponents->getExpirationMessageKey(),
+        'expiresAtMessageData' => $signatureComponents->getExpirationMessageData(),
+    ]);
 
-        $email->context($context);
+    $email->context($context);
+    $this->mailer->send($email);
+}
 
-        $this->mailer->send($email);
-    }
 
     /**
      * @throws VerifyEmailExceptionInterface
