@@ -20,8 +20,9 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
-    private MailerInterface $mailer;
+    
     private EntityManagerInterface $entityManager;
+    private MailerInterface $mailer;
 
     public function __construct(
         EmailVerifier $emailVerifier,

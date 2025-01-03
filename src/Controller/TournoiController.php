@@ -17,10 +17,25 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+
 
 #[Route('/tournoi')]
 class TournoiController extends AbstractController
 {
+
+    private MailerInterface $mailer;
+
+    public function __construct(
+        
+        MailerInterface $mailer
+      
+    ) {
+     
+        $this->mailer = $mailer;
+        
+    }
     #[Route('', name: 'app_tournoi_index', methods: ['GET', 'POST'])]
     public function index(Request $request, TournoiRepository $tournoiRepository, EntityManagerInterface $entityManager): Response
     {
@@ -33,6 +48,22 @@ class TournoiController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Tournoi créé avec succès!');
+
+
+              // Fetch all users and send email to each user
+              $users = $entityManager->getRepository(User::class)->findAll();
+            
+              // Send an email to each user
+              foreach ($users as $user) {
+                  $email = (new Email())
+                      ->from('admin@gmail.com')
+                      ->to($user->getEmail())
+                      ->subject('New Tournament Created!')
+                      ->html('<p>A new tournament has been created in h join now . <br><a href="' . $this->generateUrl('app_tournoi_participate', ['id' => $tournoi->getId()]) . '">Click here to view the details.</a></p>');
+                  
+                  $this->mailer->send($email);
+              }
+  
 
             return $this->redirectToRoute('app_tournoi_index');
         }
