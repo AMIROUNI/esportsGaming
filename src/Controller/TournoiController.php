@@ -214,7 +214,7 @@ public function edit(Request $request, Tournoi $tournoi, EntityManagerInterface 
             return $this->redirectToRoute('app_tournaments');
         }
     
-        // Check if the tournament is still open for participation
+  /*      // Check if the tournament is still open for participation
         $today = new DateTime('today');
         if ($tournoi->getDateFin() < $today) {
             $this->addFlash('error', 'This tournament is no longer open for participation.');
@@ -246,6 +246,7 @@ public function edit(Request $request, Tournoi $tournoi, EntityManagerInterface 
         if(!$isAlreadyParticipating) {
             throw new Exception('the User is already participant');
         }
+            */
 
     
 

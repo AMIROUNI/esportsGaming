@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Card;
 use App\Entity\User;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -66,22 +67,21 @@ class StoreController extends AbstractController
             $this->addFlash('error', 'User not found.');
             return $this->redirectToRoute('app_login'); // Redirect to login page
         }
-    
+        
+
         // Retrieve the user's card
         $card = $user->getCard();
-        if (!$card || $card->getProduits()->isEmpty()) {
-            $this->addFlash('info', 'Your card is empty.');
-            return $this->redirectToRoute('store_products'); // Redirect to products page
-        }
-
-
         if (!$card) {
-            throw new Exception("Card not found for user: $userEmail");
+
+            $card= new Card();
         }
-        
-        if($card->getProduits()->isEmpty()  ){
-            throw new Exception("this card has no products");
-        }
+      #  if (!$card || $card->getProduits()->isEmpty()) {
+       #   $this->addFlash('info', 'Your card is empty.');
+       #  return $this->redirectToRoute('store_product'); // Redirect to products page
+       # }
+
+
+       
 
         $produits = $produitRepository->findAll();
         return $this->render('esports_all_views/store/store-catalog-alt.html.twig', [
