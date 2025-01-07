@@ -52,6 +52,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'gamer')]
     private Collection $groups;
 
+
+
+    #[ORM\OneToOne(targetEntity: Card::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
+private ?Card $card = null;
+
+public function getCard(): ?Card
+{
+    return $this->card;
+}
+
+public function setCard(?Card $card): static
+{
+    // Set the owning side of the relation if necessary
+    if ($card->getUser() !== $this) {
+        $card->setUser($this);
+    }
+
+    $this->card = $card;
+
+    return $this;
+}
+
     #[ORM\Column]
     private bool $isVerified = false;
 

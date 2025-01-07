@@ -1,13 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit BlogCategory{% endblock %}
+{% block title %}🎨 Modifier la Catégorie 🎨{% endblock %}
 
 {% block body %}
-    <h1>Edit BlogCategory</h1>
+<div class="container my-5">
+    <h1 class="text-center text-warning mb-5">🎨 Modifier la Catégorie 🎨</h1>
 
-    {{ include('blog_category/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Éditer la Catégorie</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="mb-3">
+                        {{ form_label(form.name, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'form-control game-input'}}) }}
+                    </div>
+                    <button class="btn btn-primary w-100 mt-3">Enregistrer les Modifications</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <a href="{{ path('app_blog_category_index') }}">back to list</a>
+<style>
+    body {
+        background: url('{{ asset('images/bg-fixed-3.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        color: #f5f5f5;
+    }
 
-    {{ include('blog_category/_delete_form.html.twig') }}
+    .card {
+        border-radius: 1rem;
+    }
+
+    .btn {
+        font-weight: bold;
+    }
+
+    h1,
+    h4 {
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Custom styling for form inputs */
+    .game-input {
+        background-color: #212529;
+        border: 1px solid #495057;
+        color: #f8f9fa;
+    }
+
+    .game-input:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+</style>
 {% endblock %}

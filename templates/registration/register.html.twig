@@ -1,24 +1,90 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}🎮 Inscription Pro Gaming 🎮{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
 
-    <h1>Register</h1>
-{{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.nom) }}
-    {{ form_row(registrationForm.prenom) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.plainPassword) }}
- 
-    {{ form_row(registrationForm.description) }}
-    {{ form_row(registrationForm.niveau) }}
-    {{ form_row(registrationForm.surNom) }}
-    {{ form_row(registrationForm.badge) }}
-    {{ form_row(registrationForm.roles) }}
-    <button type="submit">Register</button>
-{{ form_end(registrationForm) }}
+<div class="container my-5">
+    <h1 class="text-center text-primary mb-5">🎮 Rejoignez la Communauté Pro Gaming 🎮</h1>
+
+    <div class="row justify-content-center">
+        <!-- Formulaire d'inscription -->
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Créer un Compte</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(registrationForm) }}
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.nom, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.prenom, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.plainPassword, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.description, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.description, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.niveau, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.niveau, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.surNom, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.surNom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.badge, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.badge, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.roles, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.roles, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <button class="btn btn-success w-100 mt-3">S'inscrire</button>
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Style personnalisé -->
+<style>
+    body {
+        background: url('{{ asset('images/bg-fixed-2.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        color: #f5f5f5;
+    }
+    .card {
+        border-radius: 1rem;
+    }
+    .btn {
+        font-weight: bold;
+    }
+    h1, h4 {
+        font-family: 'Orbitron', sans-serif;
+    }
+    .form-control {
+        background-color: #1e1e1e;
+        color: #fff;
+        border: 1px solid #444;
+    }
+    .form-control:focus {
+        border-color: #007bff;
+        background-color: #2c2c2c;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+</style>
 {% endblock %}

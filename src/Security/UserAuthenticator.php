@@ -60,7 +60,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_group_index'));
+            return new RedirectResponse($this->urlGenerator->generate('dashboard'));
         }
 
         if (in_array('ROLE_COACH', $user->getRoles(), true)) {

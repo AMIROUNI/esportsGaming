@@ -12,6 +12,7 @@ use App\Repository\MatchesRepository;
 use App\Repository\TournoiRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -174,22 +175,25 @@ public function edit(Request $request, Tournoi $tournoi, EntityManagerInterface 
     
         // Get the user ID from the session
         $userId = $session->get('user_id');
-        dump('Session User ID:', $userId);
+      
     
         // Check if the user is authenticated
         if (!$userId) {
             $this->addFlash('error', 'You must be logged in to participate in a tournament.');
-            return $this->redirectToRoute('app_tournaments');
+            return $this->redirectToRoute('app_login');
         }
     
         // Get the current user
-        $user = $entityManager->getRepository(User::class)->find($userId);
-        dump('User:', $user);
+        $user = $entityManager->getRepository(User::class)->findByEmail($userId);
+
+        if(!$user) {
+            throw new Exception('this user does not exist');
+        }
     
         // Get the group ID from the form submission
         $groupId = $request->request->get('group_id');
-        dump('Group ID from form:', $groupId);
-    
+       
+        
         if (!$groupId) {
             $this->addFlash('error', 'Please select a group to participate.');
             return $this->redirectToRoute('app_tournaments');
@@ -197,7 +201,12 @@ public function edit(Request $request, Tournoi $tournoi, EntityManagerInterface 
     
         // Get the group
         $group = $entityManager->getRepository(Group::class)->find($groupId);
-        dump('Group:', $group);
+        
+
+
+        if(!$group) {
+            throw new Exception('this group does not exist');
+        }
     
         // Check if the group exists and the user is the admin
         if (!$group || $group->getAdmin() !== $user) {
@@ -211,6 +220,11 @@ public function edit(Request $request, Tournoi $tournoi, EntityManagerInterface 
             $this->addFlash('error', 'This tournament is no longer open for participation.');
             return $this->redirectToRoute('app_tournaments');
         }
+
+
+        if($tournoi->getDateFin() < $today) {
+            throw new Exception('the date is before the tournament');
+        }
     
         // Check if the tournament has reached its maximum number of participants
         $maxParticipants = $tournoi->getMaxParticipants();
@@ -221,7 +235,7 @@ public function edit(Request $request, Tournoi $tournoi, EntityManagerInterface 
         }
     
         // Check if the group is already participating in the tournament
-        $isAlreadyParticipating = $tournoi->getParticipationTournois()->exists(function($key, $participation) use ($group) {
+        $isAlreadyParticipating = $tournoi->getParticipationTournois()->exists(function(int $key, $participation) use ($group) {
             return $participation->getGroup()->getId() === $group->getId();
         });
     
@@ -229,17 +243,25 @@ public function edit(Request $request, Tournoi $tournoi, EntityManagerInterface 
             $this->addFlash('error', 'Your group is already participating in this tournament.');
             return $this->redirectToRoute('app_tournaments');
         }
+        if(!$isAlreadyParticipating) {
+            throw new Exception('the User is already participant');
+        }
+
     
+
+
+
         // Create a new participation record
         $participation = new ParticipationTournoi();
+       
         $participation->setTournoi($tournoi);
         $participation->setGroup($group);
         $participation->setEtat(EtatDeParticipationTournoi::PARTICIPANT); // Set the initial state
-    
+        dump('Participation Before Flush:', $participation);
         // Save the participation record
         $entityManager->persist($participation);
         $entityManager->flush();
-    
+        dump('Participation After Flush:', $participation);
         $this->addFlash('success', 'Your group has successfully participated in the tournament!');
         return $this->redirectToRoute('app_tournaments');
     }

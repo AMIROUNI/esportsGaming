@@ -1,97 +1,325 @@
-{# templates/dashboard/index.html.twig #}
+<!DOCTYPE html>
+<html lang="en">
 
-{% extends 'base.html.twig' %}
+<head>
+    <meta charset="utf-8">
+    {% block title %}
+        <title>TOURNOIS</title>
+    {% endblock %}
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-{% block title %}Dashboard{% endblock %}
+    <!-- Favicon -->
+    <link href="{{ asset('/assets/img/favicon.ico') }}" rel="icon">
 
-{% block stylesheets %}
-    {{ parent() }}
-    <!-- Include Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Custom CSS for the dashboard -->
-    <style>
-        .dashboard-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-        .card {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .chart-container {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-top: 20px;
-        }
-    </style>
-{% endblock %}
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-{% block body %}
-    <div class="dashboard-container">
-        <!-- Cards for Quick Stats -->
-        <div class="card">
-            <h3>Total Commandes</h3>
-            <p>{{ commandes|length }}</p>
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ asset('/assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet"/>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    {% block body %}
+
+        <div class="container-xxl position-relative bg-white d-flex p-0">
+
+            {% block spinner %}
+                <!-- Spinner Start -->
+                <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <!-- Spinner End -->
+            {% endblock %}
+
+            {% block header %}
+                <header class="nk-header nk-header-opaque">
+
+                    <!-- START: Top Contacts -->
+                    <div class="nk-contacts-top">
+                        <div class="container">
+                            <div class="nk-contacts-left">
+                                <ul class="nk-social-links">
+                                    <li>
+                                        <a class="nk-social-twitter" href="#">
+                                            <span class="fab fa-twitter"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="nk-contacts-right">
+                                <ul class="nk-contacts-icons">
+                                    <li>
+                                        <a href="#" data-toggle="modal" data-target="#modalSearch">
+                                            <span class="fa fa-search"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-toggle="modal" data-target="#modalLogin">
+                                            <span class="fa fa-user"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: Top Contacts -->
+
+                    <!-- START: Navbar -->
+                    <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
+                        <div class="container">
+                            <div class="nk-nav-table">
+                                <!-- Logo -->
+                                <a href="{{ path('app_game_index') }}" class="nk-nav-logo">
+                                    <img src="{{ asset('images/logo.png') }}" alt="GoodGames" width="199">
+                                </a>
+
+                                <!-- Navigation Links -->
+                                <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" style="list-style: none; padding: 0; margin: 0; display: flex; gap: 10px; flex-wrap: wrap;">
+                                    <li>
+                                        <a href="{{ path('app_group_index') }}">Group</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('app_tournoi_index') }}">Tournoi</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('app_game_index') }}">Games</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('app_produit_index') }}">Product</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('app_commande_index') }}">Commande</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('app_lp_new') }}">LP</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('app_programme_coaching_index') }}">Programme Coaching</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('app_demande_de_programme_c_new') }}">Demande de Programme</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('app_user_index') }}">Users</a>
+                                    </li>
+                                </ul>
+
+                                <!-- Mobile Menu Toggle -->
+                                <ul class="nk-nav nk-nav-right nk-nav-icons">
+                                    <li class="single-icon d-lg-none">
+                                        <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
+                                            <span class="nk-icon-burger">
+                                                <span class="nk-t-1"></span>
+                                                <span class="nk-t-2"></span>
+                                                <span class="nk-t-3"></span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- END: Navbar -->
+
+                </header>
+            {% endblock %}
+
+            {% block content %}
+                <!-- Content Start -->
+                <div class="content">
+
+                    <!-- Sale & Revenue Start -->
+                    <div class="container-fluid pt-4 px-4">
+                        <div class="row g-4">
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                    <i class="fa fa-chart-line fa-3x text-primary"></i>
+                                    <div class="ms-3">
+                                        <p class="mb-2">Gamers</p>
+                                        <h6 class="mb-0">{{ gamerCount }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                                    <div class="ms-3">
+                                        <p class="mb-2">Coaches</p>
+                                        <h6 class="mb-0">{{ coachCount }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                    <i class="fa fa-chart-area fa-3x text-primary"></i>
+                                    <div class="ms-3">
+                                        <p class="mb-2">Tournois</p>
+                                        <h6 class="mb-0">{{ tournoiCount }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-3">
+                                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                                    <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                                    <div class="ms-3">
+                                        <p class="mb-2">Participations</p>
+                                        <h6 class="mb-0">{{ participationCount }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sale & Revenue End -->
+
+                    <!-- Sales Chart Start -->
+                    <div class="container-fluid pt-4 px-4">
+                        <div class="row g-4">
+                            <div class="col-sm-12 col-xl-6">
+                                <div class="bg-light text-center rounded p-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <h6 class="mb-0">Participations/Utilisateur</h6>
+                                        <a href="">Show All</a>
+                                    </div>
+                                    <canvas id="bar-chart"></canvas>
+                                    <script>
+                                        const participations = {{ participationData|json_encode|raw }};
+                                        const labelsPart = participations.map(p => p.GroupeName); // Utilisation de "GroupeName" retourné par la requête DQL
+                                        const participationsData = participations.map(p => p.participationCount);
+                                    </script>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12 col-xl-6">
+                                <div class="bg-light text-center rounded p-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <h6 class="mb-0">Tournois/Annee</h6>
+                                        <a href="">Show All</a>
+                                    </div>
+                                    <canvas id="salse-revenue"></canvas>
+                                    <script>
+                                        const tournois = {{ tournoisAnnee|json_encode|raw }};
+                                        const labelsAnnee = tournois.map(t => t.annee);
+                                        const tournoisData = tournois.map(t => t.tournoiCount);
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sales Chart End -->
+
+                    <!-- Footer Start -->
+                    <div class="container-fluid pt-4 px-4">
+                        <div class="bg-light rounded-top p-4">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 text-center text-sm-start">
+                                    &copy;
+                                    <a href="#">Your Site Name</a>, All Right Reserved.
+                                </div>
+                                <div class="col-12 col-sm-6 text-center text-sm-end">
+                                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                                    Designed By
+                                    <a href="https://htmlcodex.com">HTML Codex</a>
+                                    </br>
+                                    Distributed By
+                                    <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer End -->
+                </div>
+                <!-- Content End -->
+            {% endblock %}
+
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+                <i class="bi bi-arrow-up"></i>
+            </a>
         </div>
-        <div class="card">
-            <h3>Total Produits</h3>
-            <p>{{ produits|length }}</p>
-        </div>
-        <div class="card">
-            <h3>Total Tournois</h3>
-            <p>{{ tournois|length }}</p>
-        </div>
-        <div class="card">
-            <h3>Total Utilisateurs</h3>
-            <p>{{ users|length }}</p>
-        </div>
-    </div>
+    {% endblock %}
 
-    <!-- Chart Section -->
-    <div class="chart-container">
-        <h3>Commandes par Jour</h3>
-        <canvas id="ordersChart"></canvas>
-    </div>
-
-    <!-- Chart.js Script -->
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('/assets/lib/chart/chart.min.js') }}"></script>
+    <script src="{{ asset('/assets/lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('/assets/lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('/assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('/assets/lib/tempusdominus/js/moment.min.js') }}"></script>
+    <script src="{{ asset('/assets/lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
+    <script src="{{ asset('/assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <!-- Template Javascript -->
+    <script src="{{ asset('/assets/js/main.js') }}"></script>
+    <!-- Chart Scripts -->
     <script>
-        const ordersData = {{ ordersPerDay|raw }};
-        const labels = Object.keys(ordersData);
-        const data = Object.values(ordersData);
-
-        const ctx = document.getElementById('ordersChart').getContext('2d');
-        const ordersChart = new Chart(ctx, {
-            type: 'line',
+        // Bar Chart (Participations/Utilisateur)
+        const barChartCtx = document.getElementById('bar-chart').getContext('2d');
+        const barChart = new Chart(barChartCtx, {
+            type: 'bar',
             data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Commandes',
-                    data: data,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2,
-                    tension: 0.4
-                }]
+                labels: labelsPart,
+                datasets: [
+                    {
+                        label: 'Participations',
+                        data: participationsData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }
+                ]
             },
             options: {
                 scales: {
                     y: {
                         beginAtZero: true
                     }
-                },
-                responsive: true,
-                maintainAspectRatio: false
+                }
+            }
+        });
+
+        // Line Chart (Tournois/Annee)
+        const lineChartCtx = document.getElementById('salse-revenue').getContext('2d');
+        const lineChart = new Chart(lineChartCtx, {
+            type: 'line',
+            data: {
+                labels: labelsAnnee,
+                datasets: [
+                    {
+                        label: 'Tournois',
+                        data: tournoisData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
         });
     </script>
-{% endblock %}
+</body>
+
+</html>

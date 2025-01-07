@@ -105,6 +105,11 @@
                         </table>
                     </div>
                 </section>
+
+
+              <a href="{{ path('app_blog_category_index') }}" class="btn btn-gamer">Ajouter Catégories</a>
+
+
             </div>
         </div>
     </div>
@@ -199,6 +204,39 @@
             font-weight: bold;
             color: #ff8000;
         }
+
+
+        <style>
+    .btn-gamer {
+        display: inline-block;
+        background-color: #1e1e1e;
+        color: #fff;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        text-transform: uppercase;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-gamer:hover {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #0056b3;
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
+    }
+
+    .btn-gamer:active {
+        background-color: #0056b3;
+        border-color: #003d80;
+        transform: scale(0.95);
+    }
+</style>
+
     </style>
 
 {% endblock %}

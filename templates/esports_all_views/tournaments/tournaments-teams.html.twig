@@ -689,14 +689,18 @@
                 <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
                     <div class="nk-widget">
                         <div class="nk-widget-content">
-                            <form action="#" class="nk-form nk-form-style-1" novalidate="novalidate">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Type something...">
-                                    <button class="nk-btn nk-btn-color-main-1">
-                                        <span class="ion-search"></span>
-                                    </button>
-                                </div>
-                            </form>
+                           <form method="get" action="{{ path('tournament_teams_search', {nameGroup: ''}) }}" class="mb-4 d-flex">
+        <input 
+            type="text" 
+            class="form-control me-2" 
+            name="nameGroup" 
+            placeholder="Rechercher un groupe par nom..." 
+            value="{{ nameGroup|default('') }}" 
+        />
+        <button class="btn btn-primary" type="submit">
+            <span class="ion-search"></span> Rechercher
+        </button>
+    </form>
                         </div>
                     </div>
                     <!-- Other sidebar content -->

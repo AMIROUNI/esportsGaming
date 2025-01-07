@@ -1,0 +1,213 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Admin
+{% endblock %}
+
+{% block body %}
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+
+	<div class="content">
+		<div class="container mt-5">
+			<h1 class="text-center text-warning mb-4">🎮 Dashboard Admin 🎮</h1>
+               <div class="card shadow-lg border-0 mb-4">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Bienvenue, Administrateur</h4>
+        </div>
+        <div class="card-body">
+            <p>
+                En tant qu'administrateur, vous êtes responsable de la gestion globale de cette plateforme gaming. 
+                Vos principales responsabilités incluent :
+            </p>
+            <ul>
+                <li>Création et gestion des catégories de jeux.</li>
+                <li>Ajout, modification et suppression des produits liés aux jeux.</li>
+                <li>Supervision des utilisateurs, des tournois, et des coachs.</li>
+                <li>Maintien de la sécurité et de la stabilité du site web.</li>
+            </ul>
+            <p>
+                Votre rôle est essentiel pour garantir une expérience utilisateur exceptionnelle et le bon fonctionnement 
+                de la plateforme. Merci pour votre engagement !
+            </p>
+        </div>
+    </div> 
+			<!-- Sale & Revenue Start -->
+			<div class="container-fluid pt-4 px-4">
+				<div class="row g-4">
+					<div class="col-sm-6 col-xl-3">
+						<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+							<i class="fa fa-chart-line fa-3x text-primary"></i>
+							<div class="ms-3">
+								<p class="mb-2">Gamers</p>
+								<h6 class="mb-0 text-dark">{{ gamerCount ?? 0 }}</h6> {# Black text for count #}
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xl-3">
+						<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+							<i class="fa fa-chart-bar fa-3x text-primary"></i>
+							<div class="ms-3">
+								<p class="mb-2">Coaches</p>
+								<h6 class="mb-0 text-dark">{{ coachCount ?? 0 }}</h6> {# Black text for count #}
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xl-3">
+						<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+							<i class="fa fa-chart-area fa-3x text-primary"></i>
+							<div class="ms-3">
+								<p class="mb-2">Tournois</p>
+								<h6 class="mb-0 text-dark">{{ tournoiCount ?? 0 }}</h6> {# Black text for count #}
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xl-3">
+						<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+							<i class="fa fa-chart-pie fa-3x text-primary"></i>
+							<div class="ms-3">
+								<p class="mb-2">Participations</p>
+								<h6 class="mb-0 text-dark">{{ participationCount ?? 0 }}</h6> {# Black text for count #}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Sale & Revenue End -->
+
+			<!-- Sales Chart Start -->
+			<div class="container-fluid pt-4 px-4">
+				<div class="row g-4">
+					<div class="col-sm-12 col-xl-6">
+						<div class="text-center rounded p-4"> {# Removed bg-light class #}
+							<div class="d-flex align-items-center justify-content-between mb-4">
+								<h6 class="mb-0">Participations/Group</h6>
+								<a href="">Show All</a>
+							</div>
+							<canvas id="bar-chart"></canvas>
+						</div>
+					</div>
+					<div class="col-sm-12 col-xl-6">
+						<div class="text-center rounded p-4"> {# Removed bg-light class #}
+							<div class="d-flex align-items-center justify-content-between mb-4">
+								<h6 class="mb-0">Tournois/Annee</h6>
+								<a href="">Show All</a>
+							</div>
+							<canvas id="salse-revenue"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Sales Chart End -->
+		</div>
+	</div>
+
+	<!-- JavaScript Libraries -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="{{ asset('/assets/lib/chart/chart.min.js') }}"></script>
+	<script src="{{ asset('/assets/lib/easing/easing.min.js') }}"></script>
+	<script src="{{ asset('/assets/lib/waypoints/waypoints.min.js') }}"></script>
+	<script src="{{ asset('/assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+	<script src="{{ asset('/assets/lib/tempusdominus/js/moment.min.js') }}"></script>
+	<script src="{{ asset('/assets/lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
+	<script src="{{ asset('/assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+	<!-- Template Javascript -->
+	<script src="{{ asset('/assets/js/main.js') }}"></script>
+
+	<!-- Chart Scripts -->
+	<script>
+		// Bar Chart (Participations/Utilisateur)
+		const participations = {{ participationData|json_encode|raw }};
+		const labelsPart = participations.map(p => p.GroupeName); // Utilisation de "GroupeName" retourné par la requête DQL
+		const participationsData = participations.map(p => p.participationCount);
+
+		const barChartCtx = document.getElementById('bar-chart').getContext('2d');
+		const barChart = new Chart(barChartCtx, {
+			type: 'bar',
+			data: {
+				labels: labelsPart,
+				datasets: [
+					{
+						label: 'Participations',
+						data: participationsData,
+						backgroundColor: 'rgba(54, 162, 235, 0.2)',
+						borderColor: 'rgba(54, 162, 235, 1)',
+						borderWidth: 1
+					}
+				]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+
+		// Line Chart (Tournois/Annee)
+		const tournois = {{ tournoisAnnee|json_encode|raw }};
+		const labelsAnnee = tournois.map(t => t.annee);
+		const tournoisData = tournois.map(t => t.tournoiCount);
+
+		const lineChartCtx = document.getElementById('salse-revenue').getContext('2d');
+		const lineChart = new Chart(lineChartCtx, {
+			type: 'line',
+			data: {
+				labels: labelsAnnee,
+				datasets: [
+					{
+						label: 'Tournois',
+						data: tournoisData,
+						backgroundColor: 'rgba(255, 99, 132, 0.2)',
+						borderColor: 'rgba(255, 99, 132, 1)',
+						borderWidth: 1
+					}
+				]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+	</script>
+
+	<style>
+		/* Add this CSS to set the background image */
+		body {
+			background: url('{{ asset('images/bg-fixed-3.jpg') }}') no-repeat center center fixed;
+			background-size: cover;
+			color: #f5f5f5;
+			font-family: 'Orbitron', sans-serif;
+		}
+
+		/* Ensure the content is readable on top of the background image */
+		.content {
+			background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+			padding: 20px;
+			border-radius: 10px;
+		}
+
+		/* Style for the cards */
+		.bg-light {
+			background-color: rgba(255, 255, 255, 0.9) !important; /* Semi-transparent white background */
+			color: #000; /* Black text for better readability */
+		}
+
+		/* Style for the charts */
+		canvas {
+			/* Removed background-color */
+			border-radius: 10px;
+			padding: 10px;
+		}
+
+		/* Ensure count numbers are black */
+		.text-dark {
+			color: #000 !important; /* Force black color for count numbers */
+		}
+	</style>
+{% endblock %}

@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\ProduitRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/store')]
 class StoreController extends AbstractController
@@ -45,10 +49,46 @@ class StoreController extends AbstractController
     }
 
     #[Route('/catalog_alt', name: 'store_catalog_alt')]
-    public function store_catalog_alt(): Response
-    {
+    public function store_catalog_alt( SessionInterface $session,EntityManagerInterface $entityManager, ProduitRepository $produitRepository): Response
+    {     
+
+
+        $userEmail = $session->get('user_id');
+
+        if (!$userEmail) {
+            $this->addFlash('error', 'You must be logged in to view your card.');
+            return $this->redirectToRoute('app_login'); // Redirect to login page
+        }
+    
+        // Retrieve the user by email
+        $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $userEmail]);
+        if (!$user) {
+            $this->addFlash('error', 'User not found.');
+            return $this->redirectToRoute('app_login'); // Redirect to login page
+        }
+    
+        // Retrieve the user's card
+        $card = $user->getCard();
+        if (!$card || $card->getProduits()->isEmpty()) {
+            $this->addFlash('info', 'Your card is empty.');
+            return $this->redirectToRoute('store_products'); // Redirect to products page
+        }
+
+
+        if (!$card) {
+            throw new Exception("Card not found for user: $userEmail");
+        }
+        
+        if($card->getProduits()->isEmpty()  ){
+            throw new Exception("this card has no products");
+        }
+
+        $produits = $produitRepository->findAll();
         return $this->render('esports_all_views/store/store-catalog-alt.html.twig', [
             'controller_name' => 'StoreController',
+            'produits'=>$produits,
+            'card' => $card,
+            'produitsCard' => $card->getProduits(),
         ]);
     }
 

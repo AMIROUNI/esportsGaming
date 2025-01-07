@@ -333,13 +333,21 @@ input[type="number"].gamer-input { background-color: #1e1e1e; color: #00ff00; bo
 
             <!-- Navigation Links -->
             <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" style="list-style: none; padding: 0; margin: 0; display: flex; gap: 10px; flex-wrap: wrap;">
+             <li>
+                    <a href="{{ path('dashboard') }}">dashboard</a>
+             </li>
                 <li>
                     <a href="{{ path('app_group_index') }}">Group</a>
                 </li>
                 <li>
                     <a href="{{ path('app_tournoi_index') }}">Tournoi</a>
                 </li>
-                <li>
+
+                 <li>
+                    <a href="{{ path('app_contenu_index') }}">contenu</a>
+                </li>
+
+               <li>
                     <a href="{{ path('app_game_index') }}">Games</a>
                 </li>
                 <li>
